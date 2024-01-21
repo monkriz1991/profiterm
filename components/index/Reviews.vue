@@ -20,7 +20,7 @@ const showList = (item) => {
   }
 };
 const sliseDesc = (item) => {
-  let textInner = item.replace(/<[^>]+>/g, "").slice(0, 200) + "...";
+  let textInner = item.replace(/<[^>]+>/g, "").slice(0, 170) + "...";
   return textInner;
 };
 </script>
@@ -28,7 +28,7 @@ const sliseDesc = (item) => {
 <template>
   <div class="columns is-multiline">
     <div class="column is-12">
-      <h4><icon name="solar:document-broken" />Отзывы наших клиентов</h4>
+      <h4><icon name="solar:chat-line-broken" />Отзывы наших клиентов</h4>
     </div>
     <div class="column is-12">
       <div class="reviews-slide">
@@ -90,11 +90,11 @@ const sliseDesc = (item) => {
                 <strong>{{ slide.name }}</strong>
 
                 <div
-                  v-if="slide.description.length < 200"
+                  v-if="slide.description.length < 170"
                   v-html="sliseDesc(slide.description)"
                 ></div>
                 <div
-                  v-else-if="slide.description.length > 200"
+                  v-else-if="slide.description.length > 170"
                   v-html="sliseDesc(slide.description)"
                 ></div>
                 <button
@@ -124,7 +124,7 @@ const sliseDesc = (item) => {
                           </button>
                           <nuxt-link :to="`/project/` + slide.project">
                             <button
-                              class="button is-success"
+                              class="button is-danger"
                               type="primary"
                               @click="removeTagDialogs[slide._id] = false"
                             >
@@ -144,74 +144,4 @@ const sliseDesc = (item) => {
     </div>
   </div>
 </template>
-<style>
-.reviews-slide {
-  margin: 0 0 80px;
-}
-.reviews-slide .swiper-slide {
-  position: relative;
-  padding: 0px 0px 0px 0;
-  float: left;
-  /* width: 100% !important; */
-  margin: 0 0 0px;
-  height: 220px;
-}
-.index-rew {
-}
-.index-rew-block {
-  float: left;
-  width: 100%;
-}
-.index-rew-block-img {
-  float: left;
-  width: 200px;
-  height: 220px;
-}
-.index-rew-block-img img {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-  object-fit: cover;
-  border-radius: 17px;
-  cursor: pointer;
-}
-.index-rew-block-desc {
-  margin: 0 0 0 230px;
-  padding: 0 20px 0 0;
-}
-.index-rew-block-desc > strong {
-  font-size: 18px;
-  margin: 0 0 15px;
-  float: left;
-  width: 100%;
-}
-.index-rew-block-desc > div {
-  font-size: 15px;
-  line-height: 1.6;
-}
-.reviews-slide .swiper-button-next,
-.reviews-slide .swiper-button-prev {
-  background: rgb(0 0 0 / 35%);
-}
-.reviews-slide .index-rew-block-desc p {
-  margin-bottom: 10px;
-}
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
-}
-.rev-dialog {
-  border-radius: 17px;
-  padding: 25px;
-}
-.rev-dialog .el-dialog__body p {
-  font-size: 16px;
-  margin: 0 0 10px;
-  line-height: 1.5;
-}
-</style>
+<style></style>

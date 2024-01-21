@@ -20,7 +20,7 @@ const visibleModalClose = (item) => {
 <template>
   <div class="columns is-multiline">
     <div class="column is-12">
-      <h4><icon name="solar:document-broken" />Видеообзоры</h4>
+      <h4><icon name="solar:video-library-outline" />Видеообзоры</h4>
     </div>
     <div class="column is-12">
       <div class="video-slide">
@@ -54,7 +54,7 @@ const visibleModalClose = (item) => {
           }"
           :breakpoints="{
             300: {
-              slidesPerView: 2,
+              slidesPerView: 1.5,
             },
             680: {
               slidesPerView: 3,

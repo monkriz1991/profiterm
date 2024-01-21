@@ -32,40 +32,4 @@ const { data: reviews, error } = await useFetch("/api/reviews/", {
   </div>
 </template>
 
-<style>
-.item-rew {
-}
-.item-rew-block {
-  float: left;
-  width: 100%;
-}
-.item-rew-block-img {
-  float: left;
-  width: 240px;
-  height: 300px;
-}
-.item-rew-block-img img {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-  object-fit: cover;
-  border-radius: 17px;
-  cursor: pointer;
-}
-.item-rew-block-desc {
-  margin: 0 0 0 280px;
-}
-.item-rew-block-desc > strong {
-  font-size: 20px;
-  margin: 0 0 20px;
-  float: left;
-  width: 100%;
-}
-.item-rew-block-desc > div {
-  font-size: 16px;
-  line-height: 1.6;
-}
-.item-rew > h2 {
-  margin: 20px 0 30px;
-}
-</style>
+<style></style>

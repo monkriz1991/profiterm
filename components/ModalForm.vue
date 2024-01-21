@@ -4,7 +4,9 @@ const visible = ref(false);
 <template>
   <div>
     <!-- Form -->
-    <button class="button" @click="visible = true">Оформить заявку</button>
+    <button class="button index-b-modal" @click="visible = true">
+      Оформить заявку
+    </button>
     <ClientOnly>
       <el-dialog v-model="visible" :show-close="false">
         <template #header="{ close, titleId, titleClass }">

@@ -33,46 +33,48 @@ const handleCurrentChange = (val) => {
 </script>
 
 <template>
-  <div class="container">
-    <div class="content">
-      <Breadcrumb />
-      <nav-category />
-      <div class="columns is-desktop is-multiline is-variable is-5">
-        <div
-          class="column is-4 is-two-thirds-touch"
-          v-for="item in project.result"
-          :key="item._id"
-        >
-          <div class="catalog-block">
-            <nuxt-link :to="`/project/` + item.kirilica">
-              <div class="catalog-block-img">
-                <img
-                  v-for="imgurl in item.img"
-                  :key="imgurl"
-                  :src="imgurl.url"
-                />
-              </div>
-              <div class="catalog-block-desc">
-                <strong>
-                  {{ item.title }}
-                </strong>
-                <span>
-                  {{ item.preview }}
-                </span>
-              </div>
-            </nuxt-link>
+  <div class="bd-docs-main">
+    <div class="container">
+      <div class="content">
+        <Breadcrumb />
+        <nav-category />
+        <div class="columns is-desktop is-multiline is-variable is-5">
+          <div
+            class="column is-4"
+            v-for="item in project.result"
+            :key="item._id"
+          >
+            <div class="catalog-block">
+              <nuxt-link :to="`/project/` + item.kirilica">
+                <div class="catalog-block-img">
+                  <img
+                    v-for="imgurl in item.img"
+                    :key="imgurl"
+                    :src="imgurl.url"
+                  />
+                </div>
+                <div class="catalog-block-desc">
+                  <strong>
+                    {{ item.title }}
+                  </strong>
+                  <span>
+                    {{ item.preview }}
+                  </span>
+                </div>
+              </nuxt-link>
+            </div>
           </div>
         </div>
+        <el-pagination
+          class="pagination-list"
+          background
+          layout="prev, pager, next"
+          :current-page="currentPage"
+          :page-size="pageSize"
+          :total="project.count"
+          @current-change="handleCurrentChange"
+        />
       </div>
-      <el-pagination
-        class="pagination-list"
-        background
-        layout="prev, pager, next"
-        :current-page="currentPage"
-        :page-size="pageSize"
-        :total="project.count"
-        @current-change="handleCurrentChange"
-      />
     </div>
   </div>
 </template>

@@ -17,7 +17,9 @@ const objectDesc = computed(() => props.description);
   <div class="gall-slider">
     <div class="columns is-multiline">
       <div class="column is-12">
-        <h4 class="mt-6 mb-6"><icon name="solar:document-broken" />Галерея</h4>
+        <h4 class="mt-6 mb-6">
+          <icon name="solar:gallery-wide-broken" />Галерея
+        </h4>
       </div>
       <div class="column is-6">
         <div class="index-gall-desc">
