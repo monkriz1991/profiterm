@@ -1,0 +1,52 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@element-plus/nuxt": "^1.0.7",
+    "@nuxt/devtools": "latest",
+    "@nuxt/image": "^1.1.0",
+    "@nuxtjs/google-fonts": "^3.1.0",
+    "@sidebase/nuxt-auth": "^0.6.3",
+    "@types/bcrypt": "^5.0.2",
+    "autoprefixer": "^10.4.16",
+    "element-plus": "^2.5.1",
+    "nuxt": "^3.8.2",
+    "nuxt-icon": "^0.6.6",
+    "nuxt-simple-sitemap": "^4.1.15",
+    "postcss": "^8.4.32",
+    "unplugin-element-plus": "^0.8.0",
+    "unplugin-vue-components": "^0.26.0",
+    "vue": "^3.3.8",
+    "vue-router": "^4.2.5"
+  },
+  "dependencies": {
+    "@fancyapps/ui": "^5.0.33",
+    "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
+    "@pinia/nuxt": "^0.5.1",
+    "@skjnldsv/vue-plyr": "^7.4.0",
+    "@vueup/vue-quill": "^1.2.0",
+    "bcrypt": "^5.1.1",
+    "bulma": "^0.9.4",
+    "click-outside-vue3": "^4.0.1",
+    "element-tiptap": "^2.2.1",
+    "jsonwebtoken": "^9.0.2",
+    "mavon-editor": "^3.0.0-beta",
+    "mongoose": "^8.0.2",
+    "next-auth": "4.21.1",
+    "nuxt-icons": "^3.2.1",
+    "nuxt-server-utils": "^0.0.7",
+    "nuxt-swiper": "^1.2.2",
+    "pinia": "^2.1.7",
+    "resend": "^2.0.0",
+    "vue3-lottie": "^3.2.0",
+    "vue3-photo-preview": "^0.3.0"
+  }
+}
