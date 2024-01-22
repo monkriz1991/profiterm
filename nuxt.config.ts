@@ -65,7 +65,6 @@ export default defineNuxtConfig({
         },
       },
     ],
-    "@nuxt/image",
   ],
   nuxtServerUtils: {
     mongodbUri: process.env.DATABASE_URL,
