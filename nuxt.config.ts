@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     pass: process.env.DBPASSWORD,
     authSource: process.env.DBAUTHSOURCE,
     authSecret: process.env.AUTH_SECRET,
+    mongodbUri: process.env.DATABASE_URL,
   },
   css: [
     "@/assets/main.css",
@@ -66,8 +67,8 @@ export default defineNuxtConfig({
       },
     ],
   ],
-  nuxtServerUtils: {
-    mongodbUri: process.env.DATABASE_URL,
+  nitro: {
+    plugins: ["~/server/index.ts"],
   },
   auth: {
     baseURL: process.env.AUTH_ORIGIN,
