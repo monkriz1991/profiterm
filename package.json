@@ -17,8 +17,6 @@
     "@types/bcrypt": "^5.0.2",
     "autoprefixer": "^10.4.16",
     "nuxt": "^3.8.2",
-    "nuxt-icon": "^0.6.6",
-    "nuxt-simple-sitemap": "^4.1.15",
     "postcss": "^8.4.32",
     "vue": "^3.3.8",
     "vue-router": "^4.2.5"
@@ -26,6 +24,7 @@
   "dependencies": {
     "@fancyapps/ui": "^5.0.33",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
+    "nuxt-simple-sitemap": "^4.1.15",
     "@pinia/nuxt": "^0.5.1",
     "@skjnldsv/vue-plyr": "^7.4.0",
     "@vueup/vue-quill": "^1.2.0",
@@ -37,6 +36,7 @@
     "mavon-editor": "^3.0.0-beta",
     "mongoose": "^8.0.2",
     "next-auth": "4.21.1",
+    "nuxt-icon": "^0.6.8",
     "nuxt-icons": "^3.2.1",
     "nuxt-server-utils": "^0.0.7",
     "nuxt-swiper": "^1.2.2",

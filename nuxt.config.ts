@@ -21,7 +21,7 @@ export default defineNuxtConfig({
     "@/node_modules/bulma/css/bulma.css",
     "@/node_modules/vue3-photo-preview/dist/index.css",
     "@/node_modules/plyr/dist/plyr.css",
-    "element-plus/dist/index.css",
+    // "element-plus/dist/index.css",
   ],
   elementPlus: {
     importStyle: "css",
@@ -33,7 +33,6 @@ export default defineNuxtConfig({
     "@sidebase/nuxt-auth",
     "nuxt-swiper",
     "@element-plus/nuxt",
-    "@element-plus",
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
     "nuxt-icons",
@@ -76,5 +75,5 @@ export default defineNuxtConfig({
       type: "authjs",
     },
   },
-  devtools: { enabled: true },
+  // devtools: { enabled: true },
 });
