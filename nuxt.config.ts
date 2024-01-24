@@ -15,6 +15,11 @@ export default defineNuxtConfig({
     authSource: process.env.DBAUTHSOURCE,
     authSecret: process.env.AUTH_SECRET,
     mongodbUri: process.env.DATABASE_URL,
+    MAILHOST: process.env.MAILHOST,
+    MAILPORT: process.env.MAILPORT,
+    MAILUSER: process.env.MAILUSER,
+    MAILPASSWORD: process.env.MAILPASSWORD,
+    CONTACTMAIL: process.env.CONTACTMAIL,
   },
   css: [
     "@/assets/main.css",

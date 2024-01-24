@@ -908,7 +908,7 @@ button {
   border-radius: 14px;
   margin: 0 25px 20px 0;
 }
-.el-collapse-item.is-active {
+.stage-index .el-collapse-item.is-active {
   border: 1px solid #d3d8df;
   border-radius: 12px;
   margin: 0 0 20px;

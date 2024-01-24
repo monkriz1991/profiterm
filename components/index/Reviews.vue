@@ -106,34 +106,36 @@ const sliseDesc = (item) => {
                   /></span>
                   <span>Читать полностью</span>
                 </button>
-                <Teleport to="body">
-                  <el-dialog
-                    v-model="removeTagDialogs[slide._id]"
-                    class="rev-dialog"
-                    width="35%"
-                  >
-                    <div v-html="slide.description"></div>
-                    <template #footer>
-                      <span class="dialog-footer">
-                        <button
-                          class="button mr-3 is-light"
-                          @click="removeTagDialogs[slide._id] = false"
-                        >
-                          Закрыть
-                        </button>
-                        <nuxt-link :to="`/project/` + slide.project">
+                <ClientOnly>
+                  <Teleport to="body">
+                    <el-dialog
+                      v-model="removeTagDialogs[slide._id]"
+                      class="rev-dialog"
+                      width="35%"
+                    >
+                      <div v-html="slide.description"></div>
+                      <template #footer>
+                        <span class="dialog-footer">
                           <button
-                            class="button is-danger"
-                            type="primary"
+                            class="button mr-3 is-light"
                             @click="removeTagDialogs[slide._id] = false"
                           >
-                            Перейти к проекту
+                            Закрыть
                           </button>
-                        </nuxt-link>
-                      </span>
-                    </template>
-                  </el-dialog>
-                </Teleport>
+                          <nuxt-link :to="`/project/` + slide.project">
+                            <button
+                              class="button is-danger"
+                              type="primary"
+                              @click="removeTagDialogs[slide._id] = false"
+                            >
+                              Перейти к проекту
+                            </button>
+                          </nuxt-link>
+                        </span>
+                      </template>
+                    </el-dialog>
+                  </Teleport>
+                </ClientOnly>
               </div>
             </div>
           </SwiperSlide>
