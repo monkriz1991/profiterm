@@ -6,7 +6,7 @@ module.exports = {
       instances: "max", //
       script: "./node_modules/nuxt/bin/nuxt.mjs",
       args: "start",
-      port: 8830,
+      port: 8880,
     },
   ],
 };

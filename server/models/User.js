@@ -4,14 +4,12 @@ const UserScema = new mongoose.Schema({
   email: {
     type: String,
     require: true,
-    unique: true,
     trim: true,
     lowercase: true,
   },
   username: {
     type: String,
     require: true,
-    unique: true,
     trim: true,
     lowercase: true,
   },
@@ -19,7 +17,6 @@ const UserScema = new mongoose.Schema({
   status: {
     type: String,
     require: true,
-    unique: true,
     trim: true,
     lowercase: true,
   },
