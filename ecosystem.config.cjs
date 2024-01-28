@@ -4,7 +4,7 @@ module.exports = {
       name: "cryptoscool",
       exec_mode: "cluster",
       instances: 1,
-      script: "./.output/server/index.mjs",
+      script: "npm",
       args: "start",
       port: 8880,
     },
