@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@fancyapps/ui": "^5.0.33",
+    "@nuxt-modules/cache": "^0.1.0",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
     "@pinia/nuxt": "^0.5.1",
     "@skjnldsv/vue-plyr": "^7.4.0",
