@@ -31,7 +31,6 @@ export default defineNuxtConfig({
     importStyle: "css",
   },
   modules: [
-    // "@nuxtjs/tailwindcss",
     "nuxt-simple-sitemap",
     "nuxt-server-utils",
     "@sidebase/nuxt-auth",
@@ -42,24 +41,8 @@ export default defineNuxtConfig({
     "@nuxt-modules/cache",
     "nuxt-icons",
     "nuxt-icon",
-    // "@nuxt/image-edge",
-    // [
-    //   "nuxt-mail",
-    //   {
-    //     message: {
-    //       name: "admin",
-    //       to: "monkriz1991@gmail.com",
-    //     },
-    //     smtp: {
-    //       host: "smtp.gmail.com",
-    //       port: 465,
-    //       auth: {
-    //         user: "monkriz1991",
-    //         pass: "aeuc ivhx waaw wxxw",
-    //       },
-    //     },
-    //   },
-    // ],
+    "@nuxt/image-edge",
+    "@nuxt/image",
     [
       "@nuxtjs/google-fonts",
       {
@@ -70,6 +53,7 @@ export default defineNuxtConfig({
         },
       },
     ],
+    "@nuxt/image",
   ],
   nitro: {
     plugins: ["~/server/index.ts"],

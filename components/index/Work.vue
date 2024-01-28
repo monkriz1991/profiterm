@@ -40,6 +40,7 @@ const handleChange = (val) => {
                 :src="itemurl.url"
                 :alt="itemurl.title"
                 data-fancybox="galery"
+                loading="lazy"
               />
             </div>
           </ElCollapseItem>

@@ -29,52 +29,56 @@ const objectDesc = computed(() => props.description);
       <div class="column is-6">
         <div class="slider">
           <div class="slider-one">
-            <Swiper
-              :height="300"
-              :space-between="20"
-              :modules="[
-                SwiperAutoplay,
-                SwiperEffectCreative,
-                SwiperNavigation,
-                SwiperPagination,
-              ]"
-              :slides-per-view="1.5"
-              :navigation="{
-                next: true,
-                prev: true,
-              }"
-              :pagination="{ clickable: true, dynamicBullets: true }"
-              :loop="true"
-              :effect="'creative'"
-              :autoplay="{
-                delay: 70000,
-                disableOnInteraction: true,
-              }"
-              :creative-effect="{
-                prev: {
-                  shadow: false,
-                  translate: ['-20%', 0, -1],
-                },
-                next: {
-                  translate: ['100%', 0, 0],
-                },
-              }"
-            >
-              <SwiperSlide
-                v-for="slide in objectGalery"
-                :key="slide._id"
+            <ClientOnly>
+              <Swiper
+                :height="300"
+                :space-between="20"
+                :modules="[
+                  SwiperAutoplay,
+                  SwiperEffectCreative,
+                  SwiperNavigation,
+                  SwiperPagination,
+                ]"
+                :slides-per-view="1.5"
+                :navigation="{
+                  next: true,
+                  prev: true,
+                }"
                 :pagination="{ clickable: true, dynamicBullets: true }"
+                :loop="true"
+                :effect="'creative'"
+                :autoplay="{
+                  delay: 70000,
+                  disableOnInteraction: true,
+                }"
+                :creative-effect="{
+                  prev: {
+                    shadow: false,
+                    translate: ['-20%', 0, -1],
+                  },
+                  next: {
+                    translate: ['100%', 0, 0],
+                  },
+                }"
               >
-                <img
-                  v-for="(img, idx) in slide.img"
-                  :key="idx"
-                  data-caption="Gallery a"
-                  :src="img.url"
-                  :alt="slide.title"
-                  data-fancybox="galery a"
-                />
-              </SwiperSlide>
-            </Swiper>
+                <SwiperSlide
+                  v-for="slide in objectGalery"
+                  :key="slide._id"
+                  :pagination="{ clickable: true, dynamicBullets: true }"
+                >
+                  <NuxtImg
+                    v-for="(img, idx) in slide.img"
+                    :key="idx"
+                    :src="img.url"
+                    :alt="slide.title"
+                    format="webp"
+                    data-fancybox="galery a"
+                    loading="lazy"
+                    sizes="sm:100px md:150px lg:200px"
+                  ></NuxtImg>
+                </SwiperSlide>
+              </Swiper>
+            </ClientOnly>
           </div>
         </div>
       </div>
