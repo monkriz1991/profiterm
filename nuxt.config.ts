@@ -24,7 +24,6 @@ export default defineNuxtConfig({
   css: [
     "@/assets/main.css",
     "@/node_modules/bulma/css/bulma.css",
-    "@/node_modules/vue3-photo-preview/dist/index.css",
     "@/node_modules/plyr/dist/plyr.css",
     // "element-plus/dist/index.css",
   ],
