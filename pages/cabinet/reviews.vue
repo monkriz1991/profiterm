@@ -19,6 +19,7 @@ const drawer = ref(false);
 const buttonEdit = ref(false);
 const dell = ref({});
 const imfArr = ref([]);
+const fileUpload = ref("");
 const form = ref({
   project: "",
   name: "",
@@ -37,6 +38,8 @@ const {
   body: { sortPage, pageSize },
 });
 const addReviews = async () => {
+  const bodyFils = new FormData();
+  bodyFils.append("file", fileUpload.value);
   let updatereviews = "api/update/updatereviews";
   if (buttonEdit.value == true) {
     updatereviews = "api/add/addreviews";
@@ -47,6 +50,12 @@ const addReviews = async () => {
       "Content-Type": "application/json; charset=UTF-8",
     },
     body: form.value,
+  });
+
+  await useFetch("/api/upload", {
+    method: "POST",
+    body: bodyFils,
+    onResponse(context) {},
   });
   if (responseData) {
     refresh();
@@ -111,12 +120,28 @@ const handleCurrentChange = (val) => {
   currentPage.value = val;
   refresh();
 };
-const addImg = (file) => {
-  const reader = new FileReader();
-  reader.onload = (event) => {
-    form.value.img.push({ name: file.name, url: event.target.result });
-  };
-  reader.readAsDataURL(file);
+const addImg = (fileData) => {
+  // Измените формирование нового имени файла здесь, если необходимо
+  const filename = fileData.name;
+  const randomPart = Math.random().toString(36).substring(7); // Генерация случайной строки
+  const newFilename = randomPart + filename;
+
+  const modifiedFile = new File([fileData], newFilename, {
+    type: fileData.type,
+  });
+
+  fileUpload.value = modifiedFile;
+
+  console.log(modifiedFile.name);
+  form.value.img.push({
+    name: fileData.name,
+    url: "/assets/images/" + modifiedFile.name,
+  });
+  // const reader = new FileReader();
+  // reader.onload = (event) => {
+  //   form.value.img.push({ name: file.name, url: event.target.result });
+  // };
+  // reader.readAsDataURL(file);
 };
 const handleCloseDrawer = () => {
   drawer.value = false;
@@ -184,7 +209,10 @@ const handleCloseDrawer = () => {
               >
                 <span>Hi there!</span>
                 <div class="drawer-block">
-                  <form @submit.prevent="addReviews">
+                  <form
+                    @submit.prevent="addReviews"
+                    enctype="multipart/form-data"
+                  >
                     <div class="field">
                       <el-select
                         v-model="form.project"
@@ -228,6 +256,7 @@ const handleCloseDrawer = () => {
                           drag
                           action="#"
                           multiple
+                          name="file"
                           list-type="picture"
                           v-model:file-list="imfArr"
                         >

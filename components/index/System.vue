@@ -24,23 +24,23 @@ const { data: system } = await useFetch("/api/system/", {
                   <p>{{ tab.info }}</p>
                 </span>
               </template>
-              <ClientOnly>
-                <video
-                  v-for="itemvideo in tab.video"
-                  :key="itemvideo"
-                  class=""
-                  muted=""
-                  autoplay=""
-                  loop=""
-                  webkit-playsinline=""
-                  playsinline=""
-                  :poster="itemvideo.img"
-                  type="video/webm"
-                  :src="itemvideo.url"
-                >
-                  <source class="video-sourse" src="" type="video/mp4" />
-                </video>
-              </ClientOnly>
+
+              <video
+                v-for="itemvideo in tab.video"
+                :key="itemvideo"
+                class=""
+                muted=""
+                autoplay=""
+                loop=""
+                webkit-playsinline=""
+                playsinline=""
+                :poster="itemvideo.img"
+                type="video/webm"
+                :src="itemvideo.url"
+              >
+                <source class="video-sourse" src="" type="video/mp4" />
+              </video>
+
               <!-- <div class="index-rew-block-img">
               <img
                 v-for="(taburl, idx) in tab.img"

@@ -23,3 +23,7 @@ logs
 .env.*
 !.env.example
 package-lock.json
+
+#Assets
+/assets/images/*
+/public/assets/images/*

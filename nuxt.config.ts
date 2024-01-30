@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   app: {
-    pageTransition: { name: "page", mode: "out-in" },
+    // pageTransition: { name: "page", mode: "out-in" },
     head: {
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.png" }],
     },
@@ -53,7 +53,6 @@ export default defineNuxtConfig({
         },
       },
     ],
-    "@nuxt/image",
   ],
   nitro: {
     plugins: ["~/server/index.ts"],
