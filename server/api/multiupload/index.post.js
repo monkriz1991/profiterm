@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
     let fileNames = [];
     const storage = multer.diskStorage({
       destination: (req, file, cb) => {
-        cb(null, "public/assets/images");
+        cb(null, "assets/images");
       },
       filename: (req, file, cbd) => {
         const filePath = file.originalname;
@@ -45,7 +45,7 @@ export default defineEventHandler(async (event) => {
       const data = {
         insertOne: {
           document: {
-            path: `/assets/images/${fileName}`,
+            path: `/images/${fileName}`,
             fileName: fileNames[index],
           },
         },
