@@ -31,7 +31,6 @@ export default defineNuxtConfig({
     importStyle: "css",
   },
   modules: [
-    "@nuxt/http",
     "nuxt-simple-sitemap",
     "nuxt-server-utils",
     "@sidebase/nuxt-auth",
@@ -44,7 +43,7 @@ export default defineNuxtConfig({
     "nuxt-icon",
     "@nuxt/image-edge",
     "@nuxt/image",
-
+    // "@nuxt/http",
     [
       "@nuxtjs/google-fonts",
       {
@@ -56,9 +55,9 @@ export default defineNuxtConfig({
       },
     ],
   ],
-  http: {
-    proxy: true,
-  },
+  // http: {
+  //   proxy: true,
+  // },
   // proxy: {
   //   "/images/": {
   //     target: "https://cryptoscool.ru",
