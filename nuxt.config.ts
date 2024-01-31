@@ -56,6 +56,10 @@ export default defineNuxtConfig({
   ],
   nitro: {
     plugins: ["~/server/index.ts"],
+    output: {
+      dir: ".output",
+      publicDir: ".output/public",
+    },
   },
   auth: {
     baseURL: process.env.AUTH_ORIGIN,
