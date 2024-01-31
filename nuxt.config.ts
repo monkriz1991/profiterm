@@ -83,5 +83,6 @@ export default defineNuxtConfig({
     },
   },
   image: {},
+  buildModules: ["@nuxt/image"],
   // devtools: { enabled: true },
 });
