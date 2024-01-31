@@ -158,7 +158,7 @@ const addImg = (fileData) => {
   fileUpload.value.push(modifiedFile);
   form.value.img.push({
     name: modifiedFile.name,
-    url: "/images/" + modifiedFile.name,
+    url: "" + modifiedFile.name,
   });
 };
 const beforeRemove = (file, fileList) => {
@@ -201,12 +201,12 @@ const handleCloseDrawer = () => {
               >
                 <div class="drawer-cat-left">
                   <div class="drawer-cat-img">
-                    <NuxtImg
+                    <img
                       v-if="item.img.length"
-                      :src="item.img[0].url"
-                      format="wepb"
+                      :src="'~/var/www/profiterm/' + item.img[0].url"
+                      format="webp"
                     />
-                    <NuxtImg v-else src="/noimg.webp" format="wepb" />
+                    <nuxt-img v-else src="/noimg.webp" format="wepb" />
                   </div>
                   <strong>{{ item.name }}</strong>
                 </div>

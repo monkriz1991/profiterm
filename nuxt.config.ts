@@ -63,16 +63,6 @@ export default defineNuxtConfig({
       type: "authjs",
     },
   },
-  image: {
-    // staticFilename: "[publicPath]/[name].[hash:8][ext]",
-    dir: "assets",
-    // assetsProvider: {
-    //   name: "assetsProvider",
-    //   provider: "~/providers/assets-provider.ts", // must be created
-    //   options: {
-    //     baseURL: "/_nuxt/public",
-    //   },
-    // },
-  },
+  image: {},
   // devtools: { enabled: true },
 });

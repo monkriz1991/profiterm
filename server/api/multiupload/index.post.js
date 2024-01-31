@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
     let fileNames = [];
     const storage = multer.diskStorage({
       destination: (req, file, cb) => {
-        cb(null, "assets/images");
+        cb(null, "~/var/www/profiterm/");
       },
       filename: (req, file, cbd) => {
         const filePath = file.originalname;
@@ -39,13 +39,12 @@ export default defineEventHandler(async (event) => {
       event.node.req,
       event.node.res
     );
-    console.log(filePaths.length);
     const bulkOps = [];
     filePaths.forEach((fileName, index) => {
       const data = {
         insertOne: {
           document: {
-            path: `/images/${fileName}`,
+            path: `/var/www/profiterm/${fileName}`,
             fileName: fileNames[index],
           },
         },
