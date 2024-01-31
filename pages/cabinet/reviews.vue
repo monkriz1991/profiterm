@@ -158,7 +158,7 @@ const addImg = (fileData) => {
   fileUpload.value.push(modifiedFile);
   form.value.img.push({
     name: modifiedFile.name,
-    url: "" + modifiedFile.name,
+    url: "/var/www/cryptoscool.ru/images/" + modifiedFile.name,
   });
 };
 const beforeRemove = (file, fileList) => {
@@ -203,7 +203,7 @@ const handleCloseDrawer = () => {
                   <div class="drawer-cat-img">
                     <img
                       v-if="item.img.length"
-                      :src="'~/var/www/profiterm/' + item.img[0].url"
+                      :src="item.img[0].url"
                       format="webp"
                     />
                     <nuxt-img v-else src="/noimg.webp" format="wepb" />
