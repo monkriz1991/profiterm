@@ -58,14 +58,14 @@ export default defineNuxtConfig({
   http: {
     proxy: true,
   },
-  // proxy: {
-  //   "/images/": {
-  //     target: "https://cryptoscool.ru",
-  //     pathRewrite: {
-  //       "^/images/": "/images/",
-  //     },
-  //   },
-  // },
+  proxy: {
+    "/images/": {
+      target: "https://cryptoscool.ru",
+      pathRewrite: {
+        "^/images/": "/images/",
+      },
+    },
+  },
   staticAssets: {
     directory: [
       {
