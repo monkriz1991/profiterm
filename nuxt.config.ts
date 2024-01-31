@@ -63,5 +63,8 @@ export default defineNuxtConfig({
       type: "authjs",
     },
   },
+  image: {
+    staticFilename: "[publicPath]/[name].[hash:8][ext]",
+  },
   // devtools: { enabled: true },
 });
