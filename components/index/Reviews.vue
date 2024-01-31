@@ -79,12 +79,13 @@ const sliseDesc = (item) => {
           >
             <div class="index-rew-block">
               <div class="index-rew-block-img">
-                <img
+                <NuxtImg
                   v-for="(slideurl, idx) in slide.img"
                   :key="idx"
                   :src="slideurl.url"
                   :alt="slide.title"
                   loading="lazy"
+                  format="wepb"
                 />
               </div>
               <div class="index-rew-block-desc">

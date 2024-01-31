@@ -201,8 +201,12 @@ const handleCloseDrawer = () => {
               >
                 <div class="drawer-cat-left">
                   <div class="drawer-cat-img">
-                    <img v-if="item.img.length" :src="item.img[0].url" />
-                    <img v-else src="/noimg.webp" />
+                    <NuxtImg
+                      v-if="item.img.length"
+                      :src="item.img[0].url"
+                      format="wepb"
+                    />
+                    <NuxtImg v-else src="/noimg.webp" format="wepb" />
                   </div>
                   <strong>{{ item.name }}</strong>
                 </div>

@@ -24,6 +24,9 @@ logs
 !.env.example
 package-lock.json
 
+.output/
+.output/*
+output/*
 #Assets
 
 /public/assets/images/*
