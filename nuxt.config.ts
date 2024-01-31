@@ -43,7 +43,7 @@ export default defineNuxtConfig({
     "nuxt-icon",
     "@nuxt/image-edge",
     "@nuxt/image",
-    "@nuxt/http",
+    // "@nuxt/http",
     [
       "@nuxtjs/google-fonts",
       {
