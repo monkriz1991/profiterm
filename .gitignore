@@ -25,5 +25,5 @@ logs
 package-lock.json
 
 #Assets
-/assets/images/*
+
 /public/assets/images/*

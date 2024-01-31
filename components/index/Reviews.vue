@@ -79,15 +79,13 @@ const sliseDesc = (item) => {
           >
             <div class="index-rew-block">
               <div class="index-rew-block-img">
-                <ClientOnly>
-                  <img
-                    v-for="(slideurl, idx) in slide.img"
-                    :key="idx"
-                    :src="slideurl.url"
-                    :alt="slide.title"
-                    loading="lazy"
-                  />
-                </ClientOnly>
+                <img
+                  v-for="(slideurl, idx) in slide.img"
+                  :key="idx"
+                  :src="slideurl.url"
+                  :alt="slide.title"
+                  loading="lazy"
+                />
               </div>
               <div class="index-rew-block-desc">
                 <strong>{{ slide.name }}</strong>

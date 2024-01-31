@@ -31,7 +31,8 @@ export default defineEventHandler(async (event) => {
   try {
     await callNodeListener(
       // @ts-expect-error: Nuxt 3
-      upload.single("file"),
+      // upload.single("file"),
+      upload.array("file", 10),
       event.node.req,
       event.node.res
     );

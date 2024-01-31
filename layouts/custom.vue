@@ -1,8 +1,6 @@
 <template>
   <div>
-    <header>
-      <NavbarCabinet />
-    </header>
+    <NavbarCabinet />
     <main>
       <slot />
     </main>
