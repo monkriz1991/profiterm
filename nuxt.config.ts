@@ -43,7 +43,6 @@ export default defineNuxtConfig({
     "nuxt-icon",
     "@nuxt/image-edge",
     "@nuxt/image",
-    "@nuxt/http",
     [
       "@nuxtjs/google-fonts",
       {
@@ -55,17 +54,17 @@ export default defineNuxtConfig({
       },
     ],
   ],
-  http: {
-    proxy: true,
-  },
-  proxy: {
-    "/images/": {
-      target: "https://cryptoscool.ru",
-      pathRewrite: {
-        "^/images/": "/images/",
-      },
-    },
-  },
+  // http: {
+  //   proxy: true,
+  // },
+  // proxy: {
+  //   "/images/": {
+  //     target: "https://cryptoscool.ru",
+  //     pathRewrite: {
+  //       "^/images/": "/images/",
+  //     },
+  //   },
+  // },
   // staticAssets: {
   //   directory: [
   //     {
