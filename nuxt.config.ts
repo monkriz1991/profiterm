@@ -65,6 +65,14 @@ export default defineNuxtConfig({
       },
     },
   },
+  staticAssets: {
+    directory: [
+      {
+        prefix: "/images/",
+        root: "/var/www/cryptoscool.ru/images/",
+      },
+    ],
+  },
   nitro: {
     plugins: ["~/server/index.ts"],
   },
