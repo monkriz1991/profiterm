@@ -54,6 +54,17 @@ export default defineNuxtConfig({
       },
     ],
   ],
+  http: {
+    proxy: true,
+  },
+  proxy: {
+    "/images/": {
+      target: "https://cryptoscool.ru",
+      pathRewrite: {
+        "^/images/": "/images/",
+      },
+    },
+  },
   nitro: {
     plugins: ["~/server/index.ts"],
   },
