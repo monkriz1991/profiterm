@@ -73,6 +73,11 @@ export default defineNuxtConfig({
   //     },
   //   ],
   // },
+  server: {
+    static: {
+      prefix: '/images/',
+    },
+  },
   nitro: {
     plugins: ["~/server/index.ts"],
   },
