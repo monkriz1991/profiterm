@@ -189,7 +189,7 @@ const handleCloseDrawer = () => {
               <span class="icon">
                 <Icon class="modal-b-svg" name="solar:add-square-broken" />
               </span>
-              <span>Добавить отзыв</span>
+              <span>+Добавить отзыв</span>
             </button>
           </div>
           <div class="drawer-add">
