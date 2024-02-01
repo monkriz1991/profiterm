@@ -158,7 +158,7 @@ const addImg = (fileData) => {
   fileUpload.value.push(modifiedFile);
   form.value.img.push({
     name: modifiedFile.name,
-    url: "/images/" + modifiedFile.name,
+    url: "/var/www/cryptoscool.ru/images/" + modifiedFile.name,
   });
 };
 const beforeRemove = (file, fileList) => {
