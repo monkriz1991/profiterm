@@ -158,15 +158,13 @@ const addImg = (fileData) => {
   fileUpload.value.push(modifiedFile);
   form.value.img.push({
     name: modifiedFile.name,
-    url: "/images/" + modifiedFile.name,
+    url: modifiedFile.name,
   });
 };
 const beforeRemove = (file, fileList) => {
   form.value.img = [];
   fileDelte.value.push(file.url);
   form.value.img = imfArr.value;
-  console.log(fileList.length);
-  console.log(file.size);
   if (file.size != undefined && fileList.length == 1) {
     fileDelte.value = [];
   }
@@ -175,6 +173,10 @@ const beforeRemove = (file, fileList) => {
 const handleCloseDrawer = () => {
   drawer.value = false;
   refresh();
+};
+const getImageUrl = (name) => {
+  // Замените это на фактический URL вашего сервера
+  return `https://disk.cryptoscool.ru/images/${name}`;
 };
 </script>
 
@@ -201,10 +203,10 @@ const handleCloseDrawer = () => {
               >
                 <div class="drawer-cat-left">
                   <div class="drawer-cat-img">
-                    <img
+                    <nuxt-img
                       v-if="item.img.length"
-                      :src="item.img[0].url"
-                      format="webp"
+                      :src="getImageUrl(item.img[0].name)"
+                      :alt="item.img[0].name"
                     />
                     <nuxt-img v-else src="/noimg.webp" format="wepb" />
                   </div>

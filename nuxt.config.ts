@@ -54,27 +54,14 @@ export default defineNuxtConfig({
       },
     ],
   ],
-  // http: {
-  //   proxy: true,
-  // },
-  // proxy: {
-  //   "/images/": {
-  //     target: "https://cryptoscool.ru",
-  //     pathRewrite: {
-  //       "^/images/": "/images/",
-  //     },
-  //   },
-  // },
-  // staticAssets: {
-  //   directory: [
-  //     {
-  //       prefix: "/images/",
-  //       root: "/var/www/cryptoscool.ru/images/",
-  //     },
-  //   ],
-  // },
   nitro: {
     plugins: ["~/server/index.ts"],
+    devProxy: {
+      "/images": {
+        target: "https://disk.cryptoscool.ru/images/",
+        changeOrigin: true,
+      },
+    },
   },
   auth: {
     baseURL: process.env.AUTH_ORIGIN,
