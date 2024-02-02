@@ -45,7 +45,6 @@ const addReviews = async () => {
   if (buttonEdit.value == true) {
     updatereviews = "api/add/addreviews";
   } else {
-    console.log(fileDelte.value.length);
     if (fileDelte.value.length != 0) {
       const { data: responseDell } = await useFetch("/api/deletefiles/", {
         method: "POST",
@@ -93,7 +92,16 @@ const drawerDel = async (id, img) => {
       arrImg.push(img[item].url);
     }
   }
-  dell.value = { _id: id, img: arrImg };
+  if (arrImg.length != 0) {
+    const { data: responseDell } = await useFetch("/api/deletefiles/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+      body: { img: arrImg },
+    });
+  }
+  dell.value = { _id: id };
   const { data: responseData } = await useFetch("/api/delete/deletereviews/", {
     method: "POST",
     headers: {
@@ -108,6 +116,7 @@ const drawerDel = async (id, img) => {
 const drawerIn = (item) => {
   form.value.img = [];
   fileUpload.value = [];
+  console.log(item.img);
   if (item.img.length) {
     form.value.img = item.img;
     imfArr.value = item.img;
@@ -158,7 +167,7 @@ const addImg = (fileData) => {
   fileUpload.value.push(modifiedFile);
   form.value.img.push({
     name: modifiedFile.name,
-    url: modifiedFile.name,
+    url: `https://disk.cryptoscool.ru/images/${modifiedFile.name}`,
   });
 };
 const beforeRemove = (file, fileList) => {
@@ -174,10 +183,10 @@ const handleCloseDrawer = () => {
   drawer.value = false;
   refresh();
 };
-const getImageUrl = (name) => {
-  // Замените это на фактический URL вашего сервера
-  return `https://disk.cryptoscool.ru/images/${name}`;
-};
+// const getImageUrl = (name) => {
+//   // Замените это на фактический URL вашего сервера
+//   return `https://disk.cryptoscool.ru/images/${name}`;
+// };
 </script>
 
 <template>
@@ -205,7 +214,7 @@ const getImageUrl = (name) => {
                   <div class="drawer-cat-img">
                     <nuxt-img
                       v-if="item.img.length"
-                      :src="getImageUrl(item.img[0].name)"
+                      :src="item.img[0].url"
                       :alt="item.img[0].name"
                     />
                     <nuxt-img v-else src="/noimg.webp" format="wepb" />

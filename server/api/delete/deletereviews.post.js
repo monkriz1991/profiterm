@@ -6,9 +6,6 @@ export default defineEventHandler(async (event) => {
     const data = await readBody(event);
     const obj = { _id: data._id };
     const reviews = await Reviews.deleteOne(obj);
-    data.img.forEach((fileName, index) => {
-      fs.unlinkSync(`public${fileName}`);
-    });
     return reviews;
   } catch (err) {
     console.log(err);
