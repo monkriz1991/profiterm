@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
     let fileNames = [];
     const storage = multer.diskStorage({
       destination: (req, file, cb) => {
-        cb(null, "https://disk.cryptoscool.ru/images/");
+        cb(null, "/var/www/disk.cryptoscool.ru/public_html/images/");
       },
       filename: (req, file, cbd) => {
         const filePath = file.originalname;
@@ -44,7 +44,7 @@ export default defineEventHandler(async (event) => {
       const data = {
         insertOne: {
           document: {
-            path: `https://disk.cryptoscool.ru/images/${fileName}`,
+            path: `/var/www/disk.cryptoscool.ru/public_html/images/${fileName}`,
             fileName: fileNames[index],
           },
         },
