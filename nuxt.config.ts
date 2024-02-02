@@ -20,6 +20,10 @@ export default defineNuxtConfig({
     MAILUSER: process.env.MAILUSER,
     MAILPASSWORD: process.env.MAILPASSWORD,
     CONTACTMAIL: process.env.CONTACTMAIL,
+    FILES_PATH: process.env.FILES_PATH,
+    public: {
+      filesPath: process.env.FILES_PATH_URL,
+    },
   },
   css: [
     "@/assets/main.css",

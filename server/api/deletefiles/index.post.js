@@ -1,10 +1,13 @@
 import fs from "fs";
 export default defineEventHandler(async (event) => {
   try {
+    const config = useRuntimeConfig();
+
     const data = await readBody(event);
-    console.log(data.img);
+
     data.img.forEach((fileName, index) => {
-      fs.unlinkSync(`/var/www/disk.cryptoscool.ru/public_html/images/${fileName}`);
+      console.log(fileName.name);
+      fs.unlinkSync(`${config.FILES_PATH}${fileName.name}`);
     });
     return 200;
   } catch (error) {

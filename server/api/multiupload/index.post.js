@@ -3,12 +3,13 @@ import { callNodeListener } from "h3";
 
 export default defineEventHandler(async (event) => {
   try {
+    const config = useRuntimeConfig();
     let filePaths = [];
     let fileNames = [];
     const storage = multer.diskStorage({
       destination: (req, file, cb) => {
         //cb(null, "/var/www/cryptoscool.ru/images/");
-        cb(null, "/var/www/disk.cryptoscool.ru/public_html/images/");
+        cb(null, config.FILES_PATH);
       },
       filename: (req, file, cbd) => {
         const filePath = file.originalname;

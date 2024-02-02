@@ -4,6 +4,7 @@ definePageMeta({
   middleware: "auth",
   layout: "custom",
 });
+const config = useRuntimeConfig();
 const { data: project } = await useFetch("/api/project/", {
   method: "POST",
   headers: {
@@ -88,8 +89,8 @@ const addReviews = async () => {
 const drawerDel = async (id, img) => {
   let arrImg = [];
   for (let item in img) {
-    if (img[item].url != undefined) {
-      arrImg.push(img[item].url);
+    if (img[item].name != undefined) {
+      arrImg.push(img[item]);
     }
   }
   if (arrImg.length != 0) {
@@ -167,26 +168,22 @@ const addImg = (fileData) => {
   fileUpload.value.push(modifiedFile);
   form.value.img.push({
     name: modifiedFile.name,
-    url: `https://disk.cryptoscool.ru/images/${modifiedFile.name}`,
+    url: `${config.public.filesPath}${modifiedFile.name}`,
   });
 };
+
 const beforeRemove = (file, fileList) => {
   form.value.img = [];
-  fileDelte.value.push(file.url);
+  fileDelte.value.push(file);
   form.value.img = imfArr.value;
   if (file.size != undefined && fileList.length == 1) {
     fileDelte.value = [];
   }
 };
-
 const handleCloseDrawer = () => {
   drawer.value = false;
   refresh();
 };
-// const getImageUrl = (name) => {
-//   // Замените это на фактический URL вашего сервера
-//   return `https://disk.cryptoscool.ru/images/${name}`;
-// };
 </script>
 
 <template>
@@ -212,12 +209,13 @@ const handleCloseDrawer = () => {
               >
                 <div class="drawer-cat-left">
                   <div class="drawer-cat-img">
-                    <nuxt-img
+                    <NuxtImg
                       v-if="item.img.length"
                       :src="item.img[0].url"
                       :alt="item.img[0].name"
+                      format="wepb"
                     />
-                    <nuxt-img v-else src="/noimg.webp" format="wepb" />
+                    <img v-else src="/noimg.webp" />
                   </div>
                   <strong>{{ item.name }}</strong>
                 </div>
