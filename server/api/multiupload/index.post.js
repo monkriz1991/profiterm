@@ -1,13 +1,13 @@
 import multer from "multer";
-import { callNodeListener, createError } from "h3";
+import { callNodeListener } from "h3";
 
 export default defineEventHandler(async (event) => {
   try {
     let filePaths = [];
     let fileNames = [];
-
     const storage = multer.diskStorage({
       destination: (req, file, cb) => {
+        //cb(null, "/var/www/cryptoscool.ru/images/");
         cb(null, "/var/www/disk.cryptoscool.ru/public_html/images/");
       },
       filename: (req, file, cbd) => {
@@ -34,38 +34,30 @@ export default defineEventHandler(async (event) => {
       },
     });
 
-    // Обработка загрузки файлов
     await callNodeListener(
+      // @ts-expect-error: Nuxt 3
       upload.array("file", 10),
       event.node.req,
       event.node.res
     );
-
-    // Логика сохранения информации о файлах в базу данных
-    const bulkOps = filePaths.map((fileName, index) => ({
-      insertOne: {
-        document: {
-          path: `/images/${fileName}`,
-          fileName: fileNames[index],
+    const bulkOps = [];
+    filePaths.forEach((fileName, index) => {
+      const data = {
+        insertOne: {
+          document: {
+            path: `/images/${fileName}`,
+            fileName: fileNames[index],
+          },
         },
-      },
-    }));
-
-    // Пример логики сохранения в базу данных (предполагается MongoDB)
-    const db = await getDbConnection(); // Замените на ваш метод подключения к базе данных
-    await db.collection("files").bulkWrite(bulkOps);
-
+      };
+      bulkOps.push(data);
+    });
     return 200;
   } catch (error) {
-    console.error(error);
-
-    // Вывод ошибки в консоль сервера для отладки
-    console.error("Error processing request:", error.message);
-
-    // Передача ошибки клиенту с деталями в ответе
+    console.log(error);
     return createError({
       statusCode: 500,
-      statusMessage: `Something went wrong: ${error.message}`,
+      statusMessage: "Something went wrong.",
     });
   }
 });
