@@ -72,7 +72,7 @@ const objectDesc = computed(() => props.description);
                     :src="img.url"
                     :alt="slide.title"
                     format="webp"
-                    data-fancybox="galery a"
+                    data-fancybox="galery project"
                     loading="lazy"
                   ></NuxtImg>
                 </SwiperSlide>

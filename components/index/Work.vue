@@ -34,13 +34,14 @@ const handleChange = (val) => {
             <div class="stage-index-desc" v-html="item.description"></div>
 
             <div class="stage-index-img">
-              <img
+              <NuxtImg
                 v-for="(itemurl, idx) in item.img"
                 :key="idx"
                 :src="itemurl.url"
                 :alt="itemurl.title"
-                data-fancybox="galery"
+                data-fancybox="galery stage"
                 loading="lazy"
+                format="wepb"
               />
             </div>
           </ElCollapseItem>

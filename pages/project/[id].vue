@@ -1,6 +1,7 @@
 <script setup>
 const route = useRoute();
 const router = useRouter();
+const visiblePlyr = ref(false);
 const { data: project } = useFetch(() => "/api/projectitem/", {
   method: "POST",
   headers: {
@@ -8,14 +9,10 @@ const { data: project } = useFetch(() => "/api/projectitem/", {
   },
   body: route.params.id,
 });
-const plyrStart = async () => {
-  const Plyr = await import("plyr");
-  const newPlayer = new Plyr.default("#player");
-};
-onMounted(() => {
+onMounted(async () => {
   setTimeout(() => {
-    plyrStart();
-  }, 10);
+    visiblePlyr.value = true;
+  }, 1000); // Устанавливайте нужную вам задержку (в миллисекундах)
 });
 </script>
 
@@ -53,7 +50,7 @@ onMounted(() => {
                   </div>
                 </div>
                 <div class="column is-6">
-                  <div class="columns is-multiline">
+                  <div class="columns is-multiline mobail-colums-gal">
                     <div
                       v-for="(imgurl, idx) in item.galery"
                       :key="imgurl"
@@ -71,15 +68,12 @@ onMounted(() => {
               </div>
             </div>
             <div class="project-video">
-              <div
-                v-if="item.video"
-                id="player"
-                data-plyr-provider="youtube"
-                :data-plyr-embed-id="item.video"
-              ></div>
+              <ProjectVideo
+                v-model:VideoObject="item.video"
+                v-model:visiblePlyr="visiblePlyr"
+              />
             </div>
           </div>
-
           <div class="columns">
             <div class="column is-12">
               <div class="project-block-desc" v-html="item.description"></div>

@@ -49,10 +49,12 @@ const handleCurrentChange = (val) => {
             <div class="catalog-block">
               <nuxt-link :to="`/project/` + item.kirilica">
                 <div class="catalog-block-img">
-                  <img
+                  <NuxtImg
                     v-for="imgurl in item.img"
                     :key="imgurl"
                     :src="imgurl.url"
+                    loading="lazy"
+                    format="wepb"
                   />
                 </div>
                 <div class="catalog-block-desc">

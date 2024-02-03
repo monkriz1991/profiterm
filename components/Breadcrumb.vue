@@ -31,7 +31,7 @@ if (route.params.id != "/" && route.params.id != undefined) {
 
 <template>
   <div>
-    <el-breadcrumb separator="/" class="mb-6">
+    <el-breadcrumb separator="/" class="breadcrumb-item">
       <el-breadcrumb-item :to="{ path: '/' }">Главная</el-breadcrumb-item>
       <el-breadcrumb-item
         ><nuxt-link :to="pathLink">{{

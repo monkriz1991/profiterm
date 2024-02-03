@@ -20,7 +20,7 @@ const showList = (item) => {
   }
 };
 const sliseDesc = (item) => {
-  let textInner = item.replace(/<[^>]+>/g, "").slice(0, 170) + "...";
+  let textInner = item.replace(/<[^>]+>/g, "").slice(0, 120) + "...";
   return textInner;
 };
 </script>
@@ -92,15 +92,15 @@ const sliseDesc = (item) => {
                 <strong>{{ slide.name }}</strong>
 
                 <div
-                  v-if="slide.description.length < 170"
+                  v-if="slide.description.length < 120"
                   v-html="sliseDesc(slide.description)"
                 ></div>
                 <div
-                  v-else-if="slide.description.length > 170"
+                  v-else-if="slide.description.length > 120"
                   v-html="sliseDesc(slide.description)"
                 ></div>
                 <button
-                  class="button is-white is-light mt-4"
+                  class="button is-white is-light button-rew-index"
                   @click="removeTagDialogs[slide._id] = true"
                 >
                   <span class="icon"

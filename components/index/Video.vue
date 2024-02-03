@@ -69,12 +69,13 @@ const visibleModalClose = (item) => {
             :key="slide._id"
             :pagination="{ clickable: true, dynamicBullets: true }"
           >
-            <img
+            <NuxtImg
               v-for="(img, idx) in slide.img"
               :key="idx"
               :src="img.url"
               :alt="slide.title"
               loading="lazy"
+              format="wepb"
             />
             <div class="video-slide-bg" @click="OpenModal(slide)">
               <Icon name="solar:play-circle-broken" />

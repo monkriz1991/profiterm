@@ -25,7 +25,7 @@ if (route.params.id != "/" && route.params.id != undefined) {
 </script>
 <template>
   <div>
-    <h1>{{ h1Category }}</h1>
+    <h1 class="h1-catalog">{{ h1Category }}</h1>
     <div class="m-cat-nav">
       <div class="columns is-desktop is-multiline">
         <div class="column" v-for="item in category" :key="item._id">
