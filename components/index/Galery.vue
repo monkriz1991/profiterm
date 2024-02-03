@@ -74,7 +74,6 @@ const objectDesc = computed(() => props.description);
                     format="webp"
                     data-fancybox="galery a"
                     loading="lazy"
-                    sizes="sm:100px md:150px lg:200px"
                   ></NuxtImg>
                 </SwiperSlide>
               </Swiper>

@@ -6,6 +6,7 @@ definePageMeta({
 });
 import { UploadFilled } from "@element-plus/icons-vue";
 
+const config = useRuntimeConfig();
 const { data, signOut } = useAuth();
 const drawer = ref(false);
 const buttonEdit = ref(false);
@@ -13,6 +14,13 @@ const dell = ref({});
 const selectForm = ref("");
 const videofArr = ref([]);
 const imgArr = ref([]);
+const fileUpload = ref([]);
+const fileUploadImg = ref([]);
+const fileUploadVidoe = ref([]);
+const fileDelteVideo = ref([]);
+const fileDelteImg = ref([]);
+const fileDelte = ref([]);
+const activeNames = ref("");
 const form = reactive({
   one: {
     type: "",
@@ -56,12 +64,30 @@ const { data: main, refresh } = await useFetch("/api/main/", {
     "Content-Type": "application/json; charset=UTF-8",
   },
 });
-const activeNames = ref("");
+
 const addMain = async () => {
+  const bodyFils = new FormData();
+  if (fileDelteImg.value && fileDelteVideo.value) {
+    fileDelte.value = fileDelteImg.value.concat(fileDelteVideo.value);
+  } else if (fileDelteImg.value) {
+    fileDelte.value = fileDelteImg.value;
+  } else if (fileDelteVideo.value) {
+    fileDelte.value = fileDelteVideo.value;
+  }
   let updatemain = "api/update/updatemain";
   let formObj = {};
   if (buttonEdit.value == true) {
     updatemain = "api/add/addmain";
+  } else {
+    if (fileDelte.value.length != 0) {
+      const { data: responseDell } = await useFetch("/api/deletefiles/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+        body: { img: fileDelte.value },
+      });
+    }
   }
   formObj = form[selectForm.value];
   formObj["type"] = selectForm.value;
@@ -73,40 +99,67 @@ const addMain = async () => {
     body: { form: formObj },
     watch: false,
   });
+  if (fileUploadImg.value && fileUploadVidoe.value) {
+    fileUpload.value = fileUploadImg.value.concat(fileUploadVidoe.value);
+  } else if (fileUploadImg.value) {
+    fileUpload.value = fileUploadImg.value;
+  } else if (fileUploadVidoe.value) {
+    fileUpload.value = fileUploadVidoe.value;
+  }
+  for (let i = 0; i < fileUpload.value.length; i++) {
+    bodyFils.append("file", fileUpload.value[i]);
+  }
+  if (fileUpload.value.length != 0) {
+    await useFetch("/api/multiupload", {
+      method: "POST",
+      body: bodyFils,
+      onResponse(context) {},
+    });
+  }
   if (responseData) {
     for (let item in form[selectForm.value]) {
       form[selectForm.value][item] = "";
     }
     refresh();
-    form.value = {
-      one: {
-        type: "",
-        title: "",
-        img: [],
-        video: [],
-        preview: "",
-        description: "",
-      },
-      two: {
-        type: "",
-        level: "",
-        title: "",
-        img: [],
-      },
-      three: {
-        type: "",
-        level: "",
-        title: "",
-        img: [],
-        yootube: "",
-        description: "",
-      },
-    };
+    for (let item in form[selectForm.value]) {
+      form[selectForm.value][item] = "";
+      if (item == "description") {
+        form[selectForm.value][item] = "<p></p>";
+      }
+      if (item == "img" || item == "video") {
+        form[selectForm.value][item] = [];
+      }
+    }
     videofArr.value = [];
     imgArr.value = [];
+    fileUpload.value = [];
+    fileDelte.value = [];
   }
 };
-const drawerDel = async (id, type) => {
+const drawerDel = async (id, img, video, type) => {
+  let arrFiles = [];
+  let arrContact = [];
+  if (img && video) {
+    arrContact = img.concat(video);
+  } else if (img) {
+    arrContact = img;
+  } else if (video) {
+    arrContact = video;
+  }
+  for (let item in arrContact) {
+    if (arrContact[item].name != undefined) {
+      arrFiles.push(arrContact[item]);
+    }
+  }
+  if (arrFiles.length != 0) {
+    const { data: responseDell } = await useFetch("/api/deletefiles/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+      body: { img: arrFiles },
+    });
+  }
   dell.value = { _id: id, obtype: type };
   const { data: responseData } = await useFetch("/api/delete/daletemain/", {
     method: "POST",
@@ -120,6 +173,8 @@ const drawerDel = async (id, type) => {
   }
 };
 const drawerIn = (array, type) => {
+  fileUploadImg.value = [];
+  fileUploadVidoe.value = [];
   for (let item in array) {
     form[array.type][item] = array[item];
   }
@@ -127,12 +182,16 @@ const drawerIn = (array, type) => {
   imgArr.value = array.img;
   selectForm.value = array.type;
   drawer.value = true;
+  fileDelteVideo.value = [];
+  fileDelteImg.value = [];
   buttonEdit.value = false;
 };
 
 const drawerNull = () => {
   drawer.value = true;
   buttonEdit.value = true;
+  fileUploadImg.value = [];
+  fileUploadVidoe.value = [];
   if (form[selectForm.value] != undefined) {
     for (let item in form[selectForm.value]) {
       form[selectForm.value][item] = "";
@@ -144,27 +203,58 @@ const drawerNull = () => {
     imgArr.value = [];
   }
 };
-const addVideo = (file) => {
-  form[selectForm.value].video = [];
-  const reader = new FileReader();
-  reader.onload = (event) => {
-    form[selectForm.value].video.push({
-      name: file.name,
-      url: event.target.result,
-    });
-  };
-  reader.readAsDataURL(file);
+const addVideo = (fileData) => {
+  const filename = fileData.name;
+  const randomPart = Math.random().toString(36).substring(7);
+  const newFilename = randomPart + filename;
+
+  const modifiedFile = new File([fileData], newFilename, {
+    type: fileData.type,
+  });
+
+  fileUploadVidoe.value.push(modifiedFile);
+  form[selectForm.value].video.push({
+    name: modifiedFile.name,
+    url: `${config.public.filesPath}${modifiedFile.name}`,
+  });
 };
-const addImg = (file) => {
+
+const addImg = (fileData) => {
+  const filename = fileData.name;
+  const randomPart = Math.random().toString(36).substring(7);
+  const newFilename = randomPart + filename;
+
+  const modifiedFile = new File([fileData], newFilename, {
+    type: fileData.type,
+  });
+  console.log(form[selectForm.value].img);
+  fileUploadImg.value.push(modifiedFile);
+  form[selectForm.value].img.push({
+    name: modifiedFile.name,
+    url: `${config.public.filesPath}${modifiedFile.name}`,
+  });
+};
+
+const beforeRemoveImg = (file, fileList) => {
   form[selectForm.value].img = [];
-  const reader = new FileReader();
-  reader.onload = (event) => {
-    form[selectForm.value].img.push({
-      name: file.name,
-      url: event.target.result,
-    });
-  };
-  reader.readAsDataURL(file);
+  fileDelteImg.value.push(file);
+  form[selectForm.value].img = imgArr.value;
+  if (file.size != undefined && fileList.length == 1) {
+    fileDelteImg.value = [];
+  }
+};
+const beforeRemoveVidep = (file, fileList) => {
+  form[selectForm.value].video = [];
+  fileDelteVideo.value.push(file);
+  form[selectForm.value].video = videofArr.value;
+  if (file.size != undefined && fileList.length == 1) {
+    fileDelteVideo.value = [];
+  }
+};
+
+const handleCloseDrawer = () => {
+  drawer.value = false;
+  refresh();
 };
 </script>
 <template>
@@ -217,7 +307,14 @@ const addImg = (file) => {
                           <button
                             class="button is-danger is-normal is-light"
                             type="submit"
-                            @click="drawerDel(item._id, item.type)"
+                            @click="
+                              drawerDel(
+                                item._id,
+                                item.img,
+                                item.video,
+                                item.type
+                              )
+                            "
                           >
                             Delete
                           </button>
@@ -230,6 +327,7 @@ const addImg = (file) => {
               <ClientOnly>
                 <el-drawer
                   v-model="drawer"
+                  :before-close="handleCloseDrawer"
                   title="I am the title"
                   :with-header="false"
                   size="60%"
@@ -298,6 +396,7 @@ const addImg = (file) => {
                           <el-upload
                             class="upload-demo"
                             :before-upload="addVideo"
+                            :before-remove="beforeRemoveVidep"
                             drag
                             action="#"
                             multiple
@@ -316,6 +415,7 @@ const addImg = (file) => {
                           <el-upload
                             class="upload-demo"
                             :before-upload="addImg"
+                            :before-remove="beforeRemoveImg"
                             drag
                             list-type="picture"
                             action="#"

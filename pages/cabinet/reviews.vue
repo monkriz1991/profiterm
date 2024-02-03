@@ -117,7 +117,6 @@ const drawerDel = async (id, img) => {
 const drawerIn = (item) => {
   form.value.img = [];
   fileUpload.value = [];
-  console.log(item.img);
   if (item.img.length) {
     form.value.img = item.img;
     imfArr.value = item.img;

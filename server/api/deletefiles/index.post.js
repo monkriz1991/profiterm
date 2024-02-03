@@ -2,11 +2,8 @@ import fs from "fs";
 export default defineEventHandler(async (event) => {
   try {
     const config = useRuntimeConfig();
-
     const data = await readBody(event);
-
     data.img.forEach((fileName, index) => {
-      console.log(fileName.name);
       fs.unlinkSync(`${config.FILES_PATH}${fileName.name}`);
     });
     return 200;

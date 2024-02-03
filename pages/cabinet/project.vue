@@ -4,7 +4,7 @@ definePageMeta({
   middleware: "auth",
   layout: "custom",
 });
-
+const config = useRuntimeConfig();
 const sortPage = ref(0);
 const currentPage = ref(1);
 const pageSize = ref(4);
@@ -14,6 +14,12 @@ const dell = ref({});
 const imfArr = ref([]);
 const galArr = ref([]);
 const categoryUse = ref([]);
+const fileUpload = ref([]);
+const fileUploadImg = ref([]);
+const fileUploadGalery = ref([]);
+const fileDelteGalery = ref([]);
+const fileDelteImg = ref([]);
+const fileDelte = ref([]);
 const form = ref({
   category: "",
   title: "",
@@ -47,9 +53,21 @@ const categorySelect = async () => {
   categoryUse.value = categoryIn.value;
 };
 const addProject = async () => {
+  const bodyFils = new FormData();
+  fileDelte.value = fileDelteImg.value.concat(fileDelteGalery.value);
   let updateproject = "api/update/updateproject";
   if (buttonEdit.value == true) {
     updateproject = "api/add/addproject";
+  } else {
+    if (fileDelte.value.length != 0) {
+      const { data: responseDell } = await useFetch("/api/deletefiles/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+        body: { img: fileDelte.value },
+      });
+    }
   }
   const { data: responseData } = await useFetch(`/${updateproject}/`, {
     method: "POST",
@@ -58,6 +76,17 @@ const addProject = async () => {
     },
     body: form.value,
   });
+  fileUpload.value = fileUploadImg.value.concat(fileUploadGalery.value);
+  for (let i = 0; i < fileUpload.value.length; i++) {
+    bodyFils.append("file", fileUpload.value[i]);
+  }
+  if (fileUpload.value.length != 0) {
+    await useFetch("/api/multiupload", {
+      method: "POST",
+      body: bodyFils,
+      onResponse(context) {},
+    });
+  }
   if (responseData) {
     refresh();
     form.value = {
@@ -77,7 +106,30 @@ const addProject = async () => {
   }
 };
 
-const drawerDel = async (id) => {
+const drawerDel = async (id, img, galey) => {
+  let arrFiles = [];
+  let arrContact = [];
+  if (img != undefined && galey != undefined) {
+    arrContact = img.concat(galey);
+  } else if (img != undefined && galey == undefined) {
+    arrContact = img;
+  } else if (img == undefined && galey != undefined) {
+    arrContact = galey;
+  }
+  for (let item in arrContact) {
+    if (arrContact[item].name != undefined) {
+      arrFiles.push(arrContact[item]);
+    }
+  }
+  if (arrFiles.length != 0) {
+    const { data: responseDell } = await useFetch("/api/deletefiles/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+      body: { img: arrFiles },
+    });
+  }
   dell.value = { _id: id };
   const { data: responseData } = await useFetch("/api/delete/deleteproject/", {
     method: "POST",
@@ -98,6 +150,8 @@ onMounted(() => {
 const drawerIn = (item) => {
   form.value.img = [];
   form.value.galery = [];
+  fileUploadImg.value = [];
+  fileUploadGalery.value = [];
   if (item.img.length) {
     form.value.img = item.img;
     imfArr.value = item.img;
@@ -125,6 +179,8 @@ const drawerIn = (item) => {
     }
   }
   buttonEdit.value = false;
+  fileDelteImg.value = [];
+  fileDelteGalery.value = [];
 };
 
 const drawerNull = () => {
@@ -133,6 +189,8 @@ const drawerNull = () => {
   buttonEdit.value = true;
   imfArr.value = [];
   galArr.value = [];
+  fileUploadImg.value = [];
+  fileUploadGalery.value = [];
   for (let item in form.value) {
     form.value[item] = "";
     if (item == "description") {
@@ -156,20 +214,60 @@ const handleCurrentChange = (val) => {
   currentPage.value = val;
   refresh();
 };
-const addImg = (file) => {
-  let reader = new FileReader();
-  reader.onload = (event) => {
-    form.value.img.push({ name: file.name, url: event.target.result });
-  };
-  reader.readAsDataURL(file);
+
+const addImg = (fileData) => {
+  const filename = fileData.name;
+  const randomPart = Math.random().toString(36).substring(7);
+  const newFilename = randomPart + filename;
+
+  const modifiedFile = new File([fileData], newFilename, {
+    type: fileData.type,
+  });
+
+  fileUploadImg.value.push(modifiedFile);
+  form.value.img.push({
+    name: modifiedFile.name,
+    url: `${config.public.filesPath}${modifiedFile.name}`,
+  });
 };
-const addGal = (file) => {
-  let reader = new FileReader();
-  reader.onload = (event) => {
-    form.value.galery.push({ name: file.name, url: event.target.result });
-  };
-  reader.readAsDataURL(file);
+const addGal = (fileData) => {
+  const filename = fileData.name;
+  const randomPart = Math.random().toString(36).substring(7);
+  const newFilename = randomPart + filename;
+
+  const modifiedFile = new File([fileData], newFilename, {
+    type: fileData.type,
+  });
+
+  fileUploadGalery.value.push(modifiedFile);
+  form.value.galery.push({
+    name: modifiedFile.name,
+    url: `${config.public.filesPath}${modifiedFile.name}`,
+  });
 };
+
+const beforeRemoveImg = (file, fileList) => {
+  removeFilesAll("img", file, fileList);
+};
+const beforeRemoveGal = (file, fileList) => {
+  removeFilesAll("galery", file, fileList);
+};
+const removeFilesAll = (nameFun, file, fileList) => {
+  form.value.nameFun = [];
+  form.value.nameFun = imfArr.value;
+  if (nameFun == "img") {
+    fileDelteImg.value.push(file);
+    if (file.size != undefined && fileList.length == 1) {
+      fileDelteImg.value = [];
+    }
+  } else if (nameFun == "galery") {
+    fileDelteGalery.value.push(file);
+    if (file.size != undefined && fileList.length == 1) {
+      fileDelteGalery.value = [];
+    }
+  }
+};
+
 const handleCloseDrawer = () => {
   drawer.value = false;
   refresh();
@@ -199,11 +297,13 @@ const handleCloseDrawer = () => {
               >
                 <div class="drawer-cat-left">
                   <div class="drawer-cat-img">
-                    <img
-                      v-for="imgurl in item.img"
-                      :key="imgurl"
-                      :src="imgurl.url"
+                    <NuxtImg
+                      v-if="item.img.length"
+                      :src="item.img[0].url"
+                      :alt="item.img[0].name"
+                      format="wepb"
                     />
+                    <img v-else src="/noimg.webp" />
                   </div>
                   <!-- <span>{{ item.category }}</span> -->
                   <strong>{{ item.title }}</strong>
@@ -221,7 +321,7 @@ const handleCloseDrawer = () => {
                   <button
                     class="button is-danger is-normal is-light"
                     type="submit"
-                    @click="drawerDel(item._id)"
+                    @click="drawerDel(item._id, item.img, item.galery)"
                   >
                     Delete
                   </button>
@@ -289,6 +389,7 @@ const handleCloseDrawer = () => {
                         <el-upload
                           class="upload-demo"
                           :before-upload="addImg"
+                          :before-remove="beforeRemoveImg"
                           drag
                           action="#"
                           multiple
@@ -310,6 +411,7 @@ const handleCloseDrawer = () => {
                         <el-upload
                           class="upload-demo"
                           :before-upload="addGal"
+                          :before-remove="beforeRemoveGal"
                           drag
                           action="#"
                           multiple

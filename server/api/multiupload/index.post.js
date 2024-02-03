@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
           file.mimetype == "image/png" ||
           file.mimetype == "image/jpeg" ||
           file.mimetype === "image/webp" ||
-          file.mimetype === "image/mp4"
+          file.mimetype === "video/mp4"
         ) {
           cb(null, true);
         } else {
