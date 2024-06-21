@@ -26,18 +26,14 @@ const visibleModalClose = (item) => {
       <div class="video-slide">
         <Swiper
           :height="100"
-          :space-between="20"
+          :space-between="30"
           :modules="[
             SwiperAutoplay,
             SwiperEffectCreative,
             SwiperNavigation,
             SwiperPagination,
           ]"
-          :slides-per-view="1.5"
-          :navigation="{
-            next: true,
-            prev: true,
-          }"
+          :slides-per-view="1.3"
           :loop="false"
           :autoplay="{
             delay: 70000,
@@ -78,10 +74,16 @@ const visibleModalClose = (item) => {
               format="wepb"
             />
             <div class="video-slide-bg" @click="OpenModal(slide)">
-              <Icon name="solar:play-circle-broken" />
+              <Icon name="formkit:youtube" />
             </div>
           </SwiperSlide>
         </Swiper>
+        <div class="video-all">
+          <nuxt-link to="/catalog">
+            Все проекты
+            <Icon name="ph:images-light" />
+          </nuxt-link>
+        </div>
       </div>
     </div>
     <index-ModalVideo

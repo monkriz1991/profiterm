@@ -7,27 +7,17 @@ const Exit = async () => {
 <template>
   <div class="bd-docs-main">
     <div class="container">
-      <nav
-        class="navbar mb-5 pt-2 pb-2"
-        role="navigation"
-        aria-label="main navigation"
-      >
-        <div class="navbar-brand">
+      <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand-header">
           <nuxt-link to="/"><img src="/logotip.png" /></nuxt-link>
         </div>
         <div class="navbar-menu">
-          <!-- <div class="navbar-start">
-          <nuxt-link class="navbar-item ml-6" :to="`/mongo/`">Post</nuxt-link>
-        </div> -->
           <div class="navbar-start">
             <nuxt-link to="/catalog">Наши работы</nuxt-link>
           </div>
-          <!-- <div class="navbar-start">
-          <nuxt-link class="navbar-item ml-6" :to="`/email/`">email</nuxt-link>
-        </div> -->
         </div>
-        <div class="navbar-end">
-          <div v-if="user == null" class="navbar-item">
+        <div class="mobail-none">
+          <div v-if="user == null" class="">
             <div class="buttons">
               <nuxt-link class="button is-primary" to="/login/"
                 >Login</nuxt-link
@@ -37,7 +27,7 @@ const Exit = async () => {
               >
             </div>
           </div>
-          <div v-else class="navbar-item">
+          <div v-else class="">
             <div class="buttons">
               <nuxt-link class="button is-primary" to="/cabinet/"
                 >Cabinet</nuxt-link

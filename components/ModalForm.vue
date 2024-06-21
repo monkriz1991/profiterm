@@ -21,7 +21,10 @@ const addFilter = async () => {
   <div>
     <!-- Form -->
     <button class="button index-b-modal" @click="visible = true">
-      Оформить заявку
+      <span>Оформить заявку</span>
+      <span class="icon">
+        <Icon name="bx:bxs-layer-plus" />
+      </span>
     </button>
     <ClientOnly>
       <el-dialog v-model="visible" :show-close="false">

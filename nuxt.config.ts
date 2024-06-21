@@ -52,9 +52,10 @@ export default defineNuxtConfig({
       {
         families: {
           Montserrat: [100, 300, 400, 500, 600, 700, 800],
-          download: true,
-          inject: true,
+          Caveat: [100, 300, 400, 500, 600, 700, 800],
         },
+        download: true,
+        inject: true,
       },
     ],
   ],

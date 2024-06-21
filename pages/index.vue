@@ -20,45 +20,44 @@ if (!main.value) {
 </script>
 <template>
   <div class="bd-docs-main">
-    <div class="container">
-      <div class="content index-content">
-        <div class="columns">
-          <div class="column is-12">
-            <div class="video-index" v-for="item in main.one" :key="item">
-              <ClientOnly>
-                <video
-                  v-for="itemvideo in item.video"
-                  :key="itemvideo"
-                  class=""
-                  muted=""
-                  autoplay=""
-                  loop=""
-                  webkit-playsinline=""
-                  playsinline=""
-                  :poster="itemvideo.img"
-                  type="video/webm"
-                  :src="itemvideo.url"
-                >
-                  <source class="video-sourse" src="" type="video/mp4" />
-                </video>
-              </ClientOnly>
-              <div class="video-block-inf">
-                <strong>{{ item.title }}</strong>
-                <span>{{ item.preview }}</span>
+    <div class="cover-video-index">
+      <div class="video-index" v-for="item in main.one" :key="item">
+        <ClientOnly>
+          <video
+            v-for="itemvideo in item.video"
+            :key="itemvideo"
+            class=""
+            muted=""
+            autoplay=""
+            loop=""
+            webkit-playsinline=""
+            playsinline=""
+            :poster="itemvideo.img"
+            type="video/webm"
+            :src="itemvideo.url"
+          >
+            <source class="video-sourse" src="" type="video/mp4" />
+          </video>
+        </ClientOnly>
+        <div class="container">
+          <div class="video-block-inf">
+            <strong>{{ item.title }}</strong>
+            <span>{{ item.preview }}</span>
 
-                <ModalForm />
-              </div>
-            </div>
+            <ModalForm />
           </div>
         </div>
-
+        <div class="cover-image-fon"></div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="content index-content">
         <index-galery v-model:galery="main.two" v-model:description="descGal" />
         <index-video v-model:video="main.three" />
         <index-system />
         <ClientOnly>
           <index-work />
         </ClientOnly>
-
         <index-reviews />
       </div>
     </div>

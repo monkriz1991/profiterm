@@ -20,7 +20,7 @@ const showList = (item) => {
   }
 };
 const sliseDesc = (item) => {
-  let textInner = item.replace(/<[^>]+>/g, "").slice(0, 120) + "...";
+  let textInner = item.replace(/<[^>]+>/g, "").slice(0, 100) + "...";
   return textInner;
 };
 </script>
