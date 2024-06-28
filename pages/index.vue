@@ -19,7 +19,9 @@ if (!main.value) {
   throw createError({ statusCode: 404, statusMessage: "Page Not Found" });
 } else {
   for (let item in main.value.one) {
-    descGal.value = main.value.one[item]["description"];
+    if (main.value.one[item] && main.value.one[item]["description"]) {
+      descGal.value = main.value.one[item]["description"];
+    }
   }
 }
 
@@ -33,11 +35,17 @@ const videos = computed(() => {
     return {
       ...item,
       videos: isDesktop ? item.video : item.video_mobail,
-      poster: isDesktop ? item.img[0].url : item.img[1].url,
+      poster:
+        isDesktop && item.img[0]
+          ? item.img[0].url
+          : item.img[1]
+          ? item.img[1].url
+          : null,
     };
   });
 });
 </script>
+
 <template>
   <div class="bd-docs-main">
     <div class="cover-video-index">
@@ -63,7 +71,6 @@ const videos = computed(() => {
           <div class="video-block-inf">
             <strong>{{ item.title }}</strong>
             <span v-html="item.preview"></span>
-
             <ModalForm />
           </div>
         </div>

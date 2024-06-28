@@ -19,8 +19,9 @@ const handleFileChange = (event) => {
 };
 
 const addFilter = async () => {
-  statusButton.value = true;
   const formData = new FormData();
+  statusButton.value = true;
+
   formData.append("email", form.value.email);
   formData.append("name", form.value.name);
   formData.append("phone", form.value.phone);

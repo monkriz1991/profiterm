@@ -71,7 +71,6 @@ export default defineNuxtConfig({
     importStyle: "css",
   },
   modules: [
-    "nuxt-simple-sitemap",
     "nuxt-server-utils",
     "@sidebase/nuxt-auth",
     "nuxt-swiper",
@@ -128,6 +127,10 @@ export default defineNuxtConfig({
       type: "authjs",
     },
   },
-  image: {},
+  image: {
+    aliyun: {
+      baseURL: "https://diskprofiterm.fastsite.pro/images/",
+    },
+  },
   // devtools: { enabled: true },
 });

@@ -16,7 +16,7 @@ const transporter = nodemailer.createTransport({
 export default defineEventHandler(async (event) => {
   try {
     const form = formidable({ multiples: true });
-
+    console.log(event);
     const { fields, files } = await new Promise((resolve, reject) => {
       form.parse(event.req, (err, fields, files) => {
         if (err) reject(err);

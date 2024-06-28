@@ -48,7 +48,6 @@
     "nuxt-icon": "^0.6.8",
     "nuxt-icons": "^3.2.1",
     "nuxt-server-utils": "^0.0.7",
-    "nuxt-simple-sitemap": "^4.1.15",
     "nuxt-swiper": "^1.2.2",
     "pinia": "^2.1.7",
     "resend": "^2.0.0",
