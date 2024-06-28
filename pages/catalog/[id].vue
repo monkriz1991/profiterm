@@ -39,7 +39,7 @@ const handleCurrentChange = (val) => {
     <div class="container">
       <div class="content">
         <nav-category />
-        <div class="columns is-desktop is-multiline is-variable is-5">
+        <div class="columns is-desktop is-multiline is-variable">
           <div
             class="column is-4"
             v-for="item in project.result"

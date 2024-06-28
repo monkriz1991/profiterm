@@ -16,14 +16,14 @@ const transporter = nodemailer.createTransport({
 export default defineEventHandler(async (event) => {
   try {
     const form = formidable({ multiples: true });
-    console.log(event);
+
     const { fields, files } = await new Promise((resolve, reject) => {
       form.parse(event.req, (err, fields, files) => {
         if (err) reject(err);
         else resolve({ fields, files });
       });
     });
-
+    console.log(fields);
     // Extract subject and text from arrays if they are arrays
     const subject = Array.isArray(fields.name) ? fields.name[0] : fields.name;
     const text = Array.isArray(fields.info) ? fields.info[0] : fields.info;

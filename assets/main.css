@@ -267,14 +267,15 @@ button {
   right: 20px;
 }
 .rev-b-modal {
-  background: transparent !important;
-  border-radius: 0px !important;
+  background: #dfdfdf !important;
+  border-radius: 8px !important;
   border-color: #a4a4a4 !important;
   border: none !important;
-  padding: 5px 0 !important;
+  padding: 5px 15px !important;
   /* border-bottom: 1px solid #4a4a4a !important; */
-  color: #df0000 !important;
-  margin: 10px 0 0;
+  color: #040404 !important;
+  margin: 15px 0 5px;
+  font-size: 15px !important;
 }
 .breadcrumb {
   margin: 80px 0 20px;
@@ -1519,12 +1520,12 @@ button {
 .button-rew-index {
   margin: 10px 0 0;
   width: 170px !important;
-  color: #333 !important;
+  color: #636363 !important;
   font-size: 13px !important;
   border-radius: 6px !important;
   height: auto !important;
-  padding: 7px 10px !important;
-  border: 1px solid #999999 !important;
+  padding: 7px 0px !important;
+  border: 0px solid #999999 !important;
   background: #f6f8f7 !important;
   transition: all 0.4s;
 }
@@ -1534,9 +1535,9 @@ button {
 }
 .button-rew-index:hover,
 .button-rew-modal:hover {
-  background: #4c4c4c !important;
-  color: #fff !important;
-  border-color: #4c4c4c !important;
+  background: #f6f8f7 !important;
+  color: #000 !important;
+  /* border-color: #4c4c4c !important; */
 }
 .stage-index .el-collapse-item:first-child .el-collapse-item__header {
   border-top: 1px solid #d3d8df;
@@ -1708,6 +1709,7 @@ button {
     padding: 60px 10px !important;
     bottom: 0;
     height: 100%;
+    min-height: 100%;
   }
   .video-gal .el-dialog__title {
     font-size: 19px;
@@ -1776,7 +1778,12 @@ button {
     overflow: visible;
   }
   .footer {
-    margin: 40px 0 1rem;
+    margin: 60px 0 1rem;
+    padding: 20px 20px 0px !important;
+    background-color: #f1f1f1 !important;
+  }
+  .footer p {
+    font-size: 13px;
   }
   .bd-docs-main {
     /* padding-bottom: 1rem;

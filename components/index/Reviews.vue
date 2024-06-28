@@ -137,7 +137,7 @@ const fetchProjectData = async (projectId) => {
                   <span class="icon">
                     <Icon name="solar:square-bottom-up-broken" />
                   </span>
-                  <span>Читать полностью</span>
+                  <span>Читать полностью...</span>
                 </button>
                 <ClientOnly>
                   <Teleport to="body">
