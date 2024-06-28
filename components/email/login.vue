@@ -5,7 +5,6 @@ const form = ref({
   email: "",
 });
 const sendMail = () => {
-  console.log(form.value);
   mail.send({
     to: form.value.email,
     from: form.value.email,

@@ -2,13 +2,27 @@
 const route = useRoute();
 const router = useRouter();
 const visiblePlyr = ref(false);
-const { data: project } = useFetch(() => "/api/projectitem/", {
+const breadcrumbLinks = ref([]);
+
+const { data: project, error } = useFetch("/api/projectitem/", {
   method: "POST",
   headers: {
     "Content-Type": "application/json; charset=UTF-8",
   },
-  body: route.params.id,
+  body: route.params.id, // Предполагая, что API принимает JSON-объект с идентификатором
 });
+
+watchEffect(() => {
+  if (project.value && project.value.length > 0) {
+    const item = project.value[0];
+    breadcrumbLinks.value = [
+      { label: "Главная", to: "/" },
+      { label: "Раздел", to: `/catalog/${item.category}` },
+      { label: item.title, to: `/project/${item.kirilica}` },
+    ];
+  }
+});
+
 onMounted(async () => {
   setTimeout(() => {
     visiblePlyr.value = true;
@@ -19,17 +33,15 @@ onMounted(async () => {
 <template>
   <div class="bd-docs-main">
     <div class="container">
-      <div v-for="item in project" :key="item">
-        <div class="content">
-          <!-- <div class="columns">
-            <div class="column is-12">
-              <Breadcrumb />
-            </div>
-          </div> -->
+      <div class="content">
+        <div v-if="error">{{ error.message }}</div>
+        <div v-else v-for="item in project" :key="item._id">
+          <ClientOnly>
+            <Breadcrumb :links="breadcrumbLinks" />
+          </ClientOnly>
           <div class="columns">
             <div class="column is-8">
-              <el-page-header @click="$router.back()"> </el-page-header>
-              <h1>{{ item.title }}</h1>
+              <h1 class="h1-project">{{ item.title }}</h1>
             </div>
           </div>
 

@@ -38,7 +38,6 @@ const handleCurrentChange = (val) => {
   <div class="bd-docs-main">
     <div class="container">
       <div class="content">
-        <Breadcrumb />
         <nav-category />
         <div class="columns is-desktop is-multiline is-variable is-5">
           <div

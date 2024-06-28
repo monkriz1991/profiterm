@@ -1,8 +1,12 @@
 <script setup>
+import { useWindowSize } from "@vueuse/core";
 definePageMeta({
   title: "My index page",
   layout: "default",
 });
+
+const { width } = useWindowSize();
+const windowWidth = ref(width.value);
 const descGal = ref("");
 const { data: main, pending } = await useFetch(() => "/api/main/", {
   method: "POST",
@@ -10,6 +14,7 @@ const { data: main, pending } = await useFetch(() => "/api/main/", {
     "Content-Type": "application/json; charset=UTF-8",
   },
 });
+
 if (!main.value) {
   throw createError({ statusCode: 404, statusMessage: "Page Not Found" });
 } else {
@@ -17,22 +22,37 @@ if (!main.value) {
     descGal.value = main.value.one[item]["description"];
   }
 }
+
+watchEffect(() => {
+  windowWidth.value = width.value;
+});
+
+const videos = computed(() => {
+  return main.value.one.map((item) => {
+    const isDesktop = windowWidth.value >= 700;
+    return {
+      ...item,
+      videos: isDesktop ? item.video : item.video_mobail,
+      poster: isDesktop ? item.img[0].url : item.img[1].url,
+    };
+  });
+});
 </script>
 <template>
   <div class="bd-docs-main">
     <div class="cover-video-index">
-      <div class="video-index" v-for="item in main.one" :key="item">
+      <div class="video-index" v-for="item in videos" :key="item">
         <ClientOnly>
           <video
-            v-for="itemvideo in item.video"
+            v-for="itemvideo in item.videos"
             :key="itemvideo"
             class=""
-            muted=""
-            autoplay=""
-            loop=""
-            webkit-playsinline=""
-            playsinline=""
-            :poster="itemvideo.img"
+            muted
+            autoplay
+            loop
+            webkit-playsinline
+            playsinline
+            :poster="item.poster"
             type="video/webm"
             :src="itemvideo.url"
           >
@@ -42,7 +62,7 @@ if (!main.value) {
         <div class="container">
           <div class="video-block-inf">
             <strong>{{ item.title }}</strong>
-            <span>{{ item.preview }}</span>
+            <span v-html="item.preview"></span>
 
             <ModalForm />
           </div>
@@ -63,4 +83,3 @@ if (!main.value) {
     </div>
   </div>
 </template>
-<style></style>

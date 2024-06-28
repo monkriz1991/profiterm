@@ -39,10 +39,11 @@ const plyr = async () => {
             data-plyr-provider="youtube"
             :data-plyr-embed-id="objectVideo.yootube"
           ></div>
+          <div v-html="objectVideo.description" class="video-gal-desc"></div>
         </div>
-        <div class="dialog-footer">
+        <!-- <div class="dialog-footer">
           <button class="button" @click="visible = false">Cancel</button>
-        </div>
+        </div> -->
       </el-dialog>
     </ClientOnly>
   </div>

@@ -2,7 +2,43 @@
 export default defineNuxtConfig({
   app: {
     // pageTransition: { name: "page", mode: "out-in" },
+
     head: {
+      htmlAttrs: {
+        lang: "ru",
+      },
+      title:
+        "Проектирование, монтаж систем отопления, водоснабжения, канализации",
+      charset: "utf-8",
+      viewport: "width=device-width, initial-scale=1",
+      meta: [
+        {
+          hid: "robots",
+          name: "robots",
+          content: "noindex, nofollow",
+        },
+        // Viewport
+        {
+          hid: "viewport",
+          name: "viewport",
+          content: "width=device-width, initial-scale=1, maximum-scale=1",
+        },
+        // Phone Number Detection
+        {
+          hid: "format-detection",
+          name: "format-detection",
+          content: "telephone=no",
+        },
+        {
+          hid: "robots",
+          name: "robots",
+          content: "noindex, nofollow",
+        },
+        // Robots (noodp means no Open Directory Project information)
+        { hid: "robots", name: "robots", content: "noodp" },
+        // Color Scheme (assuming this is the intended meta tag)
+        { hid: "color-scheme", name: "color-scheme", content: "light only" },
+      ],
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.png" }],
     },
   },
@@ -44,6 +80,8 @@ export default defineNuxtConfig({
     "@pinia-plugin-persistedstate/nuxt",
     "@nuxt-modules/cache",
     "nuxt-icons",
+    "formidable",
+    "@nuxtjs/seo",
     "nuxt-icon",
     "@nuxt/image-edge",
     "@nuxt/image",
@@ -59,11 +97,27 @@ export default defineNuxtConfig({
       },
     ],
   ],
+  site: {
+    url: "https://profiterm.fastsite.pro",
+  },
+  sitemap: {
+    sitemaps: {
+      pages: {
+        sources: ["/api/sitemap/pages-urls"],
+      },
+      catalog: {
+        sources: ["/api/sitemap/catalog-urls"],
+      },
+      project: {
+        sources: ["/api/sitemap/project-urls"],
+      },
+    },
+  },
   nitro: {
     plugins: ["~/server/index.ts"],
     devProxy: {
       "/images": {
-        target: "https://disk.cryptoscool.ru/images/",
+        target: "https://diskprofiterm.fastsite.pro/images/",
         changeOrigin: true,
       },
     },

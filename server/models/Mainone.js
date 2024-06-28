@@ -5,6 +5,7 @@ const mainoneScema = new mongoose.Schema({
   title: { type: String, require: true, trim: true },
   img: { type: Array, default: [] },
   video: { type: Array, default: [] },
+  video_mobail: { type: Array, default: [] },
   preview: { type: String, require: true, trim: true },
   description: { type: String, require: true, trim: true },
 });

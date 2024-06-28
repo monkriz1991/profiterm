@@ -202,7 +202,6 @@ const drawerNull = () => {
   }
 
   delete form.value["_id"];
-  console.log(form.value);
 };
 
 const handleCurrentChange = (val) => {

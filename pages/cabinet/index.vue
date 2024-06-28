@@ -13,11 +13,14 @@ const buttonEdit = ref(false);
 const dell = ref({});
 const selectForm = ref("");
 const videofArr = ref([]);
+const videMobailArr = ref([]);
 const imgArr = ref([]);
 const fileUpload = ref([]);
 const fileUploadImg = ref([]);
 const fileUploadVidoe = ref([]);
+const fileUploadVidoeMobail = ref([]);
 const fileDelteVideo = ref([]);
+const fileDelteVideoMobail = ref([]);
 const fileDelteImg = ref([]);
 const fileDelte = ref([]);
 const activeNames = ref("");
@@ -27,6 +30,7 @@ const form = reactive({
     title: "",
     img: [],
     video: [],
+    video_mobail: [],
     description: "",
   },
   two: {
@@ -67,12 +71,16 @@ const { data: main, refresh } = await useFetch("/api/main/", {
 
 const addMain = async () => {
   const bodyFils = new FormData();
-  if (fileDelteImg.value && fileDelteVideo.value) {
-    fileDelte.value = fileDelteImg.value.concat(fileDelteVideo.value);
-  } else if (fileDelteImg.value) {
-    fileDelte.value = fileDelteImg.value;
-  } else if (fileDelteVideo.value) {
-    fileDelte.value = fileDelteVideo.value;
+  if (fileDelteImg.value) {
+    fileDelte.value = fileDelte.value.concat(fileDelteImg.value);
+  }
+
+  if (fileDelteVideo.value) {
+    fileDelte.value = fileDelte.value.concat(fileDelteVideo.value);
+  }
+
+  if (fileDelteVideoMobail.value) {
+    fileDelte.value = fileDelte.value.concat(fileDelteVideoMobail.value);
   }
   let updatemain = "api/update/updatemain";
   let formObj = {};
@@ -99,16 +107,21 @@ const addMain = async () => {
     body: { form: formObj },
     watch: false,
   });
-  if (fileUploadImg.value && fileUploadVidoe.value) {
-    fileUpload.value = fileUploadImg.value.concat(fileUploadVidoe.value);
-  } else if (fileUploadImg.value) {
-    fileUpload.value = fileUploadImg.value;
-  } else if (fileUploadVidoe.value) {
-    fileUpload.value = fileUploadVidoe.value;
+  if (fileUploadImg.value) {
+    fileUpload.value = fileUpload.value.concat(fileUploadImg.value);
+  }
+
+  if (fileUploadVidoe.value) {
+    fileUpload.value = fileUpload.value.concat(fileUploadVidoe.value);
+  }
+
+  if (fileUploadVidoeMobail.value) {
+    fileUpload.value = fileUpload.value.concat(fileUploadVidoeMobail.value);
   }
   for (let i = 0; i < fileUpload.value.length; i++) {
     bodyFils.append("file", fileUpload.value[i]);
   }
+  // console.log(fileUpload.value);
   if (fileUpload.value.length != 0) {
     await useFetch("/api/multiupload", {
       method: "POST",
@@ -126,25 +139,28 @@ const addMain = async () => {
       if (item == "description") {
         form[selectForm.value][item] = "<p></p>";
       }
-      if (item == "img" || item == "video") {
+      if (item == "img" || item == "video" || item == "video_mobail") {
         form[selectForm.value][item] = [];
       }
     }
     videofArr.value = [];
+    videMobailArr.value = [];
     imgArr.value = [];
     fileUpload.value = [];
     fileDelte.value = [];
   }
 };
-const drawerDel = async (id, img, video, type) => {
+const drawerDel = async (id, img, video, video_mobail, type) => {
   let arrFiles = [];
   let arrContact = [];
-  if (img && video) {
-    arrContact = img.concat(video);
-  } else if (img) {
-    arrContact = img;
-  } else if (video) {
-    arrContact = video;
+  if (img) {
+    arrContact = arrContact.concat(img);
+  }
+  if (video) {
+    arrContact = arrContact.concat(video);
+  }
+  if (video_mobail) {
+    arrContact = arrContact.concat(video_mobail);
   }
   for (let item in arrContact) {
     if (arrContact[item].name != undefined) {
@@ -179,10 +195,12 @@ const drawerIn = (array, type) => {
     form[array.type][item] = array[item];
   }
   videofArr.value = array.video;
+  videMobailArr.value = array.video_mobail;
   imgArr.value = array.img;
   selectForm.value = array.type;
   drawer.value = true;
   fileDelteVideo.value = [];
+  fileDelteVideoMobail.value = [];
   fileDelteImg.value = [];
   buttonEdit.value = false;
 };
@@ -192,6 +210,7 @@ const drawerNull = () => {
   buttonEdit.value = true;
   fileUploadImg.value = [];
   fileUploadVidoe.value = [];
+  fileUploadVidoeMobail.value = [];
   if (form[selectForm.value] != undefined) {
     for (let item in form[selectForm.value]) {
       form[selectForm.value][item] = "";
@@ -200,6 +219,7 @@ const drawerNull = () => {
     delete form[selectForm.value]["_id"];
     selectForm.value = "";
     videofArr.value = [];
+    videMobailArr.value = [];
     imgArr.value = [];
   }
 };
@@ -218,6 +238,21 @@ const addVideo = (fileData) => {
     url: `${config.public.filesPath}${modifiedFile.name}`,
   });
 };
+const addVideoMobail = (fileData) => {
+  const filename = fileData.name;
+  const randomPart = Math.random().toString(36).substring(7);
+  const newFilename = randomPart + filename;
+
+  const modifiedFile = new File([fileData], newFilename, {
+    type: fileData.type,
+  });
+
+  fileUploadVidoeMobail.value.push(modifiedFile);
+  form[selectForm.value].video_mobail.push({
+    name: modifiedFile.name,
+    url: `${config.public.filesPath}${modifiedFile.name}`,
+  });
+};
 
 const addImg = (fileData) => {
   const filename = fileData.name;
@@ -227,7 +262,6 @@ const addImg = (fileData) => {
   const modifiedFile = new File([fileData], newFilename, {
     type: fileData.type,
   });
-  console.log(form[selectForm.value].img);
   fileUploadImg.value.push(modifiedFile);
   form[selectForm.value].img.push({
     name: modifiedFile.name,
@@ -249,6 +283,14 @@ const beforeRemoveVidep = (file, fileList) => {
   form[selectForm.value].video = videofArr.value;
   if (file.size != undefined && fileList.length == 1) {
     fileDelteVideo.value = [];
+  }
+};
+const beforeRemoveVidepMobail = (file, fileList) => {
+  form[selectForm.value].video_mobail = [];
+  fileDelteVideoMobail.value.push(file);
+  form[selectForm.value].video_mobail = videMobailArr.value;
+  if (file.size != undefined && fileList.length == 1) {
+    fileDelteVideoMobail.value = [];
   }
 };
 
@@ -312,6 +354,7 @@ const handleCloseDrawer = () => {
                                 item._id,
                                 item.img,
                                 item.video,
+                                item.video_mobail,
                                 item.type
                               )
                             "
@@ -363,6 +406,7 @@ const handleCloseDrawer = () => {
                             index != 'type' &&
                             index != 'color' &&
                             index != 'video' &&
+                            index != 'video_mobail' &&
                             index != 'img' &&
                             index != 'description'
                           "
@@ -411,6 +455,26 @@ const handleCloseDrawer = () => {
                             </div>
                           </el-upload>
                         </div>
+                        <div class="field" v-if="index == 'video_mobail'">
+                          <el-upload
+                            class="upload-demo"
+                            :before-upload="addVideoMobail"
+                            :before-remove="beforeRemoveVidepMobail"
+                            drag
+                            action="#"
+                            multiple
+                            :limit="1"
+                            v-model:file-list="videMobailArr"
+                          >
+                            <el-icon class="el-icon--upload"
+                              ><upload-filled
+                            /></el-icon>
+                            <div class="el-upload__text">
+                              Drop Video Mobail here or
+                              <em>click to upload </em>
+                            </div>
+                          </el-upload>
+                        </div>
                         <div class="field" v-if="index == 'img'">
                           <el-upload
                             class="upload-demo"
@@ -420,7 +484,7 @@ const handleCloseDrawer = () => {
                             list-type="picture"
                             action="#"
                             multiple
-                            :limit="1"
+                            :limit="2"
                             v-model:file-list="imgArr"
                           >
                             <el-icon class="el-icon--upload"

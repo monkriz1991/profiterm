@@ -18,7 +18,13 @@ export default defineEventHandler(async (event, response) => {
       to: config.CONTACTMAIL,
       subject: body.name,
       text: body.info,
-      html: body.description,
+      html: `
+      / Имя / ${body.name} <br>
+      / Телефон / ${body.phone} <br>
+      / Email / ${body.email} <br>
+      / Адрес объекта / ${body.info} <br>
+      / Комментарий / ${body.description} <br>
+    `,
     };
     const mailClient = {
       form: `"${body.name}" <${config.CONTACTMAIL}>`,
@@ -28,7 +34,7 @@ export default defineEventHandler(async (event, response) => {
       html: body.description,
     };
     await transporter.sendMail(mail);
-    await transporter.sendMail(mailClient);
+    //await transporter.sendMail(mailClient);
   } catch (event) {
     sendError(
       event,

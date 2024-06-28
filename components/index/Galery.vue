@@ -78,7 +78,7 @@ const iconSvg = ref(`
   <div>
     <div class="gall-slider">
       <div class="columns is-multiline">
-        <div class="column is-12">
+        <div class="column is-12 m-none">
           <h4 class="mt-6 mb-6">
             <icon name="solar:gallery-wide-broken" /> Галерея
           </h4>
@@ -88,7 +88,12 @@ const iconSvg = ref(`
             <div v-html="objectDesc"></div>
           </div>
         </div>
-        <div class="column is-6">
+        <div class="column is-12 m-block">
+          <h4 class="mt-6 mb-6">
+            <icon name="solar:gallery-wide-broken" /> Галерея
+          </h4>
+        </div>
+        <div class="column is-6 p-0">
           <div class="slider">
             <div class="slider-one">
               <ClientOnly>
@@ -103,8 +108,8 @@ const iconSvg = ref(`
                   ]"
                   :slides-per-view="1"
                   :navigation="{
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
+                    nextEl: '.swiper-button-prev',
+                    prevEl: '.swiper-button-next',
                   }"
                   :loop="true"
                 >
@@ -136,11 +141,11 @@ const iconSvg = ref(`
             <div class="slider-one-navigation">
               <div class="swiper-button-next">
                 <div v-html="iconSvg" class="slider-one-svg"></div>
-                <span>Больше</span>
+                <span>Раньше</span>
               </div>
 
               <div class="swiper-button-prev">
-                <span>Раньше</span>
+                <span>Больше</span>
                 <div v-html="iconSvg" class="slider-one-svg"></div>
               </div>
             </div>
