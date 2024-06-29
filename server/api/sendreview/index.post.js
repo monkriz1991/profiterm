@@ -15,23 +15,41 @@ const transporter = nodemailer.createTransport({
 
 export default defineEventHandler(async (event) => {
   try {
+    console.log("Starting to parse form...");
     const form = formidable({ multiples: true });
 
+    const body = await readBody(event);
+
+    // Используем node.req вместо event.req
     const { fields, files } = await new Promise((resolve, reject) => {
-      form.parse(event.req, (err, fields, files) => {
-        if (err) reject(err);
-        else resolve({ fields, files });
+      form.parse(event.node.req, (err, fields, files) => {
+        if (err) {
+          console.error("Error parsing form:", err);
+          reject(err);
+        } else {
+          console.log("Form parsed successfully:", fields, files);
+          resolve({ fields, files });
+        }
       });
     });
-    console.log(fields);
-    // Extract subject and text from arrays if they are arrays
-    const subject = Array.isArray(fields.name) ? fields.name[0] : fields.name;
-    const text = Array.isArray(fields.info) ? fields.info[0] : fields.info;
+
+    // Извлечение и проверка полей формы
+    const name = Array.isArray(fields.name) ? fields.name[0] : fields.name;
+    const email = Array.isArray(fields.email) ? fields.email[0] : fields.email;
+    const phone = Array.isArray(fields.phone) ? fields.phone[0] : fields.phone;
+    const description = Array.isArray(fields.description)
+      ? fields.description[0]
+      : fields.description;
+
+    if (!name || !email || !phone || !description) {
+      throw new Error("Missing required form fields");
+    }
 
     let attachments = [];
 
     if (files.file) {
-      const filearr = files.file;
+      console.log("Processing attachments...");
+      const filearr = Array.isArray(files.file) ? files.file : [files.file];
       const file = filearr[0];
       if (file && file.filepath) {
         // Чтение файла синхронно
@@ -46,24 +64,29 @@ export default defineEventHandler(async (event) => {
           filename: file.originalFilename,
           content: fileContent, // Используем содержимое файла (Buffer)
         });
+        console.log("Attachment processed successfully");
       }
     }
 
     const mail = {
-      from: `"${fields.name}" <${fields.email}>`,
+      from: `"${name}" <${email}>`,
       to: config.CONTACTMAIL,
-      subject: subject,
-      text: text,
+      subject: name,
+      text: description,
       html: `
-        / Имя / ${fields.name} <br>
-        / Телефон / ${fields.phone} <br>
-        / Email / ${fields.email} <br>
-        / Текст отзыва / ${fields.description} <br>
+        / Имя / ${name} <br>
+        / Телефон / ${phone} <br>
+        / Email / ${email} <br>
+        / Текст отзыва / ${description} <br>
       `,
       attachments,
     };
+
+    console.log("Sending mail...");
     await transporter.sendMail(mail);
+    console.log("Mail sent successfully");
   } catch (error) {
+    console.error("Error occurred:", error.message);
     sendError(
       event,
       createError({

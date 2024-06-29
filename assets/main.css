@@ -197,7 +197,7 @@ button {
   color: #fff !important;
   box-shadow: rgba(8, 27, 75, 0.35) 0px 6px 20px -6px;
   padding: 7px 12px;
-  border-radius: 5px !important;
+  border-radius: 8px !important;
   font-weight: 400;
   height: auto;
   font-size: 16px !important;
@@ -217,6 +217,9 @@ button {
   font-size: 14px !important;
   border: 1px solid #142637 !important;
   margin: 10px 0 !important;
+  padding: 10px 14px !important;
+  border-radius: 8px !important;
+  height: auto !important;
 }
 .cat-b:hover {
   background: #142637 !important;
@@ -2041,7 +2044,9 @@ button {
     font-size: 16px;
   }
   .video-index .index-b-modal {
-    font-size: 14px;
+    font-size: 14px !important;
+    padding: 7px 12px !important;
+    margin: 0 0 0px !important;
   }
   .stage-index-desc {
     font-size: 14px;

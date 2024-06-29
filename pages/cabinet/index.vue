@@ -32,6 +32,7 @@ const form = reactive({
     video: [],
     video_mobail: [],
     description: "",
+    preview: "",
   },
   two: {
     type: "",

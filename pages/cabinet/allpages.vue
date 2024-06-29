@@ -20,20 +20,29 @@ const form = ref({
 });
 
 const drawerIn = (item) => {
-  console.log(item);
-  //   form.value.img = [];
-  //   fileUpload.value = [];
-  //if (item.img.length) {
-  form.value.img = item.img;
-  imfArr.value = item.img;
-  //}
-  (form.value._id = item._id),
-    (form.value.installment = item.installment),
-    (form.value.about = item.about),
-    (form.value.contacts = item.contacts),
-    (form.value.email = item.email),
-    (form.value.phone = item.phone),
-    (form.value.dopphone = item.dopphone);
+  if (!item) {
+    console.error("Item is undefined or null");
+    return;
+  }
+
+  // Reset form and file upload arrays
+  form.value.img = [];
+  fileUpload.value = [];
+  imfArr.value = [];
+
+  // Check if item has img property and it is an array
+  if (item.img && Array.isArray(item.img)) {
+    form.value.img = item.img;
+    imfArr.value = item.img;
+  }
+
+  form.value._id = item._id || "";
+  form.value.installment = item.installment || "";
+  form.value.about = item.about || "";
+  form.value.contacts = item.contacts || "";
+  form.value.email = item.email || "";
+  form.value.phone = item.phone || "";
+  form.value.dopphone = item.dopphone || "";
 };
 
 const {
@@ -47,7 +56,7 @@ const {
   },
 });
 
-if (project.value) {
+if (project.value && project.value.length > 0) {
   drawerIn(project.value[0]);
 }
 
