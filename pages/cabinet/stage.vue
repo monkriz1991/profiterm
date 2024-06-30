@@ -201,7 +201,6 @@ const handleCloseDrawer = () => {
                 <div class="drawer-cat-left">
                   <div class="drawer-cat-img">
                     <NuxtImg
-                      provider="aliyun"
                       v-if="item.img.length"
                       :src="item.img[0].url"
                       :alt="item.img[0].name"

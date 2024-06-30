@@ -97,7 +97,7 @@ export default defineNuxtConfig({
     ],
   ],
   site: {
-    url: "https://profiterm.fastsite.pro",
+    url: "https://term.fastsite.pro",
   },
   sitemap: {
     sitemaps: {
@@ -116,7 +116,7 @@ export default defineNuxtConfig({
     plugins: ["~/server/index.ts"],
     devProxy: {
       "/images": {
-        target: "https://diskprofiterm.fastsite.pro/images/",
+        target: "https://disk.fastsite.pro/images/",
         changeOrigin: true,
       },
     },
@@ -129,7 +129,7 @@ export default defineNuxtConfig({
   },
   image: {
     aliyun: {
-      baseURL: "https://diskprofiterm.fastsite.pro/images/",
+      baseURL: "https://disk.fastsite.pro/images/",
     },
   },
   // devtools: { enabled: true },
