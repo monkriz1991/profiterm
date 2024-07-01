@@ -33,7 +33,7 @@ const iconSvg =
   <div>
     <div class="columns is-multiline diagonal">
       <div class="column is-12">
-        <h4>
+        <h4 class="stage-h4">
           Работать с нами просто
           <div v-html="iconSvg" class="work-svg"></div>
         </h4>

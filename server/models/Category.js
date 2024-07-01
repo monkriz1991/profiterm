@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 
 const categoryScema = new mongoose.Schema({
   id_category: { type: Number, require: true, trim: true },
+  seo_title: { type: String, require: true, trim: true },
+  seo_description: { type: String, require: true, trim: true },
   name: { type: String, require: true, trim: true },
   kirilica: { type: String, require: true, trim: true },
   img: { type: String, require: true, trim: true },

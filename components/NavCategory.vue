@@ -2,6 +2,8 @@
 const route = useRoute();
 const h1Category = ref("Выполненные проекты");
 const breadcrumbLinks = ref([]);
+const seoTitle = ref("");
+const seoDescription = ref("");
 
 // Загрузка данных о категории
 const category = await $fetch("/api/category/", {
@@ -15,8 +17,17 @@ if (route.params.id && category && category.length > 0) {
   const foundCategory = category.find(
     (cat) => cat.kirilica === route.params.id
   );
+
   if (foundCategory) {
     h1Category.value = foundCategory.name;
+    seoTitle.value = foundCategory.seo_title;
+    seoDescription.value = foundCategory.seo_description;
+  }
+} else {
+  const foundCategory = category.find((cat) => cat.kirilica === "");
+  if (foundCategory) {
+    seoTitle.value = foundCategory.seo_title;
+    seoDescription.value = foundCategory.seo_description;
   }
 }
 
@@ -28,6 +39,10 @@ watchEffect(() => {
       { label: h1Category.value, to: toPath },
     ];
   }
+});
+useSeoMeta({
+  title: seoTitle.value,
+  description: seoDescription.value,
 });
 </script>
 <template>

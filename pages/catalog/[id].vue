@@ -3,7 +3,7 @@ const route = useRoute();
 const router = useRouter();
 const sortPage = ref(0);
 const currentPage = ref(1);
-const pageSize = ref(4);
+const pageSize = ref(6);
 
 if (router.currentRoute.value.query.page != undefined) {
   currentPage.value = parseInt(router.currentRoute.value.query.page);
@@ -78,6 +78,15 @@ const handleCurrentChange = (val) => {
           @current-change="handleCurrentChange"
         />
       </div>
+      <div
+        v-if="
+          project?.result &&
+          project.result.length > 0 &&
+          project.result[0].description
+        "
+        class="dscription-cat"
+        v-html="project.result[0].description"
+      ></div>
     </div>
   </div>
 </template>

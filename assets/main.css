@@ -801,7 +801,7 @@ button {
   /* width: 100% !important; */
   border-radius: 12px;
   margin: 0 0 0px;
-  height: 120px;
+  height: 130px;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -1683,18 +1683,35 @@ button {
 .opacitynull {
   opacity: 0 !important;
 }
+.dscription-cat {
+  float: left;
+  width: 100%;
+  margin: 100px 0 20px;
+  line-height: 1.6;
+}
 @media (max-width: 1023px) {
+  .button-back {
+  }
+  .button-back .icon {
+    margin-right: 3px !important;
+    height: 20px !important;
+    width: 20px !important;
+  }
+  .dscription-cat {
+    margin: 60px 0 0px;
+  }
   .button-back > strong {
     margin: 0 0 0 0px;
+    font-size: 13px;
   }
   .button-back > span {
-    margin: 0 0 0 5px;
+    margin: 0 0 0 3px;
   }
   .button-back {
-    margin: 0 5px 0 0;
+    margin: 0 3px 0 0;
   }
   .breadcrumb ul li a {
-    padding: 0 0.55em;
+    padding: 0 0.25em;
   }
   .cat-b {
     font-size: 12px !important;
@@ -1705,7 +1722,7 @@ button {
     font-size: 25px;
   }
   .m-cat-nav .column {
-    padding: 0 !important;
+    /* padding: 0 !important; */
   }
   .navbar-start {
     margin: 0 0 0 0px;
@@ -1728,6 +1745,10 @@ button {
     height: 100%;
     min-height: 100%;
     display: inline-table;
+  }
+  .rev-dialog .swiper {
+    margin: 0 0 30px;
+    width: 81vw;
   }
   .video-gal .el-dialog__title {
     font-size: 19px;
@@ -1864,7 +1885,10 @@ button {
     margin: 0px 0 60px;
   }
   .index-content h4.rev-h4 {
-    margin: 20px 0 0 0 !important;
+    margin: 40px 0 0 0 !important;
+  }
+  .index-content h4.stage-h4 {
+    margin: 0px 0 10px 0 !important;
   }
   .video-index {
     margin: 0 0 55px;
@@ -1919,14 +1943,14 @@ button {
     display: none !important;
   }
   .m-cat-nav {
-    flex-wrap: nowrap;
-    overflow-x: auto;
+    /* flex-wrap: nowrap;
+    overflow-x: auto; */
   }
   .m-cat-nav > div {
-    display: flex;
+    /* display: flex;
     flex-direction: row;
     padding: 0 0 10px !important;
-    margin: 0 !important;
+    margin: 0 !important; */
   }
   .breadcrumb {
     margin: 60px 0 20px;
@@ -2006,7 +2030,7 @@ button {
   .publick-review {
     font-size: 13px;
     line-height: 1.2;
-    margin: 10px 0 0;
+    margin: 15px 0 5px;
     display: block;
   }
   .nav-review {
@@ -2034,7 +2058,7 @@ button {
     height: 220px !important;
   }
   .video-slide .swiper-slide {
-    height: 140px;
+    height: 160px;
   }
   .nav-cat {
     padding: 0px 0 0 10px;

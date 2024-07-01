@@ -22,6 +22,8 @@ const fileDelteImg = ref([]);
 const fileDelte = ref([]);
 const form = ref({
   category: "",
+  seo_description: "",
+  seo_title: "",
   title: "",
   preview: "",
   kirilica: "",
@@ -94,6 +96,8 @@ const addProject = async () => {
       title: "",
       preview: "",
       kirilica: "",
+      seo_description: "",
+      seo_title: "",
       img: [],
       galery: [],
       video: "",
@@ -166,6 +170,8 @@ const drawerIn = (item) => {
     (form.value.preview = item.preview),
     (form.value.video = item.video),
     (form.value.info = item.info),
+    (form.value.seo_description = item.seo_description),
+    (form.value.seo_title = item.seo_title),
     (form.value.description = item.description),
     (drawer.value = true);
 
@@ -352,6 +358,26 @@ const handleCloseDrawer = () => {
                           :value="item.kirilica"
                         />
                       </el-select>
+                    </div>
+                    <div class="field">
+                      <div class="control">
+                        <input
+                          class="input"
+                          type="text"
+                          placeholder="seo_title"
+                          v-model="form.seo_title"
+                        />
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div class="control">
+                        <input
+                          class="input"
+                          type="text"
+                          placeholder="seo_description"
+                          v-model="form.seo_description"
+                        />
+                      </div>
                     </div>
                     <div class="field">
                       <div class="control">

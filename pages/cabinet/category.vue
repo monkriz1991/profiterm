@@ -15,6 +15,8 @@ const form = ref({
   id_category: "",
   name: "",
   kirilica: "",
+  seo_description: "",
+  seo_title: "",
   img: "",
   description: "",
 });
@@ -65,6 +67,8 @@ const drawerIn = (item) => {
     (form.value.name = item.name),
     (form.value.kirilica = item.kirilica),
     (form.value.img = item.img),
+    (form.value.seo_description = item.seo_description),
+    (form.value.seo_title = item.seo_title),
     (form.value.description = item.description),
     (drawer.value = true);
   buttonEdit.value = false;
@@ -164,6 +168,28 @@ const handleCurrentChange = (val) => {
                         />
                       </div>
                     </div>
+
+                    <div class="field">
+                      <div class="control">
+                        <input
+                          class="input"
+                          type="text"
+                          placeholder="seo_title"
+                          v-model="form.seo_title"
+                        />
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div class="control">
+                        <input
+                          class="input"
+                          type="text"
+                          placeholder="seo_description"
+                          v-model="form.seo_description"
+                        />
+                      </div>
+                    </div>
+
                     <div class="field">
                       <div class="control">
                         <input

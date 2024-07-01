@@ -3,18 +3,24 @@ const route = useRoute();
 const router = useRouter();
 const visiblePlyr = ref(false);
 const breadcrumbLinks = ref([]);
+const seoTitle = ref("");
+const seoDescription = ref("");
+const error = ref(null);
 
-const { data: project, error } = useFetch("/api/projectitem/", {
+const project = await $fetch("/api/projectitem/", {
   method: "POST",
   headers: {
     "Content-Type": "application/json; charset=UTF-8",
   },
-  body: route.params.id, // Предполагая, что API принимает JSON-объект с идентификатором
+  body: route.params.id,
 });
 
+seoTitle.value = project[0]?.seo_title;
+seoDescription.value = project[0]?.seo_description;
+
 watchEffect(() => {
-  if (project.value && project.value.length > 0) {
-    const item = project.value[0];
+  if (project && project.length > 0) {
+    const item = project[0];
     breadcrumbLinks.value = [
       { label: "Главная", to: "/" },
       { label: "Раздел", to: `/catalog/${item.category}` },
@@ -27,6 +33,11 @@ onMounted(async () => {
   setTimeout(() => {
     visiblePlyr.value = true;
   }, 1000); // Устанавливайте нужную вам задержку (в миллисекундах)
+});
+
+useSeoMeta({
+  title: seoTitle.value,
+  description: seoDescription.value,
 });
 </script>
 
