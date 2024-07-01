@@ -70,6 +70,8 @@ const visibleModalClose = (item) => {
               :key="idx"
               :src="img.url"
               :alt="slide.title"
+              sizes="sm:300px md:300px lg:300px"
+              preload
               loading="lazy"
               format="wepb"
             />

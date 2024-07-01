@@ -50,7 +50,7 @@ const { data: system } = await useFetch("/api/system/", {
                 :alt="taburl.title"
               />
             </div> -->
-                <div v-html="tab.description"></div
+                <div v-html="tab.description" class="mobail-tabs"></div
               ></el-tab-pane>
             </el-tabs>
           </ClientOnly>

@@ -52,12 +52,16 @@ onMounted(async () => {
               <div class="columns is-multiline">
                 <div class="column is-6">
                   <div class="project-galeery">
-                    <img
+                    <NuxtImg
                       v-for="imgurl in item.img"
                       :key="imgurl"
                       :src="imgurl.url"
+                      :alt="`Фото проекта  ${item.name}`"
                       class="view-box"
+                      sizes="sm:400px md:400px lg:400px"
                       data-fancybox="galery galery"
+                      preload
+                      loading="lazy"
                     />
                   </div>
                 </div>
@@ -69,10 +73,14 @@ onMounted(async () => {
                       class="project-galeery-mini"
                       v-show="idx < 4"
                     >
-                      <img
+                      <NuxtImg
                         :src="imgurl.url"
                         class="view-box"
                         data-fancybox="galery galery"
+                        :alt="`Фото проекта  ${item.name}`"
+                        sizes="sm:300px md:300px lg:300px"
+                        preload
+                        loading="lazy"
                       />
                     </div>
                   </div>

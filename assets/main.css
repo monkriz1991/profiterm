@@ -499,7 +499,7 @@ button {
   width: 100%;
   -o-object-fit: cover;
   object-fit: cover;
-  border-radius: 18px;
+  border-radius: 12px;
   box-shadow: 0px 0px 26px -14px rgb(0 0 0 / 66%);
 }
 .catalog-block-desc {
@@ -653,14 +653,14 @@ button {
   padding: 130px 50px 60px;
   float: right;
   width: 31%;
-  border-radius: 17px;
+  border-radius: 12px;
   height: 340px;
 }
 .slider-one .swiper-slide img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 6px;
+  border-radius: 12px;
   cursor: pointer;
 }
 .gall-slider {
@@ -799,7 +799,7 @@ button {
   padding: 0px 0px 0px 0;
   float: left;
   /* width: 100% !important; */
-  border-radius: 6px;
+  border-radius: 12px;
   margin: 0 0 0px;
   height: 120px;
   display: flex;
@@ -810,7 +810,7 @@ button {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 6px;
+  border-radius: 12px;
 }
 .video-slide-bg {
   position: absolute;
@@ -1187,7 +1187,7 @@ button {
   max-width: 100%;
   width: 100%;
   height: 360px;
-  border-radius: 18px;
+  border-radius: 12px;
   overflow: hidden;
   object-fit: cover;
   margin: 0 0 40px;
@@ -1336,7 +1336,7 @@ button {
   height: 100%;
   -o-object-fit: cover;
   object-fit: cover;
-  border-radius: 17px;
+  border-radius: 12px;
   cursor: pointer;
 }
 .index-rew-block-desc {
@@ -1456,7 +1456,7 @@ button {
   height: 100%;
   -o-object-fit: cover;
   object-fit: cover;
-  border-radius: 17px;
+  border-radius: 12px;
   cursor: pointer;
 }
 .project-video {
@@ -1680,8 +1680,22 @@ button {
 .dropdown-header a {
   color: #000;
 }
-
+.opacitynull {
+  opacity: 0 !important;
+}
 @media (max-width: 1023px) {
+  .button-back > strong {
+    margin: 0 0 0 0px;
+  }
+  .button-back > span {
+    margin: 0 0 0 5px;
+  }
+  .button-back {
+    margin: 0 5px 0 0;
+  }
+  .breadcrumb ul li a {
+    padding: 0 0.55em;
+  }
   .cat-b {
     font-size: 12px !important;
     margin: 0px 0 20px !important;
@@ -1713,6 +1727,7 @@ button {
     bottom: 0;
     height: 100%;
     min-height: 100%;
+    display: inline-table;
   }
   .video-gal .el-dialog__title {
     font-size: 19px;
@@ -1753,7 +1768,7 @@ button {
     padding: 0px 20px 3px;
     display: inline-block;
     position: relative;
-    top: -2px;
+    top: 0px;
   }
   .navbar-end {
     display: none;
@@ -1843,10 +1858,13 @@ button {
     font-size: 16px;
   }
   .system-tabs {
-    margin: 20px 0 0px;
+    margin: 20px 0 40px;
   }
   .stage-index {
     margin: 0px 0 60px;
+  }
+  .index-content h4.rev-h4 {
+    margin: 20px 0 0 0 !important;
   }
   .video-index {
     margin: 0 0 55px;
@@ -1856,18 +1874,21 @@ button {
   }
   .index-rew-block-img {
     float: left;
-    width: 140px;
-    height: 180px;
+    width: 150px;
+    height: 210px;
   }
   .index-rew-block-desc {
-    margin: 0 0 0 160px;
+    margin: 0 0 0 165px;
     padding: 0 0px 0 0;
-    height: 180px;
+    height: 210px;
   }
   .index-rew-block-desc > strong {
     font-size: 15px;
     margin: 0 0 5px;
   }
+  /* .el-overlay-dialog{
+    background: #fff;
+  } */
   .index-rew-block-desc > div {
     font-size: 13px;
     height: 83px;
@@ -1886,7 +1907,7 @@ button {
     font-size: 12px !important;
   }
   .reviews-slide .swiper-slide {
-    height: 200px;
+    height: 220px;
   }
   .index-gall-desc {
     font-size: 15px;
@@ -1925,7 +1946,7 @@ button {
     margin: 0 0 0px;
   }
   .video-slide {
-    margin: 0 0 50px;
+    margin: 0 0 60px;
   }
   .gall-slider {
     margin: 0px 0 70px;
@@ -2013,7 +2034,7 @@ button {
     height: 220px !important;
   }
   .video-slide .swiper-slide {
-    height: 130px;
+    height: 140px;
   }
   .nav-cat {
     padding: 0px 0 0 10px;
@@ -2026,6 +2047,11 @@ button {
   }
   .el-collapse-item:last-child .el-collapse-item__header {
     /* border-bottom: none; */
+  }
+  .mobail-tabs {
+    width: 98vw;
+    transform: translateX(-45vw);
+    padding: 0 15px;
   }
   .m-cat-nav {
     margin: 0px 0 20px;

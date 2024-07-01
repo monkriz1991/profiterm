@@ -66,11 +66,18 @@ const fetchProjectData = async (projectId) => {
     galery.value = project.value[0].galery;
   }
 };
+const currentIndex = ref(0);
+
+const onSlideChange = (swiper) => {
+  currentIndex.value = swiper.realIndex;
+};
 </script>
 <template>
   <div class="columns is-multiline">
     <div class="column is-12">
-      <h4><icon name="solar:chat-line-broken" />Отзывы наших клиентов</h4>
+      <h4 class="rev-h4">
+        <icon name="solar:chat-line-broken" />Отзывы наших клиентов
+      </h4>
       <span class="publick-review"
         >Если Вы были нашим клиентом, отправьте свой отзыв, мы его обязательно
         опубликуем.</span
@@ -103,6 +110,7 @@ const fetchProjectData = async (projectId) => {
               slidesPerView: 2,
             },
           }"
+          @slideChange="onSlideChange"
         >
           <SwiperSlide v-for="(slide, idx) in reviews" :key="idx">
             <div class="index-rew-block">
@@ -112,8 +120,10 @@ const fetchProjectData = async (projectId) => {
                   :key="idx"
                   :src="slideurl.url"
                   :alt="slide.title"
+                  sizes="sm:350px md:350px lg:350px"
+                  preload
                   loading="lazy"
-                  format="webp"
+                  format="wepb"
                 />
               </div>
               <div class="index-rew-block-desc">
@@ -207,7 +217,10 @@ const fetchProjectData = async (projectId) => {
           </SwiperSlide>
         </Swiper>
         <div class="slider-one-navigation nav-review">
-          <div class="swiper-button-next">
+          <div
+            class="swiper-button-next"
+            :class="{ opacitynull: currentIndex === 0 }"
+          >
             <div v-html="iconSvg" class="slider-one-svg"></div>
             <span>Предыдущие</span>
           </div>

@@ -45,6 +45,7 @@ const allImages = computed(() => {
 const chunkedImages = computed(() => {
   return chunkArraySpecial(allImages.value);
 });
+
 const iconSvg = ref(`
 <svg
   version="1.0"
@@ -72,8 +73,13 @@ const iconSvg = ref(`
   </g>
 </svg>
 `);
-</script>
 
+const currentIndex = ref(0);
+
+const onSlideChange = (swiper) => {
+  currentIndex.value = swiper.realIndex;
+};
+</script>
 <template>
   <div>
     <div class="gall-slider">
@@ -111,7 +117,8 @@ const iconSvg = ref(`
                     nextEl: '.swiper-button-prev',
                     prevEl: '.swiper-button-next',
                   }"
-                  :loop="true"
+                  :loop="false"
+                  @slideChange="onSlideChange"
                 >
                   <SwiperSlide
                     v-for="(slide, index) in chunkedImages"
@@ -121,6 +128,7 @@ const iconSvg = ref(`
                       v-for="(img, idx) in slide"
                       :key="idx"
                       class="image-grid"
+                      :alt="`Фото галерея  ${index}`"
                       :class="{
                         [`image-${idx + 1}`]: index !== 0,
                         [`image-${idx + 1}-spechal`]: index === 0,
@@ -129,9 +137,11 @@ const iconSvg = ref(`
                       <NuxtImg
                         :src="img.url"
                         :alt="`Image ${index * 6 + idx + 1}`"
-                        format="webp"
                         data-fancybox="galery project"
+                        sizes="sm:300px md:300px lg:300px"
+                        preload
                         loading="lazy"
+                        format="wepb"
                       />
                     </div>
                   </SwiperSlide>
@@ -139,7 +149,10 @@ const iconSvg = ref(`
               </ClientOnly>
             </div>
             <div class="slider-one-navigation">
-              <div class="swiper-button-next">
+              <div
+                class="swiper-button-next"
+                :class="{ opacitynull: currentIndex === 0 }"
+              >
                 <div v-html="iconSvg" class="slider-one-svg"></div>
                 <span>Раньше</span>
               </div>
