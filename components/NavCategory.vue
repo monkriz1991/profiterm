@@ -4,7 +4,8 @@ const h1Category = ref("Выполненные проекты");
 const breadcrumbLinks = ref([]);
 const seoTitle = ref("");
 const seoDescription = ref("");
-
+const description = ref("");
+const emit = defineEmits(["catDescription"]);
 // Загрузка данных о категории
 const category = await $fetch("/api/category/", {
   method: "POST",
@@ -22,13 +23,16 @@ if (route.params.id && category && category.length > 0) {
     h1Category.value = foundCategory.name;
     seoTitle.value = foundCategory.seo_title;
     seoDescription.value = foundCategory.seo_description;
+    description.value = foundCategory.description;
   }
 } else {
   const foundCategory = category.find((cat) => cat.kirilica === "");
   if (foundCategory) {
     seoTitle.value = foundCategory.seo_title;
     seoDescription.value = foundCategory.seo_description;
+    description.value = foundCategory.description;
   }
+  emit("catDescription", description.value);
 }
 
 watchEffect(() => {

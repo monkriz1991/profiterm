@@ -1717,6 +1717,13 @@ button {
     font-size: 12px !important;
     margin: 0px 0 20px !important;
   }
+  .desck-rev-user {
+    transform: translateX(-46vw);
+    width: 90vw;
+    float: left;
+    /* width: 100%; */
+    margin: 90px 0 0 0;
+  }
   .h1-project {
     margin: 10px 0 0 0;
     font-size: 25px;
@@ -1999,8 +2006,9 @@ button {
     margin: 0 0 0 160px;
   }
   .item-rew-block-desc > strong {
-    font-size: 15px;
-    margin: 0 0 10px;
+    font-size: 16px;
+    margin: 15px 0 0px;
+    height: 60px;
   }
   .item-rew-block-desc > div {
     font-size: 14px;

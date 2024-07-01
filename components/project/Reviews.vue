@@ -25,7 +25,7 @@ const { data: reviews, error } = await useFetch("/api/reviews/", {
         </div>
         <div class="item-rew-block-desc">
           <strong>{{ item.name }}</strong>
-          <div v-html="item.description"></div>
+          <div v-html="item.description" class="desck-rev-user"></div>
         </div>
       </div>
     </div>

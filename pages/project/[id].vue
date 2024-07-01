@@ -98,7 +98,7 @@ useSeoMeta({
                 </div>
               </div>
             </div>
-            <div class="project-video">
+            <div v-if="item.video" class="project-video">
               <ProjectVideo
                 v-model:VideoObject="item.video"
                 v-model:visiblePlyr="visiblePlyr"
