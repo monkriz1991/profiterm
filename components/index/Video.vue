@@ -50,7 +50,7 @@ const visibleModalClose = (item) => {
           }"
           :breakpoints="{
             300: {
-              slidesPerView: 1.5,
+              slidesPerView: 1.3,
             },
             680: {
               slidesPerView: 3,

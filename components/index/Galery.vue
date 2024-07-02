@@ -76,7 +76,7 @@ const iconSvg = ref(`
 
 const currentIndex = ref(0);
 
-const onSlideChange = (swiper) => {
+const onSlideChangeGal = (swiper) => {
   currentIndex.value = swiper.realIndex;
 };
 </script>
@@ -114,11 +114,11 @@ const onSlideChange = (swiper) => {
                   ]"
                   :slides-per-view="1"
                   :navigation="{
-                    nextEl: '.swiper-button-prev',
-                    prevEl: '.swiper-button-next',
+                    nextEl: '.swiper-button-prev-gal',
+                    prevEl: '.swiper-button-next-gal',
                   }"
                   :loop="false"
-                  @slideChange="onSlideChange"
+                  @slideChange="onSlideChangeGal"
                 >
                   <SwiperSlide
                     v-for="(slide, index) in chunkedImages"
@@ -148,16 +148,16 @@ const onSlideChange = (swiper) => {
                 </Swiper>
               </ClientOnly>
             </div>
-            <div class="slider-one-navigation">
+            <div class="slider-one-navigation sl-m">
               <div
-                class="swiper-button-next"
+                class="swiper-button-next-gal"
                 :class="{ opacitynull: currentIndex === 0 }"
               >
                 <div v-html="iconSvg" class="slider-one-svg"></div>
                 <span>Раньше</span>
               </div>
 
-              <div class="swiper-button-prev">
+              <div class="swiper-button-prev-gal">
                 <span>Больше</span>
                 <div v-html="iconSvg" class="slider-one-svg"></div>
               </div>

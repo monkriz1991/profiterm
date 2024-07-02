@@ -32,9 +32,13 @@ const handleCurrentChange = (val) => {
     },
   });
   refresh();
+  scrollToTop();
 };
 const catDescription = (item) => {
   description.value = item;
+};
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
 };
 </script>
 
