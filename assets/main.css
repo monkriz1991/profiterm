@@ -1874,13 +1874,15 @@ button {
     padding: 5px 0 0px;
   }
   .system-tabs .el-tab-pane {
-    padding: 0px 0% 0 5%;
+    padding: 10px 0% 0 0%;
     overflow: visible;
     float: left;
-    width: 60%;
+    width: 100%;
+  }
+  .system-tabs .el-tabs {
   }
   .system-tabs .el-tabs__header {
-    width: 40%;
+    width: auto;
     margin-right: 0px !important;
   }
   .system-tabs .el-tabs__item.is-left {
@@ -1902,6 +1904,77 @@ button {
   .system-tabs .el-tabs--left .el-tabs__active-bar.is-left {
     width: 2px;
   }
+  .system-tabs-mobail {
+    margin: 10px 0 60px;
+  }
+  .system-tabs-mobail video {
+    border-radius: 12px;
+    box-shadow: 0 30px 80px rgba(0, 12, 121, 0.1),
+      0 12px 24px rgba(0, 12, 121, 0.1);
+    height: auto;
+    height: 260px;
+    margin: 0 0 40px;
+    max-width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    overflow: hidden;
+    width: 100%;
+  }
+  .system-tabs-mobail .el-tabs__header {
+    padding: 0;
+    position: relative;
+    margin: 0 0 20px;
+  }
+  .system-tabs-mobail .el-tabs__active-bar {
+    background-color: transparent;
+  }
+  .system-tabs-mobail .el-tabs__item {
+    padding: 5px 10px !important;
+    max-width: 150px;
+    float: left;
+    height: 50px;
+    word-wrap: break-word;
+    white-space: break-spaces;
+    line-height: 1.2;
+    border: 1px solid #d7d7d7;
+    border-radius: 7px;
+    margin: 0 5px 0 0;
+  }
+  .system-tabs-mobail .el-tabs__active-bar.is-left {
+    width: 2px;
+  }
+  .system-tabs-mobail .custom-tabs-label > strong {
+    font-size: 13px;
+    text-align: left;
+    font-weight: 500;
+  }
+  .system-tabs-mobail .el-tabs__item.is-active {
+    color: #000000;
+    border: 1px solid #545454;
+  }
+  .system-tabs-mobail .el-tabs__nav-prev,
+  .system-tabs-mobail .el-tabs__nav-next {
+    border-radius: 7px;
+    margin: 0 0 4px;
+    bottom: 6px;
+    background: #575757;
+    padding: 3px 0;
+  }
+  .system-tabs-mobail .el-tabs__header .el-icon {
+    font-size: 19px;
+    top: 6px;
+    color: #fff;
+  }
+  .system-tabs-mobail .el-tabs__nav-wrap {
+    overflow: hidden;
+    margin-bottom: -1px;
+    position: relative;
+    padding: 10px 25px !important;
+  }
+  .system-tabs-mobail .el-tabs__nav-wrap::after {
+    content: "";
+    height: 0;
+  }
   .index-content h4 {
     margin: 0 0 0px !important;
     font-size: 17px !important;
@@ -1922,7 +1995,11 @@ button {
     font-size: 16px;
   }
   .system-tabs {
-    margin: 20px 0 40px;
+    margin: 10px 0 40px;
+    display: flow-root;
+    width: auto;
+    float: none;
+    height: 100%;
   }
   .stage-index {
     margin: 0px 0 60px;
@@ -2117,8 +2194,8 @@ button {
     /* border-bottom: none; */
   }
   .mobail-tabs {
-    width: 98vw;
-    transform: translateX(-45vw);
+    width: 100%;
+    /* transform: translateX(-45vw); */
     padding: 0 15px;
   }
   .m-cat-nav {

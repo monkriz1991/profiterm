@@ -1,11 +1,33 @@
 <script setup>
+import { useWindowSize } from "@vueuse/core";
 const removeTagDialogs = ref({});
+const isWidth = ref("left");
+const activeName = ref("first0");
+const activeNameW = ref("first0");
+const infoNone = ref(true);
+
 const { data: system } = await useFetch("/api/system/", {
   method: "POST",
   headers: {
     "Content-Type": "application/json; charset=UTF-8",
   },
 });
+const { width } = useWindowSize();
+const windowWidth = ref(width.value);
+
+const widtFun = () => {
+  if (width.value <= 700) {
+    isWidth.value = "top";
+    infoNone.value = false;
+  } else {
+    isWidth.value = "left";
+    infoNone.value = true;
+  }
+};
+watchEffect(() => {
+  widtFun();
+});
+widtFun();
 </script>
 
 <template>
@@ -14,15 +36,19 @@ const { data: system } = await useFetch("/api/system/", {
       <div class="column is-12">
         <h4><icon name="solar:document-broken" />Системы</h4>
       </div>
-      <div class="column is-12 m-flex">
-        <div class="system-tabs">
-          <ClientOnly>
-            <el-tabs tab-position="left" class="demo-tabs">
-              <el-tab-pane v-for="(tab, idx) in system" :key="idx">
+      <div class="column is-12">
+        <ClientOnly>
+          <div :class="!infoNone ? 'system-tabs-mobail' : 'system-tabs'">
+            <el-tabs :tab-position="isWidth" class="" v-model="activeName">
+              <el-tab-pane
+                :name="`first` + idx"
+                v-for="(tab, idx) in system"
+                :key="idx"
+              >
                 <template #label>
                   <span class="custom-tabs-label">
                     <strong>{{ tab.title }}</strong>
-                    <p>{{ tab.info }}</p>
+                    <p v-if="infoNone">{{ tab.info }}</p>
                   </span>
                 </template>
                 <ClientOnly>
@@ -42,19 +68,11 @@ const { data: system } = await useFetch("/api/system/", {
                     <source class="video-sourse" src="" type="video/mp4" />
                   </video>
                 </ClientOnly>
-                <!-- <div class="index-rew-block-img">
-              <img
-                v-for="(taburl, idx) in tab.img"
-                :key="idx"
-                :src="taburl.url"
-                :alt="taburl.title"
-              />
-            </div> -->
                 <div v-html="tab.description" class="mobail-tabs"></div
               ></el-tab-pane>
             </el-tabs>
-          </ClientOnly>
-        </div>
+          </div>
+        </ClientOnly>
       </div>
     </div>
   </div>

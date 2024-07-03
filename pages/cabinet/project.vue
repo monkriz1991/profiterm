@@ -156,10 +156,12 @@ const drawerIn = (item) => {
   form.value.galery = [];
   fileUploadImg.value = [];
   fileUploadGalery.value = [];
+  galArr.value = [];
   if (item.img.length) {
     form.value.img = item.img;
     imfArr.value = item.img;
   }
+
   if (item.galery.length) {
     form.value.galery = item.galery;
     galArr.value = item.galery;
