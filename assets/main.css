@@ -1905,7 +1905,7 @@ button {
     width: 2px;
   }
   .system-tabs-mobail {
-    margin: 10px 0 60px;
+    margin: -5px 0 60px;
   }
   .system-tabs-mobail video {
     border-radius: 12px;
@@ -1958,7 +1958,9 @@ button {
     margin: 0 0 4px;
     bottom: 6px;
     background: #575757;
-    padding: 3px 0;
+    padding: 3px 4px;
+    width: auto;
+    text-align: center;
   }
   .system-tabs-mobail .el-tabs__header .el-icon {
     font-size: 19px;
@@ -1969,7 +1971,7 @@ button {
     overflow: hidden;
     margin-bottom: -1px;
     position: relative;
-    padding: 10px 25px !important;
+    padding: 10px 30px !important;
   }
   .system-tabs-mobail .el-tabs__nav-wrap::after {
     content: "";
