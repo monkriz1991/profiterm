@@ -7,7 +7,7 @@ html {
   overflow: visible !important;
 }
 body {
-  background: #f6f8f7;
+  background: #fff;
 }
 body .navbar {
   background: transparent;
@@ -104,7 +104,7 @@ button {
   right: -200px;
 }
 .footer {
-  background-color: #ededed !important;
+  background-color: #f4f4f4 !important;
   color: #989898;
   padding: 30px 40px 20px !important;
   border-radius: 12px;
@@ -1268,7 +1268,7 @@ button {
   top: 0;
   bottom: 0;
   right: 0;
-  background: radial-gradient(closest-side, #3f87a600, #ebf8e100, #f6f8f7);
+  background: radial-gradient(closest-side, #3f87a600, #ebf8e100, #fff);
   opacity: 0.8;
   width: 99vw; /* Полная ширина экрана */
   left: 50%; /* Смещение на половину экрана влево */
@@ -1562,7 +1562,7 @@ button {
   height: auto !important;
   padding: 7px 0px !important;
   border: 0px solid #999999 !important;
-  background: #f6f8f7 !important;
+  background: #fff !important;
   transition: all 0.4s;
 }
 .button-rew-modal {
@@ -1571,7 +1571,7 @@ button {
 }
 .button-rew-index:hover,
 .button-rew-modal:hover {
-  background: #f6f8f7 !important;
+  background: #fff !important;
   color: #000 !important;
   /* border-color: #4c4c4c !important; */
 }
@@ -1606,7 +1606,7 @@ button {
   position: fixed;
   top: 0;
   z-index: 44;
-  background: #f6f8f7;
+  background: #fff;
   left: 0;
   right: 0;
 }
@@ -1859,7 +1859,7 @@ button {
   .footer {
     margin: 60px 0 1rem;
     padding: 20px 20px 0px !important;
-    background-color: #f1f1f1 !important;
+    background-color: #f4f4f4 !important;
   }
   .footer p {
     font-size: 13px;
