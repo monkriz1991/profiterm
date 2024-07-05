@@ -76,7 +76,7 @@ const visibleModalClose = (item) => {
               format="wepb"
             />
             <div class="video-slide-bg" @click="OpenModal(slide)">
-              <Icon name="formkit:youtube" />
+              <!-- <Icon name="formkit:youtube" /> -->
             </div>
           </SwiperSlide>
         </Swiper>

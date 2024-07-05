@@ -28,6 +28,9 @@ watchEffect(() => {
   widtFun();
 });
 widtFun();
+const hasClass = (el, className) => {
+  return el.classList.contains(className);
+};
 </script>
 
 <template>
@@ -48,28 +51,53 @@ widtFun();
                 <template #label>
                   <span class="custom-tabs-label">
                     <strong>{{ tab.title }}</strong>
-                    <p v-if="infoNone">{{ tab.info }}</p>
+
+                    <p v-if="tab.info" v-show="infoNone">{{ tab.info }}</p>
                   </span>
                 </template>
                 <ClientOnly>
-                  <video
-                    v-for="itemvideo in tab.video"
-                    :key="itemvideo"
-                    class=""
-                    muted=""
-                    autoplay=""
-                    loop=""
-                    webkit-playsinline=""
-                    playsinline=""
-                    :poster="itemvideo.img"
-                    type="video/webm"
-                    :src="itemvideo.url"
-                  >
-                    <source class="video-sourse" src="" type="video/mp4" />
-                  </video>
+                  <el-affix target=".system-tabs" :offset="0">
+                    <video
+                      v-for="itemvideo in tab.video"
+                      :key="itemvideo"
+                      class=""
+                      muted=""
+                      autoplay=""
+                      loop=""
+                      webkit-playsinline=""
+                      playsinline=""
+                      :poster="itemvideo.img"
+                      type="video/webm"
+                      :src="itemvideo.url"
+                    >
+                      <source class="video-sourse" src="" type="video/mp4" />
+                    </video>
+
+                    <div v-html="tab.description" class="mobail-tabs"></div>
+                  </el-affix>
+
+                  <div v-if="infoNone"></div>
+                  <div v-else>
+                    <video
+                      v-for="itemvideo in tab.video"
+                      :key="itemvideo"
+                      class=""
+                      muted=""
+                      autoplay=""
+                      loop=""
+                      webkit-playsinline=""
+                      playsinline=""
+                      :poster="itemvideo.img"
+                      type="video/webm"
+                      :src="itemvideo.url"
+                    >
+                      <source class="video-sourse" src="" type="video/mp4" />
+                    </video>
+
+                    <div v-html="tab.description" class="mobail-tabs"></div>
+                  </div>
                 </ClientOnly>
-                <div v-html="tab.description" class="mobail-tabs"></div
-              ></el-tab-pane>
+              </el-tab-pane>
             </el-tabs>
           </div>
         </ClientOnly>

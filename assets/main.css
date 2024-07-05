@@ -1149,7 +1149,7 @@ button {
 .system-tabs {
   float: left;
   width: 100%;
-  margin: 20px 0 100px;
+  margin: -30px 0 100px;
 }
 .system-tabs .el-tabs__content {
   overflow: visible;
@@ -1200,15 +1200,23 @@ button {
 .system-tabs .el-tabs__item.is-left {
   text-align: left !important;
   font-size: 19px;
-  padding: 20px 15px 15px 35px;
+  padding: 10px 0px 10px 30px;
   float: right;
   width: 100%;
   height: auto;
   display: block;
   white-space: break-spaces;
-  margin: 0 0 20px;
+  margin: 0 0 10px;
 }
+/* .affix-container{
 
+} */
+.el-affix {
+  width: auto !important;
+}
+.system-tabs .el-tabs--left .el-tabs__header.is-left {
+  padding: 70px 0 0;
+}
 .system-tabs .el-tab-pane {
   padding: 0px 0% 0 10%;
   overflow: visible;
@@ -1224,6 +1232,8 @@ button {
   overflow: hidden;
   object-fit: cover;
   margin: 0 0 40px;
+  position: relative;
+  top: 70px;
   box-shadow: rgba(0, 12, 121, 0.1) 0px 30px 80px,
     rgba(0, 12, 121, 0.1) 0px 12px 24px;
 }
@@ -1605,7 +1615,7 @@ button {
 .fix-nav {
   position: fixed;
   top: 0;
-  z-index: 44;
+  z-index: 222;
   background: #fff;
   left: 0;
   right: 0;
