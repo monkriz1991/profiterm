@@ -2,7 +2,6 @@
 export default defineNuxtConfig({
   app: {
     // pageTransition: { name: "page", mode: "out-in" },
-
     head: {
       htmlAttrs: {
         lang: "ru",
@@ -12,11 +11,6 @@ export default defineNuxtConfig({
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
       meta: [
-        {
-          hid: "robots",
-          name: "robots",
-          content: "noindex, nofollow",
-        },
         // Viewport
         {
           hid: "viewport",
@@ -29,14 +23,13 @@ export default defineNuxtConfig({
           name: "format-detection",
           content: "telephone=no",
         },
-        {
-          hid: "robots",
-          name: "robots",
-          content: "noindex, nofollow",
-        },
-        // Robots (noodp means no Open Directory Project information)
-        { hid: "robots", name: "robots", content: "noodp" },
-        // Color Scheme (assuming this is the intended meta tag)
+        // {
+        //   hid: "robots",
+        //   name: "robots",
+        //   content: "noindex, nofollow",
+        // },
+        // // Robots (noodp means no Open Directory Project information)
+        // { hid: "robots", name: "robots", content: "noodp" },
         { hid: "color-scheme", name: "color-scheme", content: "light only" },
       ],
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.png" }],
@@ -97,7 +90,7 @@ export default defineNuxtConfig({
     ],
   ],
   site: {
-    url: "https://term.fastsite.pro",
+    url: "https://profiterm.by",
   },
   sitemap: {
     sitemaps: {
@@ -116,7 +109,7 @@ export default defineNuxtConfig({
     plugins: ["~/server/index.ts"],
     devProxy: {
       "/images": {
-        target: "https://disk.fastsite.pro/images/",
+        target: "https://disk.profiterm.by/images/",
         changeOrigin: true,
       },
     },
@@ -129,7 +122,7 @@ export default defineNuxtConfig({
   },
   image: {
     aliyun: {
-      baseURL: "https://disk.fastsite.pro/images/",
+      baseURL: "https://disk.profiterm.by/images/",
     },
   },
   // devtools: { enabled: true },
