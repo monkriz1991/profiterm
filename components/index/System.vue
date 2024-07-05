@@ -27,18 +27,6 @@ const widtFun = () => {
 watchEffect(() => {
   widtFun();
 });
-watchEffect(() => {
-  nextTick(() => {
-    const videos = document.querySelectorAll("video");
-    videos.forEach((video) => {
-      video.load();
-    });
-  });
-});
-widtFun();
-const hasClass = (el, className) => {
-  return el.classList.contains(className);
-};
 </script>
 
 <template>
