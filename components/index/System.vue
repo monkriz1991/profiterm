@@ -27,6 +27,14 @@ const widtFun = () => {
 watchEffect(() => {
   widtFun();
 });
+watchEffect(() => {
+  nextTick(() => {
+    const videos = document.querySelectorAll("video");
+    videos.forEach((video) => {
+      video.load();
+    });
+  });
+});
 widtFun();
 const hasClass = (el, className) => {
   return el.classList.contains(className);
@@ -56,27 +64,27 @@ const hasClass = (el, className) => {
                   </span>
                 </template>
                 <ClientOnly>
-                  <el-affix target=".system-tabs" :offset="0">
-                    <video
-                      v-for="itemvideo in tab.video"
-                      :key="itemvideo"
-                      class=""
-                      muted=""
-                      autoplay=""
-                      loop=""
-                      webkit-playsinline=""
-                      playsinline=""
-                      :poster="itemvideo.img"
-                      type="video/webm"
-                      :src="itemvideo.url"
-                    >
-                      <source class="video-sourse" src="" type="video/mp4" />
-                    </video>
+                  <div v-if="infoNone">
+                    <el-affix target=".system-tabs" :offset="0">
+                      <video
+                        v-for="itemvideo in tab.video"
+                        :key="itemvideo"
+                        class=""
+                        muted=""
+                        autoplay=""
+                        loop=""
+                        webkit-playsinline=""
+                        playsinline=""
+                        :poster="itemvideo.img"
+                        type="video/webm"
+                        :src="itemvideo.url"
+                      >
+                        <source class="video-sourse" src="" type="video/mp4" />
+                      </video>
 
-                    <div v-html="tab.description" class="mobail-tabs"></div>
-                  </el-affix>
-
-                  <div v-if="infoNone"></div>
+                      <div v-html="tab.description" class="mobail-tabs"></div>
+                    </el-affix>
+                  </div>
                   <div v-else>
                     <video
                       v-for="itemvideo in tab.video"
