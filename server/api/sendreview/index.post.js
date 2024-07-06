@@ -41,9 +41,9 @@ export default defineEventHandler(async (event) => {
       ? fields.description[0]
       : fields.description;
 
-    if (!name || !email || !phone || !description) {
-      throw new Error("Missing required form fields");
-    }
+    // if (!name || !email || !phone || !description) {
+    //   throw new Error("Missing required form fields");
+    // }
 
     let attachments = [];
 

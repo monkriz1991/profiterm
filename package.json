@@ -51,6 +51,7 @@
     "nuxt-swiper": "^1.2.2",
     "pinia": "^2.1.7",
     "resend": "^2.0.0",
-    "vue3-lottie": "^3.2.0"
+    "vue3-lottie": "^3.2.0",
+    "yandex-metrika-module-nuxt3": "^1.5.3"
   }
 }

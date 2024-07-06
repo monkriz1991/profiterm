@@ -4,6 +4,7 @@ const mainData = useMainStore();
 import { useWindowSize } from "@vueuse/core";
 const { data: user, signOut } = useAuth();
 const visibleDrawer = ref(false);
+const noneEl = ref(false);
 const windowWidth = ref("");
 const menyMobail = ref(false);
 const Exit = async () => {
@@ -109,7 +110,16 @@ mainData.fetchData();
           </div>
         </ClientOnly>
         <div class="mobail-none admin-meny">
-          <div v-if="user == null" class=""></div>
+          <div v-if="user == null" class="">
+            <div v-if="noneEl" class="buttons">
+              <nuxt-link class="button is-primary" to="/login/"
+                >Login</nuxt-link
+              >
+              <nuxt-link class="button is-light" to="/registration/"
+                >Reg</nuxt-link
+              >
+            </div>
+          </div>
           <div v-else class="">
             <div class="buttons">
               <nuxt-link class="button is-primary" to="/cabinet/"

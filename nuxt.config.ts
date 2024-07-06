@@ -88,6 +88,13 @@ export default defineNuxtConfig({
         inject: true,
       },
     ],
+    [
+      "yandex-metrika-module-nuxt3",
+      {
+        id: "74350936",
+        webvisor: true,
+      },
+    ],
   ],
   site: {
     url: "https://profiterm.by",

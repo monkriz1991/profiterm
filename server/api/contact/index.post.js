@@ -16,7 +16,7 @@ export default defineEventHandler(async (event, response) => {
     const mail = {
       form: `"${body.name}" <${body.email}>`,
       to: config.CONTACTMAIL,
-      subject: body.name,
+      subject: "Заявка с сайта Профитерм",
       text: body.info,
       html: `
       / Имя / ${body.name} <br>
@@ -29,7 +29,7 @@ export default defineEventHandler(async (event, response) => {
     const mailClient = {
       form: `"${body.name}" <${config.CONTACTMAIL}>`,
       to: body.email,
-      subject: body.name,
+      subject: "Заявка с сайта",
       text: body.info,
       html: body.description,
     };
