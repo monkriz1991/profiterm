@@ -8,6 +8,7 @@ export default defineNuxtConfig({
       },
       title:
         "Проектирование, монтаж систем отопления, водоснабжения, канализации",
+      titleTemplate: "%s",
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
       meta: [

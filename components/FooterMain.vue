@@ -53,6 +53,12 @@ onMounted(async () => {
             </a>
           </div>
           <p><span>© 2024 «ПРОФИТЕРМ»</span></p>
+          <p class="f-dev">
+            <span>Разработка -</span
+            ><nuxt-link target="_blank" to="http://fastsite.pro"
+              >fastsite.pro</nuxt-link
+            >
+          </p>
         </div>
       </footer>
     </div>

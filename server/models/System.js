@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const sistemScema = new mongoose.Schema({
+  level: { type: String, require: true, trim: true },
   title: { type: String, require: true, trim: true },
   icon: { type: String, require: true, trim: true },
   info: { type: String, require: true, trim: true },

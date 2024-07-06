@@ -12,6 +12,12 @@ const { data: system } = await useFetch("/api/system/", {
     "Content-Type": "application/json; charset=UTF-8",
   },
 });
+
+// Сортировка массива по полю `level` по возрастанию
+const sortedSystem = computed(() => {
+  return system.value.sort((a, b) => a.level - b.level);
+});
+
 const { width } = useWindowSize();
 const windowWidth = ref(width.value);
 
@@ -41,7 +47,7 @@ watchEffect(() => {
             <el-tabs :tab-position="isWidth" class="" v-model="activeName">
               <el-tab-pane
                 :name="`first` + idx"
-                v-for="(tab, idx) in system"
+                v-for="(tab, idx) in sortedSystem"
                 :key="idx"
               >
                 <template #label>
@@ -101,4 +107,5 @@ watchEffect(() => {
     </div>
   </div>
 </template>
+
 <style></style>

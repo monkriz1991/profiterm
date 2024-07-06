@@ -21,6 +21,7 @@ const fileDelteVideo = ref([]);
 const fileDelteImg = ref([]);
 const fileDelte = ref([]);
 const form = ref({
+  level: "",
   title: "",
   icon: "",
   img: [],
@@ -80,6 +81,7 @@ const addSystem = async () => {
     refresh();
     form.value = {
       title: "",
+      level: "",
       icon: "",
       img: [],
       video: [],
@@ -144,6 +146,7 @@ const drawerIn = (item) => {
   }
   (form.value._id = item._id),
     (form.value.title = item.title),
+    (form.value.level = item.level),
     (form.value.icon = item.icon),
     (form.value.info = item.info),
     (form.value.description = item.description),
@@ -294,6 +297,16 @@ const handleCloseDrawer = () => {
                 <span>Hi there!</span>
                 <div class="drawer-block">
                   <form @submit.prevent="addSystem">
+                    <div class="field">
+                      <div class="control">
+                        <input
+                          class="input"
+                          type="text"
+                          placeholder="level"
+                          v-model="form.level"
+                        />
+                      </div>
+                    </div>
                     <div class="field">
                       <div class="control">
                         <input
