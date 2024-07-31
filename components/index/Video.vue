@@ -6,6 +6,11 @@ const props = defineProps({
   },
 });
 const objectVideo = computed(() => props.video);
+// Сортировка массива по полю `level` по возрастанию
+const sortedSystem = computed(() => {
+  return objectVideo.value.sort((a, b) => a.level - b.level);
+});
+
 const visibleModal = ref(false);
 const VideoObject = ref({});
 const OpenModal = (item) => {
@@ -61,7 +66,7 @@ const visibleModalClose = (item) => {
           }"
         >
           <SwiperSlide
-            v-for="slide in objectVideo"
+            v-for="slide in sortedSystem"
             :key="slide._id"
             :pagination="{ clickable: true, dynamicBullets: true }"
           >

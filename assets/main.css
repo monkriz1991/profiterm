@@ -851,7 +851,7 @@ button {
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgb(51 51 51 / 35%);
+  background: rgb(51 51 51 / 15%);
   color: #ffffff8a;
   display: flex;
   align-items: center;
@@ -865,8 +865,8 @@ button {
 }
 .video-slide-bg:hover {
   transition: 0.2s;
-  background: rgb(0 0 0 / 54%);
-  box-shadow: 0px 0px 26px -14px rgb(0 0 0 / 66%);
+  background: rgb(0 0 0 / 34%);
+  box-shadow: 0px 0px 26px -14px rgb(0 0 0 / 46%);
 }
 .video-slide-bg:hover .icon {
   transition: 0.2s;
@@ -1231,7 +1231,7 @@ button {
   border-radius: 12px;
   overflow: hidden;
   object-fit: cover;
-  margin: 0 0 40px;
+  margin: 0 0 90px;
   position: relative;
   top: 70px;
   box-shadow: rgba(0, 12, 121, 0.1) 0px 30px 80px,

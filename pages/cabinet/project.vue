@@ -21,6 +21,7 @@ const fileDelteGalery = ref([]);
 const fileDelteImg = ref([]);
 const fileDelte = ref([]);
 const form = ref({
+  level: 0,
   category: "",
   seo_description: "",
   seo_title: "",
@@ -92,6 +93,7 @@ const addProject = async () => {
   if (responseData) {
     refresh();
     form.value = {
+      level: 0,
       category: "",
       title: "",
       preview: "",
@@ -170,6 +172,7 @@ const drawerIn = (item) => {
   (form.value.kirilica = item.kirilica),
     (form.value.title = item.title),
     (form.value.preview = item.preview),
+    (form.value.level = item.level),
     (form.value.video = item.video),
     (form.value.info = item.info),
     (form.value.seo_description = item.seo_description),
@@ -346,6 +349,16 @@ const handleCloseDrawer = () => {
                 <span>Hi there!</span>
                 <div class="drawer-block">
                   <form @submit.prevent="addProject">
+                    <div class="field">
+                      <div class="control">
+                        <input
+                          class="input"
+                          type="number"
+                          placeholder="level"
+                          v-model="form.level"
+                        />
+                      </div>
+                    </div>
                     <div class="field">
                       <el-select
                         v-model="form.category"

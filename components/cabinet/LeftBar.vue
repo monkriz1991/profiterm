@@ -10,7 +10,8 @@
         <li><nuxt-link to="/cabinet/reviews">Отзывы</nuxt-link></li>
         <li><nuxt-link to="/cabinet/stage">Этапы</nuxt-link></li>
         <li><nuxt-link to="/cabinet/system">Системы</nuxt-link></li>
-        <li><nuxt-link to="/cabinet/calculator">Калькулятор</nuxt-link></li>
+        <li><nuxt-link to="/cabinet/typecalk">Тип калькулятора</nuxt-link></li>
+        <li><nuxt-link to="/cabinet/itemcalk">Эл. калькулятора</nuxt-link></li>
       </ul>
     </aside>
   </div>
