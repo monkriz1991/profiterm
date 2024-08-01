@@ -62,6 +62,7 @@ const scrollToTop = () => {
                     :src="imgurl.url"
                     loading="lazy"
                     format="wepb"
+                    :alt="item.title"
                   />
                 </div>
                 <div class="catalog-block-desc">

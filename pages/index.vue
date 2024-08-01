@@ -69,8 +69,8 @@ const videos = computed(() => {
         </ClientOnly>
         <div class="container">
           <div class="video-block-inf">
-            <strong>{{ item.title }}</strong>
-            <span v-html="item.preview"></span>
+            <h1>{{ item.title }}</h1>
+            <h2 v-html="item.preview"></h2>
             <ModalForm />
           </div>
         </div>

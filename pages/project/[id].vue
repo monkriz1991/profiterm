@@ -67,7 +67,7 @@ useSeoMeta({
                       v-for="imgurl in item.img"
                       :key="imgurl"
                       :src="imgurl.url"
-                      :alt="`Фото проекта  ${item.name}`"
+                      :alt="`Фото проекта ${item.title}`"
                       class="view-box"
                       sizes="sm:400px md:400px lg:400px"
                       data-fancybox="galery galery"
@@ -88,7 +88,7 @@ useSeoMeta({
                         :src="imgurl.url"
                         class="view-box"
                         data-fancybox="galery galery"
-                        :alt="`Фото проекта  ${item.name}`"
+                        :alt="`Фото проекта ${idx + 1} / ${item.title}`"
                         sizes="sm:300px md:300px lg:300px"
                         preload
                         loading="lazy"

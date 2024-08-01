@@ -12,7 +12,12 @@ export default defineNuxtConfig({
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
       meta: [
-        // Viewport
+        {
+          hid: "description",
+          name: "description",
+          content:
+            "Предлагаем приемлемые цены, гарантию до 5 лет и рассрочку платежа. Высококачественные инженерные системы для комфортного и беззаботного проживания в частном доме.",
+        },
         {
           hid: "viewport",
           name: "viewport",
@@ -24,13 +29,6 @@ export default defineNuxtConfig({
           name: "format-detection",
           content: "telephone=no",
         },
-        // {
-        //   hid: "robots",
-        //   name: "robots",
-        //   content: "noindex, nofollow",
-        // },
-        // // Robots (noodp means no Open Directory Project information)
-        // { hid: "robots", name: "robots", content: "noodp" },
         { hid: "color-scheme", name: "color-scheme", content: "light only" },
       ],
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.png" }],

@@ -74,11 +74,11 @@ const visibleModalClose = (item) => {
               v-for="(img, idx) in slide.img"
               :key="idx"
               :src="img.url"
-              :alt="slide.title"
               sizes="sm:300px md:300px lg:300px"
               preload
               loading="lazy"
               format="wepb"
+              :alt="`Видео обзор проекта ${idx + 1} - ${slide.title}`"
             />
             <div class="video-slide-bg" @click="OpenModal(slide)">
               <!-- <Icon name="formkit:youtube" /> -->

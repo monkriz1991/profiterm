@@ -119,11 +119,11 @@ const onSlideChange = (swiper) => {
                   v-for="(slideurl, idx) in slide.img"
                   :key="idx"
                   :src="slideurl.url"
-                  :alt="slide.title"
                   sizes="sm:350px md:350px lg:350px"
                   preload
                   loading="lazy"
                   format="wepb"
+                  :alt="`Отзыв ${idx + 1} - ${slide.name}`"
                 />
               </div>
               <div class="index-rew-block-desc">

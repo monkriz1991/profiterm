@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box !important;
-  font-family: Montserrat;
+  font-family: Montserrat !important;
 }
 html {
   background-color: transparent !important;
@@ -362,14 +362,14 @@ button {
 .index-rew-block-desc .is-light.button:hover {
   color: #0069ff;
 }
-.video-block-inf > strong {
+.video-block-inf > h1 {
   color: #fff;
   width: 60%;
   font-size: 40px;
   font-weight: 500;
   line-height: 1.4;
 }
-.video-block-inf > span {
+.video-block-inf > h2 {
   width: 50%;
   font-size: 17px;
   font-weight: 500;
@@ -587,7 +587,7 @@ button {
 }
 
 .slider-one-navigation span {
-  font-family: Caveat;
+  font-family: Caveat !important;
   font-size: 27px;
   color: #333;
 }
@@ -878,7 +878,7 @@ button {
 .video-all a {
   color: #333;
   font-size: 23px;
-  font-family: Caveat;
+  font-family: Caveat !important;
   font-weight: 500;
 }
 .video-all .icon {
@@ -1744,6 +1744,124 @@ button {
   margin: 100px 0 20px;
   line-height: 1.6;
 }
+.calk-block {
+  padding: 30px;
+  background: #f1f1f1;
+  cursor: pointer;
+  border-radius: 8px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: all 0.4s;
+}
+.calk-block .icon {
+  font-size: 28px;
+  height: 40px;
+  width: 40px;
+}
+.calk-block strong {
+  margin: 10px;
+  font-size: 17px;
+  font-weight: 600;
+}
+.calk-block:hover {
+  background: #dcdcdc;
+}
+.calk-block-group {
+  margin: 20px 0 20px;
+  padding: 30px;
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+}
+.calk-block-group-title {
+  font-weight: 600;
+  font-size: 19px;
+  margin: 0 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.calk-collapse {
+}
+.calk-collapse .el-collapse-item {
+  /* padding: 20px 0; */
+}
+.calk-collapse .el-collapse-item:last-child {
+  margin-bottom: -2px;
+}
+.calk-collapse .el-collapse-item__header {
+  font-size: 17px;
+  font-weight: 500;
+  padding: 15px 0;
+  height: auto;
+}
+.calk-collapse .el-collapse-item__wrap {
+  /* border: none !important; */
+}
+.back-step {
+  font-size: 13px !important;
+  padding-left: 5px !important;
+  margin: 0 0 10px;
+}
+.save-pdf {
+}
+.calk-collapse-item {
+  margin: 0 0 15px;
+  font-size: 16px;
+  background: #efefef;
+  display: inline-block;
+  padding: 0px 5px;
+  border-radius: 6px;
+}
+.calk-collapse-item b {
+  font-weight: 500;
+  margin: 0 10px;
+}
+.calk-collapse-item > strong {
+  font-weight: 500;
+  margin: 0 10px 0 0;
+  font-size: 12px;
+}
+.calk-collapse .field-control {
+  max-width: 500px;
+}
+.calk-collapse .field-label {
+  flex-basis: 0;
+  flex-grow: 1;
+  flex-shrink: 0;
+  margin-left: 1.2rem;
+  text-align: left;
+  font-size: 16px;
+}
+.calk-collapse-item-cost {
+  align-items: center;
+  display: flex;
+}
+.calk-collapse-item-cost strong {
+  font-size: 16px;
+  font-weight: 500;
+}
+.calk-collapse-item-cost span {
+  font-size: 14px;
+}
+.calk-block-cost {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 0 0;
+}
+.calk-block-cost > div {
+}
+.calk-block-cost > div > span {
+  margin: 0 10px 0 0;
+}
+.calk-block-cost > div > strong {
+  font-size: 21px;
+}
+.calk-block-cost > div > strong > span {
+  font-size: 14px;
+}
 @media (max-width: 1023px) {
   .button-back {
   }
@@ -2122,12 +2240,12 @@ button {
   .video-block-inf {
     padding: 35px 0px 15px;
   }
-  .video-block-inf > strong {
+  .video-block-inf > h1 {
     width: 100%;
     font-size: 21px;
     line-height: 1.5;
   }
-  .video-block-inf > span {
+  .video-block-inf > h2 {
     width: 100%;
     margin: 46px 0 42px;
     font-size: 15px;
