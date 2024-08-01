@@ -131,13 +131,13 @@ const generatePDF = () => {
     doc.text(`------------------------------------------`, 10, y + 35);
     doc.text(`Тип работ ${index + 1}: ${item.name}`, 10, y);
 
-    doc.text(
-      `Стоимость за ${item.unit} ${item.type} : ${item.cost.toFixed(2)}руб.`,
-      10,
-      y + 20
-    );
+    // doc.text(
+    //   `Стоимость за ${item.unit} ${item.type} : ${item.cost.toFixed(2)}руб.`,
+    //   10,
+    //   y + 20
+    // );
     doc.text(`Колличество: ${quantity} ${item.type}`, 10, y + 10);
-    doc.text(`Стоимость: ${finalCost.toFixed(2)}руб.`, 10, y + 30);
+    // doc.text(`Стоимость: ${finalCost.toFixed(2)}руб.`, 10, y + 30);
     y += 40;
   });
 
@@ -182,11 +182,11 @@ const generatePDF = () => {
           class="calk-collapse"
         >
           <el-collapse-item :title="item.name" :name="item._id">
-            <div class="calk-collapse-item">
+            <!-- <div class="calk-collapse-item">
               <strong>Стоимость:</strong>
               {{ item.cost }} <span>.руб</span><b>/</b>за {{ item.unit }}
               {{ item.type }}
-            </div>
+            </div> -->
             <div class="field is-horizontal">
               <div class="field-body field-control">
                 <div class="field">
@@ -203,11 +203,11 @@ const generatePDF = () => {
               <div class="field-label is-normal">
                 <label class="label">{{ item.type }}</label>
               </div>
-              <div class="calk-collapse-item-cost">
+              <!-- <div class="calk-collapse-item-cost">
                 <strong
                   >{{ suumItem[index].toFixed(2) }}<span> руб.</span></strong
                 >
-              </div>
+              </div> -->
             </div>
           </el-collapse-item>
         </el-collapse>
