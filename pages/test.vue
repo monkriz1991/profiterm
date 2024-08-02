@@ -43,15 +43,26 @@ const { data: rawItemcalk } = await useFetch("/api/itemcalk/", {
   },
 });
 
-const elementOptions = computed(() => {
+const filteredElementOptions = (item) => {
   if (!elementcalk.value || elementcalk.value.length === 0) {
     return [];
   }
-  return elementcalk.value.map((el) => ({
-    value: el._id,
-    label: el.title,
-  }));
-});
+
+  // Получаем строку идентификаторов
+  const idString = item.group; // Например: "66abcc0513d3f55b5e938b71,66ac874c13d3f55b5e938b8c"
+
+  // Разделяем строку на массив идентификаторов
+  const ids = idString.split(",").map((id) => id.trim());
+
+  console.log(ids); // Проверяем массив идентификаторов
+
+  return elementcalk.value
+    .filter((el) => ids.includes(el._id)) // Фильтруем элементы, чьи _id находятся в массиве ids
+    .map((el) => ({
+      value: el._id,
+      label: el.title,
+    }));
+};
 
 onMounted(async () => {
   let typecalk = [];
@@ -344,7 +355,9 @@ const generatePDF = () => {
                     @change="(value) => updateCost(value, index)"
                   >
                     <el-option
-                      v-for="option in elementOptions"
+                      v-for="option in filteredElementOptions(
+                        inputObject.items[index]
+                      )"
                       :key="option.value"
                       :label="option.label"
                       :value="option.value"
