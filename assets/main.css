@@ -1862,6 +1862,14 @@ button {
 .calk-block-cost > div > strong > span {
   font-size: 14px;
 }
+.full-width {
+  width: 100%;
+  max-width: 100%;
+}
+.calk-block-group .el-select {
+  max-width: 340px !important;
+  width: 100% !important;
+}
 @media (max-width: 1023px) {
   .button-back {
   }
