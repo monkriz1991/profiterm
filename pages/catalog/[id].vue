@@ -6,20 +6,28 @@ const currentPage = ref(1);
 const pageSize = ref(6);
 const description = ref("");
 
-if (router.currentRoute.value.query.page != undefined) {
-  currentPage.value = parseInt(router.currentRoute.value.query.page);
+// Update the current page and sortPage based on the query parameter
+if (router.currentRoute.value.query.page !== undefined) {
+  currentPage.value = parseInt(router.currentRoute.value.query.page, 10);
   sortPage.value = currentPage.value * pageSize.value - pageSize.value;
 }
+
+// Fetch project data from API
 const { data: project, refresh } = await useFetch("/api/project", {
   method: "POST",
   headers: {
     "Content-Type": "application/json; charset=UTF-8",
   },
-  body: { ParamsCat: route.params.id, sortPage, pageSize },
+  body: JSON.stringify({
+    ParamsCat: route.params.id,
+    sortPage: sortPage.value,
+    pageSize: pageSize.value,
+  }),
 });
 
+// Handle page changes
 const handleCurrentChange = (val) => {
-  if (val == 1) {
+  if (val === 1) {
     sortPage.value = 0;
   } else {
     sortPage.value = val * pageSize.value - pageSize.value;
@@ -28,25 +36,31 @@ const handleCurrentChange = (val) => {
   router.replace({
     name: "catalog-id",
     query: {
-      page: currentPage.value != 1 ? currentPage.value : undefined,
+      page: currentPage.value !== 1 ? currentPage.value : undefined,
     },
   });
   refresh();
   scrollToTop();
 };
+
+// Set the description for the category
 const catDescription = (item) => {
   description.value = item;
 };
+
+// Scroll to the top of the page
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
 </script>
-
 <template>
   <div class="bd-docs-main">
     <div class="container">
       <div class="content">
+        <!-- Navigation component for category -->
         <nav-category @catDescription="catDescription" />
+
+        <!-- Display project items in a grid layout -->
         <div class="columns is-desktop is-multiline is-variable">
           <div
             class="column is-4"
@@ -58,25 +72,23 @@ const scrollToTop = () => {
                 <div class="catalog-block-img">
                   <NuxtImg
                     v-for="imgurl in item.img"
-                    :key="imgurl"
+                    :key="imgurl.url"
                     :src="imgurl.url"
                     loading="lazy"
-                    format="wepb"
+                    format="webp"
                     :alt="item.title"
                   />
                 </div>
                 <div class="catalog-block-desc">
-                  <strong>
-                    {{ item.title }}
-                  </strong>
-                  <span>
-                    {{ item.preview }}
-                  </span>
+                  <strong>{{ item.title }}</strong>
+                  <span>{{ item.preview }}</span>
                 </div>
               </nuxt-link>
             </div>
           </div>
         </div>
+
+        <!-- Pagination component -->
         <el-pagination
           class="pagination-list"
           background
@@ -88,7 +100,12 @@ const scrollToTop = () => {
         />
       </div>
 
-      <div v-if="description" class="dscription-cat" v-html="description"></div>
+      <!-- Display description if available -->
+      <div
+        v-if="description"
+        class="description-cat"
+        v-html="description"
+      ></div>
     </div>
   </div>
 </template>

@@ -7,6 +7,7 @@ const seoDescription = ref("");
 const description = ref("");
 const seoTImg = ref("");
 const emit = defineEmits(["catDescription"]);
+
 // Загрузка данных о категории
 const category = await $fetch("/api/category/", {
   method: "POST",
@@ -25,6 +26,7 @@ if (route.params.id && category && category.length > 0) {
     seoTitle.value = foundCategory.seo_title;
     seoDescription.value = foundCategory.seo_description;
     description.value = foundCategory.description;
+    seoTImg.value = foundCategory.seo_image || "/profiterm.webp"; // Убедитесь, что `seo_image` есть в данных категории
   }
 } else {
   const foundCategory = category.find((cat) => cat.kirilica === "");
@@ -37,6 +39,7 @@ if (route.params.id && category && category.length > 0) {
   emit("catDescription", description.value);
 }
 
+// Обновление хлебных крошек при изменении `h1Category`
 watchEffect(() => {
   if (h1Category.value && h1Category.value.length > 0) {
     const toPath = route.params.id ? `/catalog/${route.params.id}` : "/catalog";
@@ -47,7 +50,7 @@ watchEffect(() => {
   }
 });
 
-console.log(category.value);
+// Обновление мета-данных
 useSeoMeta({
   title: seoTitle.value,
   ogTitle: seoTitle.value,
