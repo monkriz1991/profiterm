@@ -21,6 +21,15 @@ function onClickOutside(event, el) {
     }
   }
 }
+console.log(category.value);
+// useSeoMeta({
+//   title: seoTitle.value,
+//   ogTitle: seoTitle.value,
+//   description: seoDescription.value,
+//   ogDescription: seoDescription.value,
+//   ogImage: seoTImg.value,
+//   twitterCard: "summary_large_image",
+// });
 </script>
 
 <template>
@@ -47,7 +56,7 @@ function onClickOutside(event, el) {
             <img :src="item.img" />
           </div>
           <strong class="meny-nav-title">
-            {{ item.name }}
+            <!-- {{ item.name }} -->
           </strong>
         </nuxt-link>
       </div>
@@ -75,10 +84,10 @@ function onClickOutside(event, el) {
 }
 .meny-nav-cat a {
   display: flex;
-    align-items: center;
-    margin: 0 0 15px;
-    color: #333;
-    font-size: 16px;
+  align-items: center;
+  margin: 0 0 15px;
+  color: #333;
+  font-size: 16px;
 }
 .meny-nav-img {
   height: 70px;

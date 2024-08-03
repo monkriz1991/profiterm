@@ -54,6 +54,7 @@ useSeoMeta({
     "Предлагаем приемлемые цены, гарантию до 5 лет и рассрочку платежа. Высококачественные инженерные системы для комфортного и беззаботного проживания в частном доме.",
   ogImage: "/profiterm.webp",
   twitterCard: "summary_large_image",
+  canonical: "https://profiterm.by",
 });
 </script>
 

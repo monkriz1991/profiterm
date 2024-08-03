@@ -5,6 +5,7 @@ const breadcrumbLinks = ref([]);
 const seoTitle = ref("");
 const seoDescription = ref("");
 const description = ref("");
+const seoTImg = ref("");
 const emit = defineEmits(["catDescription"]);
 // Загрузка данных о категории
 const category = await $fetch("/api/category/", {
@@ -31,6 +32,7 @@ if (route.params.id && category && category.length > 0) {
     seoTitle.value = foundCategory.seo_title;
     seoDescription.value = foundCategory.seo_description;
     description.value = foundCategory.description;
+    seoTImg.value = "/profiterm.webp";
   }
   emit("catDescription", description.value);
 }
@@ -44,9 +46,15 @@ watchEffect(() => {
     ];
   }
 });
+
+console.log(category.value);
 useSeoMeta({
   title: seoTitle.value,
+  ogTitle: seoTitle.value,
   description: seoDescription.value,
+  ogDescription: seoDescription.value,
+  ogImage: seoTImg.value,
+  twitterCard: "summary_large_image",
 });
 </script>
 <template>

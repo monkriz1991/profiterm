@@ -1,7 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   app: {
-    // pageTransition: { name: "page", mode: "out-in" },
     head: {
       htmlAttrs: {
         lang: "ru",
@@ -32,7 +31,10 @@ export default defineNuxtConfig({
         },
         { hid: "color-scheme", name: "color-scheme", content: "light only" },
       ],
-      link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.png" }],
+      link: [
+        { rel: "canonical", href: "https://profiterm.by" }, // Без завершающего слэша
+        { rel: "icon", type: "image/x-icon", href: "/favicon.png" },
+      ],
     },
   },
 
