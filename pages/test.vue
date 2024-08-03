@@ -277,18 +277,31 @@ const generatePDF = () => {
   doc.text("Расчет стоимости работ", 10, 10);
 
   let y = 20;
+  //   let totalCost = 0; // Инициализация переменной для итоговой стоимости
 
   inputObject.value.items.forEach((item, index) => {
+    // Проверяем состояние переключателя
+    const isChecked = checkedValues.value[index];
+
+    // Пропускаем элемент, если переключатель выключен
+    if (!isChecked) {
+      return;
+    }
+
     const quantity = parseFloat(summEdit.value[index]) || 0;
     const itemCost = item.cost * quantity;
     let finalCost = itemCost;
     if (quantity >= (item.unitcoefficient || 0)) {
-      const coefficientReduction = 1 - item.coefficient / 100;
+      const coefficientReduction = 1 - (item.coefficient || 0) / 100;
       finalCost = itemCost * coefficientReduction;
     }
+
+    // Обновляем итоговую стоимость
+    // totalCost += finalCost;
+
     const selectedLabel = selectedValues.value[index]
       ? elementcalk.value.find((el) => el._id === selectedValues.value[index])
-          .title
+          ?.title || "Не выбрано"
       : "Не выбрано";
 
     doc.text(`------------------------------------------`, 10, y + 20);
@@ -303,9 +316,12 @@ const generatePDF = () => {
     y += 30;
   });
 
+  // Проверяем, что итоговая стоимость определена и корректна
   doc.text(`Итоговая стоимость: ${totalCost.value.toFixed(2)} руб.`, 10, y);
+
   doc.save("calculation.pdf");
 };
+
 const updateSummEdit = (index, value) => {
   summEdit.value[index] = value ? Number(value) : 0;
 };

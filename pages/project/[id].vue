@@ -4,6 +4,7 @@ const router = useRouter();
 const visiblePlyr = ref(false);
 const breadcrumbLinks = ref([]);
 const seoTitle = ref("");
+const seoTImg = ref("");
 const seoDescription = ref("");
 const error = ref(null);
 
@@ -17,7 +18,7 @@ const project = await $fetch("/api/projectitem/", {
 
 seoTitle.value = project[0]?.seo_title;
 seoDescription.value = project[0]?.seo_description;
-
+seoTImg.value = project[0].img[0].url;
 watchEffect(() => {
   if (project && project.length > 0) {
     const item = project[0];
@@ -37,7 +38,11 @@ onMounted(async () => {
 
 useSeoMeta({
   title: seoTitle.value,
+  ogTitle: seoTitle.value,
   description: seoDescription.value,
+  ogDescription: seoDescription.value,
+  ogImage: seoTImg.value,
+  twitterCard: "summary_large_image",
 });
 </script>
 
