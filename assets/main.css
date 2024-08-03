@@ -1774,6 +1774,8 @@ button {
   padding: 30px;
   border: 1px solid #e2e2e2;
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
 }
 .calk-block-group-title {
   font-weight: 600;
@@ -1794,7 +1796,7 @@ button {
 .calk-collapse .el-collapse-item__header {
   font-size: 17px;
   font-weight: 500;
-  padding: 15px 0;
+  padding: 10px 0 0;
   height: auto;
 }
 .calk-collapse .el-collapse-item__wrap {
@@ -1803,7 +1805,7 @@ button {
 .back-step {
   font-size: 13px !important;
   padding-left: 5px !important;
-  margin: 0 0 10px;
+  margin: 0 0 20px;
 }
 .save-pdf {
 }
@@ -1870,7 +1872,78 @@ button {
   max-width: 340px !important;
   width: 100% !important;
 }
+.h1-calk {
+  margin: 150px 0 20px;
+}
+.calk-collapse .el-collapse-item__content {
+  padding-top: 20px !important;
+}
+
+.calk-block-cost.reversed-order {
+  flex-direction: column-reverse;
+}
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.4s;
+}
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  filter: blur(1rem);
+}
+.disabled_cack_check .calk-block {
+  background: #f1f1f1 !important;
+  opacity: 0.4;
+}
 @media (max-width: 1023px) {
+  .calk-block {
+    height: 150px;
+  }
+  .calk-block strong {
+    font-size: 16px;
+  }
+  .h1-calk {
+    margin: 80px 0 30px !important;
+    font-size: 18px !important;
+    font-weight: 800 !important;
+    line-height: 1.2 !important;
+  }
+  .calk-collapse .el-collapse-item__header {
+    font-size: 16px;
+    height: auto !important;
+    line-height: 1.2;
+    padding: 20px 0 0;
+  }
+  .calk-collapse .field-label {
+    line-height: 2 !important;
+  }
+  .calk-collapse .field-control {
+    max-width: 200px;
+  }
+  .calk-block-group .el-select {
+    width: 200px !important;
+  }
+  .calk-collapse .el-collapse-item__content {
+    padding-bottom: 20px !important;
+  }
+  .calk-collapse .field:not(:last-child) {
+    margin-bottom: 0rem;
+    display: flex;
+  }
+  .calk-block-group {
+    margin: 20px 0 20px;
+    padding: 20px;
+    border: 1px solid #ededed;
+  }
+  .calk-block-cost {
+    flex-direction: column;
+  }
+  .calk-block-cost > div {
+    margin: 20px 0 0;
+  }
+  .calk-block-cost .button:first-child {
+    margin: 20px 0 0px;
+  }
   .button-back {
   }
   .button-back .icon {
@@ -2071,7 +2144,7 @@ button {
   .system-tabs-mobail .el-tabs__header {
     padding: 0;
     position: relative;
-    margin: 0 0 20px;
+    margin: 0 0 10px;
   }
   .system-tabs-mobail .el-tabs__active-bar {
     background-color: transparent;
@@ -2104,7 +2177,7 @@ button {
   .system-tabs-mobail .el-tabs__nav-next {
     border-radius: 7px;
     margin: 0 0 4px;
-    bottom: 6px;
+    bottom: 16px;
     background: #575757;
     padding: 3px 4px;
     width: auto;
@@ -2120,8 +2193,17 @@ button {
     margin-bottom: -1px;
     position: relative;
     padding: 10px 30px !important;
+    /* Обеспечивает плавную прокрутку на iOS */
   }
-  .system-tabs-mobail .el-tabs__nav-wrap::after {
+  .el-tabs__nav-wrap::after {
+    height: 0 !important;
+  }
+  .system-tabs-mobail .el-tabs__nav-scroll {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  .system-tabs-mobail .el-tabs__nav-scroll::after {
     content: "";
     height: 0;
   }
@@ -2151,6 +2233,21 @@ button {
     float: none;
     height: 100%;
   }
+
+  .system-tabs-mobail::-webkit-scrollbar {
+    display: none; /* Скрыть скроллбар для более чистого интерфейса */
+  }
+
+  .el-tabs__nav-scroll {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    padding: 0px 0px 10px 20px;
+  }
+
+  .el-tabs__item {
+    flex: 0 0 auto; /* Оставляем ширину каждого таба авто, чтобы они не сжимались */
+  }
+
   .stage-index {
     margin: 0px 0 60px;
   }

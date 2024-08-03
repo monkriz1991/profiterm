@@ -9,6 +9,7 @@ const itemcalkScema = new mongoose.Schema({
   cost: { type: Number, require: true, trim: true },
   unitcoefficient: { type: Number, require: true, trim: true },
   coefficient: { type: Number, require: true, trim: true },
+  show_check: { type: Boolean, default: false },
 });
 
 const ItemCalkModel = mongoose.model("itemcalk", itemcalkScema);

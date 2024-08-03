@@ -17,6 +17,7 @@ const form = ref({
   description: "",
   img: "",
   icon: "",
+  show_check: true,
 });
 const {
   data: typecalk,
@@ -64,6 +65,7 @@ const drawerIn = (item) => {
   (form.value.level = item.level),
     (form.value.title = item.title),
     (form.value.description = item.description),
+    (form.value.show_check = item.show_check),
     (form.value.icon = item.icon),
     (drawer.value = true);
   buttonEdit.value = false;
@@ -140,6 +142,15 @@ const handleCurrentChange = (val) => {
                 <span>Hi there!</span>
                 <div class="drawer-block">
                   <form @submit.prevent="addTypecalk">
+                    <div class="field">
+                      <div class="control">
+                        <el-checkbox
+                          v-model="form.show_check"
+                          label="Блокировка"
+                          size="large"
+                        />
+                      </div>
+                    </div>
                     <div class="field">
                       <div class="control">
                         <input

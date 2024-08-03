@@ -20,6 +20,7 @@ const form = ref({
   cost: 0,
   unitcoefficient: 0,
   coefficient: 0,
+  show_check: true,
 });
 
 const { data: typecalk } = await useFetch("/api/typecalk/", {
@@ -81,6 +82,7 @@ const drawerIn = (item) => {
     (form.value.type = item.type),
     (form.value.unitcoefficient = item.unitcoefficient),
     (form.value.coefficient = item.coefficient),
+    (form.value.show_check = item.show_check),
     (drawer.value = true);
   buttonEdit.value = false;
 };
@@ -98,6 +100,18 @@ const handleCurrentChange = (val) => {
   }
   currentPage.value = val;
   refresh();
+};
+
+const nameCat = (itemName) => {
+  const result = typecalk.value.result.find((item) => {
+    return item._id === itemName;
+  });
+
+  if (result) {
+    return result.title;
+  } else {
+    console.log("Объект не найден");
+  }
 };
 </script>
 
@@ -123,9 +137,7 @@ const handleCurrentChange = (val) => {
                 :key="item"
               >
                 <div class="drawer-cat-left">
-                  <div class="drawer-cat-img">
-                    <Icon v-if="item.icon" :name="item.icon" />
-                  </div>
+                  <span>{{ nameCat(item.typecalk) }}</span>
                   <strong>{{ item.name }}</strong>
                 </div>
                 <div class="drawer-cat-right">
@@ -171,7 +183,15 @@ const handleCurrentChange = (val) => {
                         />
                       </el-select>
                     </div>
-
+                    <div class="field">
+                      <div class="control">
+                        <el-checkbox
+                          v-model="form.show_check"
+                          label="Блокировка"
+                          size="large"
+                        />
+                      </div>
+                    </div>
                     <div class="field">
                       <div class="control">
                         <input

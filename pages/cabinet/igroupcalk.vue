@@ -17,6 +17,7 @@ const form = ref({
   title: "",
   group: [],
   description: "",
+  show_check: true,
 });
 const { data: typecalk } = await useFetch("/api/typecalk/", {
   method: "POST",
@@ -88,6 +89,7 @@ const drawerIn = (item) => {
   }
 
   (form.value.typecalk = item.typecalk),
+    (form.value.show_check = item.show_check),
     (form.value.title = item.title),
     (form.value.level = item.level),
     (form.value.description = item.description),
@@ -108,6 +110,17 @@ const handleCurrentChange = (val) => {
   }
   currentPage.value = val;
   refresh();
+};
+const nameCat = (itemName) => {
+  const result = typecalk.value.result.find((item) => {
+    return item._id === itemName;
+  });
+
+  if (result) {
+    return result.title;
+  } else {
+    console.log("Объект не найден");
+  }
 };
 </script>
 
@@ -133,9 +146,7 @@ const handleCurrentChange = (val) => {
                 :key="item"
               >
                 <div class="drawer-cat-left">
-                  <div class="drawer-cat-img">
-                    <Icon v-if="item.icon" :name="item.icon" />
-                  </div>
+                  <span>{{ nameCat(item.typecalk) }}</span>
                   <strong>{{ item.title }}</strong>
                 </div>
                 <div class="drawer-cat-right">
@@ -180,6 +191,15 @@ const handleCurrentChange = (val) => {
                           :value="item._id"
                         />
                       </el-select>
+                    </div>
+                    <div class="field">
+                      <div class="control">
+                        <el-checkbox
+                          v-model="form.show_check"
+                          label="Блокировка"
+                          size="large"
+                        />
+                      </div>
                     </div>
                     <div class="field">
                       <el-select

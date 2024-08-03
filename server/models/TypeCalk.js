@@ -6,6 +6,7 @@ const typecalkScema = new mongoose.Schema({
   description: { type: String, require: true, trim: true },
   icon: { type: String, require: true, trim: true },
   img: { type: String, require: true, trim: true },
+  show_check: { type: Boolean, default: false },
 });
 
 const TypeCalkModel = mongoose.model("typecalk", typecalkScema);
