@@ -1909,13 +1909,16 @@ button {
     line-height: 1.2 !important;
   }
   .calk-collapse .el-collapse-item__header {
-    font-size: 16px;
+    font-size: 14px;
     height: auto !important;
-    line-height: 1.2;
+    line-height: 1.5;
     padding: 20px 0 0;
+    text-align: left;
   }
   .calk-collapse .field-label {
-    line-height: 2 !important;
+    line-height: 3 !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
   }
   .calk-collapse .field-control {
     max-width: 200px;
@@ -2241,7 +2244,7 @@ button {
   .el-tabs__nav-scroll {
     display: flex !important;
     flex-wrap: nowrap !important;
-    padding: 0px 0px 10px 20px;
+    padding: 0px 0px 10px 0px;
   }
 
   .el-tabs__item {
