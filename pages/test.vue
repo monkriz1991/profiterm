@@ -488,6 +488,7 @@ const openNotifPdf = () => {
                           class="ml-2"
                           size="large"
                           :disabled="item.show_check"
+                          v-if="!item.show_check"
                           style="
                             --el-switch-on-color: #13ce66;
                             --el-switch-off-color: #ff4949;
