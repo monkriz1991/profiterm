@@ -21,6 +21,7 @@ const form = ref({
   unitcoefficient: 0,
   coefficient: 0,
   show_check: true,
+  description: "",
 });
 
 const { data: typecalk } = await useFetch("/api/typecalk/", {
@@ -83,6 +84,7 @@ const drawerIn = (item) => {
     (form.value.unitcoefficient = item.unitcoefficient),
     (form.value.coefficient = item.coefficient),
     (form.value.show_check = item.show_check),
+    (form.value.description = item.description),
     (drawer.value = true);
   buttonEdit.value = false;
 };
@@ -267,6 +269,17 @@ const nameCat = (itemName) => {
                         />
                       </div>
                     </div>
+                    <div class="field">
+                      <div class="control">
+                        <input
+                          class="input"
+                          type="text"
+                          placeholder="description"
+                          v-model="form.description"
+                        />
+                      </div>
+                    </div>
+
                     <div class="field">
                       <div class="control">
                         <button

@@ -1796,13 +1796,25 @@ button {
 .calk-collapse .el-collapse-item__header {
   font-size: 17px;
   font-weight: 500;
-  padding: 10px 0 0;
+  padding: 15px 0;
   height: auto;
   text-align: left;
   line-height: 1.4;
 }
 .calk-collapse .el-collapse-item__wrap {
   /* border: none !important; */
+}
+.fill-type-neme {
+  font-size: 15px;
+  margin: 15px 0 10px;
+}
+.desc-calk {
+  font-size: 14px;
+  margin: 10px 0 0px;
+  border-bottom: 2px dotted #e2e2e2;
+  padding: 0 0 10px;
+  width: auto !important;
+  max-width: 70% !important;
 }
 .back-step {
   font-size: 13px !important;
@@ -1878,7 +1890,7 @@ button {
   margin: 150px 0 20px;
 }
 .calk-collapse .el-collapse-item__content {
-  padding-top: 20px !important;
+  padding-top: 0px !important;
 }
 
 .calk-block-cost.reversed-order {
@@ -1897,6 +1909,7 @@ button {
   background: #f1f1f1 !important;
   opacity: 0.4;
 }
+
 @media (max-width: 1023px) {
   .calk-block {
     height: 150px;
@@ -1914,7 +1927,7 @@ button {
     font-size: 14px;
     height: auto !important;
     line-height: 1.5;
-    padding: 20px 0 0;
+    padding: 15px 0 15px;
     text-align: left;
   }
   .calk-collapse .field-label {
@@ -1929,7 +1942,18 @@ button {
     width: 200px !important;
   }
   .calk-collapse .el-collapse-item__content {
-    padding-bottom: 20px !important;
+    padding-bottom: 10px !important;
+  }
+  .fill-type-neme {
+    font-size: 15px;
+    margin: 10px 0 5px;
+  }
+  .desc-calk {
+    font-size: 14px;
+    margin: 10px 0 0px;
+    padding: 0 0 10px;
+    border-bottom: 2px dotted #e2e2e2;
+    max-width: 100% !important;
   }
   .calk-collapse .field:not(:last-child) {
     margin-bottom: 0rem;

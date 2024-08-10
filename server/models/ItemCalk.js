@@ -10,6 +10,7 @@ const itemcalkScema = new mongoose.Schema({
   unitcoefficient: { type: Number, require: true, trim: true },
   coefficient: { type: Number, require: true, trim: true },
   show_check: { type: Boolean, default: false },
+  description: { type: String, require: true, trim: true },
 });
 
 const ItemCalkModel = mongoose.model("itemcalk", itemcalkScema);

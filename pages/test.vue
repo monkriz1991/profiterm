@@ -43,20 +43,20 @@ const { data: rawItemcalk } = await useFetch("/api/itemcalk/", {
     "Content-Type": "application/json; charset=UTF-8",
   },
 });
-
-const filteredElementOptions = (item) => {
-  if (!elementcalk.value || elementcalk.value.length === 0) {
+const filteredElementOptions = (groupArray, allGroups) => {
+  // Проверяем, что groupArray определен и является массивом
+  console.log(groupArray);
+  if (!groupArray || !Array.isArray(groupArray)) {
+    console.error("groupArray is not an array or is undefined:", groupArray);
     return [];
   }
 
-  const idString = item.group;
-  const ids = idString.split(",").map((id) => id.trim());
-
+  // Фильтруем элементы по массиву идентификаторов из groupArray
   return elementcalk.value
-    .filter((el) => ids.includes(el._id))
+    .filter((el) => groupArray.includes(el._id))
     .map((el) => ({
       value: el._id,
-      label: el.title,
+      label: el.title || el.name, // Используем title или name для отображения
     }));
 };
 
@@ -403,54 +403,60 @@ const openNotifPdf = () => {
           <div class="calk-block-group">
             <el-collapse v-model="activeNames" class="calk-collapse">
               <el-collapse-item
-                v-for="(itemCalk, index) in calkObject"
+                v-for="itemCalk in calkObject"
                 :key="itemCalk._id"
                 :title="itemCalk.name || itemCalk.title"
                 :name="itemCalk._id"
               >
                 <div v-for="item in itemCalk.AllGroup" :key="item._id">
-                  <div>{{ item.name }}</div>
-                  <div class="field is-horizontal" v-if="item.type">
-                    <div class="field-body field-control">
-                      <div class="field">
-                        <p class="control">
-                          <input
-                            class="input"
-                            type="number"
-                            :value="
-                              summEdit[item.count] === 0
-                                ? ''
-                                : summEdit[item.count]
-                            "
-                            placeholder="Введите значение"
-                            :disabled="!checkedValues[item.count]"
-                            @input="
-                              updateSummEdit(item.count, $event.target.value)
-                            "
-                          />
-                        </p>
+                  <div v-if="item.type">
+                    <div class="fill-type-neme">{{ item.name }}</div>
+                    <div class="field is-horizontal" v-if="item.type">
+                      <div class="field-body field-control">
+                        <div class="field">
+                          <p class="control">
+                            <input
+                              class="input"
+                              type="number"
+                              :value="
+                                summEdit[item.count] === 0
+                                  ? ''
+                                  : summEdit[item.count]
+                              "
+                              placeholder="Введите значение"
+                              :disabled="!checkedValues[item.count]"
+                              @input="
+                                updateSummEdit(item.count, $event.target.value)
+                              "
+                            />
+                          </p>
+                        </div>
+                      </div>
+                      <div class="field-label is-normal">
+                        <label class="label">{{ item.type }}</label>
+                      </div>
+
+                      <div class="field-label has-text-right">
+                        <el-switch
+                          v-model="checkedValues[item.count]"
+                          @change="costWork()"
+                          v-if="!item.show_check"
+                          class="ml-2"
+                          size="large"
+                          :disabled="item.show_check"
+                          style="
+                            --el-switch-on-color: #13ce66;
+                            --el-switch-off-color: #ff4949;
+                          "
+                        />
                       </div>
                     </div>
-                    <div class="field-label is-normal">
-                      <label class="label">{{ item.type }}</label>
-                    </div>
-                    <div class="field-label has-text-right">
-                      <el-switch
-                        v-model="checkedValues[item.count]"
-                        @change="costWork()"
-                        v-if="!item.show_check"
-                        class="ml-2"
-                        size="large"
-                        :disabled="item.show_check"
-                        style="
-                          --el-switch-on-color: #13ce66;
-                          --el-switch-off-color: #ff4949;
-                        "
-                      />
+                    <div v-if="item.description" class="full-width desc-calk">
+                      {{ item.description }}
                     </div>
                   </div>
                   <div v-else>
-                    <div>{{ item.title }}</div>
+                    <div class="fill-type-neme">{{ item.title }}</div>
                     <div class="field is-horizontal">
                       <div class="field-body field-control">
                         <div class="field">
@@ -464,7 +470,8 @@ const openNotifPdf = () => {
                           >
                             <el-option
                               v-for="option in filteredElementOptions(
-                                itemCalk.AllGroup[index]
+                                item.groupArray,
+                                itemCalk.AllGroup
                               )"
                               :key="option.value"
                               :label="option.label"
@@ -488,10 +495,9 @@ const openNotifPdf = () => {
                         />
                       </div>
                     </div>
-                  </div>
-
-                  <div class="full-width">
-                    {{ item.description }}
+                    <div v-if="item.description" class="full-width desc-calk">
+                      {{ item.description }}
+                    </div>
                   </div>
                 </div>
               </el-collapse-item>
