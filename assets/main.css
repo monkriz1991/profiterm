@@ -1798,6 +1798,8 @@ button {
   font-weight: 500;
   padding: 10px 0 0;
   height: auto;
+  text-align: left;
+  line-height: 1.4;
 }
 .calk-collapse .el-collapse-item__wrap {
   /* border: none !important; */
