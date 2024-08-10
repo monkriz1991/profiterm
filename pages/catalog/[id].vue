@@ -45,6 +45,7 @@ const handleCurrentChange = (val) => {
 
 // Set the description for the category
 const catDescription = (item) => {
+  console.log(item);
   description.value = item;
 };
 
@@ -101,11 +102,8 @@ const scrollToTop = () => {
       </div>
 
       <!-- Display description if available -->
-      <div
-        v-if="description"
-        class="description-cat"
-        v-html="description"
-      ></div>
+
+      <div class="dscription-cat" v-if="description" v-html="description"></div>
     </div>
   </div>
 </template>

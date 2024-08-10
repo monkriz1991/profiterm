@@ -28,6 +28,7 @@ if (route.params.id && category && category.length > 0) {
     description.value = foundCategory.description;
     seoTImg.value = foundCategory.seo_image || "/profiterm.webp"; // Убедитесь, что `seo_image` есть в данных категории
   }
+  emit("catDescription", description.value);
 } else {
   const foundCategory = category.find((cat) => cat.kirilica === "");
   if (foundCategory) {
