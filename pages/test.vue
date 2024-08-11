@@ -510,7 +510,7 @@ const openNotifPdf = () => {
                         />
                       </div>
                     </div>
-                    <div v-if="item.description" class="full-width desc-calk">
+                    <div v-show="item.description" class="full-width desc-calk">
                       {{ item.description }}
                     </div>
                   </div>
@@ -555,7 +555,7 @@ const openNotifPdf = () => {
                         />
                       </div>
                     </div>
-                    <div v-if="item.description" class="full-width desc-calk">
+                    <div v-show="item.description" class="full-width desc-calk">
                       {{ item.description }}
                     </div>
                   </div>
