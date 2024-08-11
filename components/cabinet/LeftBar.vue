@@ -10,6 +10,9 @@
         <li><nuxt-link to="/cabinet/reviews">Отзывы</nuxt-link></li>
         <li><nuxt-link to="/cabinet/stage">Этапы</nuxt-link></li>
         <li><nuxt-link to="/cabinet/system">Системы</nuxt-link></li>
+        <li>
+          <nuxt-link to="/cabinet/parentgroup">Родитель типа калк.</nuxt-link>
+        </li>
         <li><nuxt-link to="/cabinet/typecalk">Тип калькулятора</nuxt-link></li>
         <li>
           <nuxt-link to="/cabinet/itemcalk">Эл. input калькулятора</nuxt-link>

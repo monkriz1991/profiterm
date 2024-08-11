@@ -15,6 +15,22 @@ const checkedValues = ref([]);
 const previousSelectedValues = ref([]);
 const isCalculated = ref(false);
 const totalCostPdf = ref("");
+const parentGrArr = ref("");
+
+let originalCalkObject = [];
+
+const { data: parentgroup } = await useFetch("/api/parentgroup/", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json; charset=UTF-8",
+  },
+  body: {},
+});
+if (parentgroup.value) {
+  parentGrArr.value = parentgroup.value.result.sort(
+    (a, b) => a.level - b.level
+  );
+}
 
 const rawGroupcalk = await $fetch("/api/groupcalk/", {
   method: "POST",
@@ -43,9 +59,28 @@ const { data: rawItemcalk } = await useFetch("/api/itemcalk/", {
     "Content-Type": "application/json; charset=UTF-8",
   },
 });
+
+const nevStep = (id) => {
+  const filteredArray = calkObject.value.filter(
+    (item) => item.parentgroup === id
+  );
+  calkObject.value = filteredArray;
+  visibleSteep.value = false;
+};
+
+const backStep = () => {
+  console.log(originalCalkObject.value);
+  totalCost.value = 0;
+  summEdit.value = [];
+  suumItem.value = [];
+  // selectedValues.value = [];
+  // checkedValues.value = [];
+  visibleSteep.value = true;
+  calkObject.value = originalCalkObject.value;
+};
 const filteredElementOptions = (groupArray, allGroups) => {
   // Проверяем, что groupArray определен и является массивом
-  console.log(groupArray);
+
   if (!groupArray || !Array.isArray(groupArray)) {
     console.error("groupArray is not an array or is undefined:", groupArray);
     return [];
@@ -138,6 +173,7 @@ onMounted(async () => {
       };
     });
   }
+  originalCalkObject.value = calkObject.value;
   const combined = calkObject.value.flatMap((type) => type.AllGroup);
 
   // titleBlock.value = titleWork;
@@ -147,7 +183,7 @@ onMounted(async () => {
   selectedValues.value = combined.map(() => null);
   checkedValues.value = combined.map(() => true);
   activeNames.value = calkObject.value.map((item) => item._id);
-  visibleSteep.value = false;
+  // visibleSteep.value = false;
   isCalculated.value = false;
 });
 
@@ -222,7 +258,7 @@ const updateCost = (selectedId, index) => {
       summEdit.value[index] = 0;
     }
   }
-  console.log(summEdit.value);
+  // console.log(summEdit.value);
   costWork();
 };
 
@@ -398,9 +434,32 @@ const openNotifPdf = () => {
         </div>
       </div>
 
-      <div class="columns is-multiline">
+      <div class="columns is-multiline" v-if="visibleSteep">
+        <div
+          class="column is-4"
+          v-for="item in parentGrArr"
+          :key="item._id"
+          @click="nevStep(item._id)"
+        >
+          <div class="calk-block">
+            <Icon v-if="item.icon" :name="item.icon" />
+            <strong>{{ item.title }}</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="columns is-multiline" v-else>
         <div class="column is-12">
           <div class="calk-block-group">
+            <div class="calk-block-group-title">
+              <button class="button back-step is-white" @click="backStep">
+                <span class="icon">
+                  <Icon name="solar:round-alt-arrow-left-broken" />
+                </span>
+                <span>К списку</span>
+              </button>
+              {{ titleBlock }}
+            </div>
             <el-collapse v-model="activeNames" class="calk-collapse">
               <el-collapse-item
                 v-for="itemCalk in calkObject"

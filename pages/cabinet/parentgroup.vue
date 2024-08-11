@@ -12,33 +12,28 @@ const drawer = ref(false);
 const buttonEdit = ref(false);
 const dell = ref({});
 const form = ref({
-  level: "",
+  typecalk: "",
+  level: 0,
   title: "",
-  parentgroup: "",
-  description: "",
-  img: "",
   icon: "",
-  show_check: true,
 });
 
-const { data: parentgroup } = await useFetch("/api/parentgroup/", {
+const {
+  data: parentgroup,
+  error,
+  refresh,
+} = await useFetch("/api/parentgroup/", {
   method: "POST",
   headers: {
     "Content-Type": "application/json; charset=UTF-8",
   },
   body: { sortPage, pageSize },
 });
-const { data: typecalk, refresh } = await useFetch("/api/typecalk/", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json; charset=UTF-8",
-  },
-  body: {},
-});
-const addTypecalk = async () => {
-  let updatecalk = "api/update/updatetypecalk";
+
+const addGroupcalk = async () => {
+  let updatecalk = "api/update/updateparentgroup";
   if (buttonEdit.value == true) {
-    updatecalk = "api/add/addtypecalk";
+    updatecalk = "api/add/addparentgroup";
   }
   const { data: responseData } = await useFetch(`/${updatecalk}/`, {
     method: "POST",
@@ -54,24 +49,26 @@ const addTypecalk = async () => {
 };
 const drawerDel = async (id) => {
   dell.value = { _id: id };
-  const { data: responseData } = await useFetch("/api/delete/deletetypecalk/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json; charset=UTF-8",
-    },
-    body: dell.value,
-  });
+  const { data: responseData } = await useFetch(
+    "/api/delete/deleteparentgroup/",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+      body: dell.value,
+    }
+  );
   if (responseData) {
     refresh();
   }
 };
 const drawerIn = (item) => {
+  console.log(item);
   form.value._id = item._id;
-  (form.value.parentgroup = item.parentgroup),
+
+  (form.value.title = item.title),
     (form.value.level = item.level),
-    (form.value.title = item.title),
-    (form.value.description = item.description),
-    (form.value.show_check = item.show_check),
     (form.value.icon = item.icon),
     (drawer.value = true);
   buttonEdit.value = false;
@@ -99,25 +96,22 @@ const handleCurrentChange = (val) => {
       <div class="column is-8">
         <div class="content">
           <div class="cat-h1-cab">
-            <h1>TypeCalk</h1>
+            <h1>ParentGroupCalk</h1>
             <button class="button is-white" type="primary" @click="drawerNull">
               <span class="icon">
                 <Icon class="modal-b-svg" name="solar:add-square-broken" />
               </span>
-              <span>Добавить тип</span>
+              <span>Добавить Родителя</span>
             </button>
           </div>
           <div class="drawer-add">
-            <div v-if="typecalk.result" class="drawer-cat-all">
+            <div v-if="parentgroup.result" class="drawer-cat-all">
               <div
                 class="drawer-cat"
-                v-for="item in typecalk.result"
+                v-for="item in parentgroup.result"
                 :key="item"
               >
                 <div class="drawer-cat-left">
-                  <div class="drawer-cat-img">
-                    <Icon v-if="item.icon" :name="item.icon" />
-                  </div>
                   <strong>{{ item.title }}</strong>
                 </div>
                 <div class="drawer-cat-right">
@@ -147,32 +141,7 @@ const handleCurrentChange = (val) => {
               >
                 <span>Hi there!</span>
                 <div class="drawer-block">
-                  <form @submit.prevent="addTypecalk">
-                    <div class="field">
-                      <el-select
-                        v-model="form.parentgroup"
-                        class=""
-                        placeholder="Тип работ"
-                        size="large"
-                      >
-                        <el-option
-                          v-for="item in parentgroup.result"
-                          :key="item._id"
-                          :label="item.title"
-                          :value="item._id"
-                        />
-                      </el-select>
-                    </div>
-
-                    <div class="field">
-                      <div class="control">
-                        <el-checkbox
-                          v-model="form.show_check"
-                          label="Блокировка"
-                          size="large"
-                        />
-                      </div>
-                    </div>
+                  <form @submit.prevent="addGroupcalk">
                     <div class="field">
                       <div class="control">
                         <input
@@ -191,16 +160,6 @@ const handleCurrentChange = (val) => {
                           type="text"
                           placeholder="title"
                           v-model="form.title"
-                        />
-                      </div>
-                    </div>
-                    <div class="field">
-                      <div class="control">
-                        <input
-                          class="input"
-                          type="text"
-                          placeholder="description"
-                          v-model="form.description"
                         />
                       </div>
                     </div>
@@ -244,7 +203,7 @@ const handleCurrentChange = (val) => {
           layout="prev, pager, next"
           :current-page="currentPage"
           :page-size="pageSize"
-          :total="typecalk.count"
+          :total="parentgroup.count"
           @current-change="handleCurrentChange"
         />
       </div>
