@@ -1924,7 +1924,8 @@ button {
     line-height: 1.2 !important;
   }
   .calk-collapse .el-collapse-item__header {
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: 700;
     height: auto !important;
     line-height: 1.5;
     padding: 15px 0 15px;
@@ -1946,7 +1947,13 @@ button {
   }
   .fill-type-neme {
     font-size: 15px;
-    margin: 10px 0 5px;
+    margin: 15px 0 10px;
+    line-height: 1.4;
+  }
+  .back-step {
+    font-size: 13px !important;
+    margin: 10px 0 0px;
+    padding-left: 5px !important;
   }
   .desc-calk {
     font-size: 14px;
