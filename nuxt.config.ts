@@ -11,12 +11,6 @@ export default defineNuxtConfig({
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
       meta: [
-        {
-          hid: "description",
-          name: "description",
-          content:
-            "Предлагаем приемлемые цены, гарантию до 5 лет и рассрочку платежа. Высококачественные инженерные системы для комфортного и беззаботного проживания в частном доме.",
-        },
         { property: "og:site_name", content: "Профитерм" },
         {
           hid: "viewport",

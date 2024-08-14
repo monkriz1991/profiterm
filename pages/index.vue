@@ -92,8 +92,16 @@ useSeoMeta({
     <div class="container">
       <div class="content index-content">
         <index-galery v-model:galery="main.two" v-model:description="descGal" />
+
         <index-video v-model:video="main.three" />
         <index-system />
+        <div class="index-calk">
+          <span
+            >Для определения стоимости работ Вы можете совершить предварительный
+            расчёт!</span
+          >
+          <nuxt-link to="/calculator">Перейти к расчёту</nuxt-link>
+        </div>
         <ClientOnly>
           <index-work />
         </ClientOnly>

@@ -12,6 +12,20 @@ watchEffect(() => {
     { label: "Контакты", to: `/contacts` },
   ];
 });
+const title = ref("Контакты компании Профитерм");
+const description = ref(
+  "На этой странице вы сможете найти контакты для связи с нами."
+);
+const imgOg = ref("/profiterm.webp");
+
+useSeoMeta({
+  title: title.value,
+  ogTitle: title.value,
+  description: description.value,
+  ogDescription: description.value,
+  ogImage: imgOg.value,
+  twitterCard: "summary_large_image",
+});
 </script>
 <template>
   <div>

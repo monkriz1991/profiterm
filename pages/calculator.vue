@@ -324,39 +324,31 @@ const generatePDF = () => {
   doc.text("Расчет стоимости работ", 10, 10);
 
   let y = 20;
-  let totalCost = 0; // Инициализация переменной для итоговой стоимости
 
   // Сохраняем все используемые индексы для проверки
   const usedIndexes = new Set();
 
   // Проходим по каждому элементу в calkObject.value
   calkObject.value.forEach((type) => {
-    // Проходим по каждому элементу в AllGroup текущего типа
     type.AllGroup.forEach((item) => {
       const countIndex = item.count; // Предполагаем, что `item.count` указывает на правильный индекс
-      if (countIndex === undefined) return; // Пропускаем, если `item.count` не определен
+      if (countIndex === undefined) return;
 
       // Проверяем состояние переключателя
       const isChecked = checkedValues.value[countIndex];
-      console.log(`Index: ${countIndex}, Checked: ${isChecked}`); // Отладочное сообщение
 
-      // Пропускаем элемент, если переключатель выключен
       if (!isChecked) {
         return;
       }
 
       const quantity = parseFloat(summEdit.value[countIndex]) || 0;
-      console.log(`Quantity for index ${countIndex}: ${quantity}`); // Отладочное сообщение
       const itemCost = (item.cost || 0) * quantity;
       let finalCost = itemCost;
+
       if (quantity >= (item.unitcoefficient || 0)) {
         const coefficientReduction = 1 - (item.coefficient || 0) / 100;
         finalCost = itemCost * coefficientReduction;
       }
-
-      // Обновляем итоговую стоимость
-      //totalCost += finalCost;
-      console.log(`Final cost for index ${countIndex}: ${finalCost}`); // Отладочное сообщение
 
       const selectedLabel = selectedValues.value[countIndex]
         ? elementcalk.value.find(
@@ -370,6 +362,7 @@ const generatePDF = () => {
         10,
         y
       );
+      // doc.text(`Стоимость : ${finalCost} руб.`, 10, y + 20);
 
       if (item.type) {
         doc.text(`Количество: ${quantity} ${item.type}`, 10, y + 10);
@@ -380,7 +373,6 @@ const generatePDF = () => {
       y += 30;
     });
   });
-
   // Проверяем, что итоговая стоимость определена и корректна
   doc.text(`Итоговая стоимость: ${totalCostPdf.value} руб.`, 10, y);
 
@@ -412,8 +404,10 @@ onUnmounted(() => {
 const openNotif = () => {
   ElNotification({
     title: "Ошибка",
-    message: "Выберите и заполните все значения!",
+    message:
+      "Выберите и заполните все значения!<br/> <strong>Не нужные пункты отключите!</strong>",
     type: "error",
+    dangerouslyUseHTMLString: true,
   });
 };
 const openNotifPdf = () => {
@@ -423,6 +417,21 @@ const openNotifPdf = () => {
     type: "error",
   });
 };
+
+const title = ref("Калькулятор стоимости работ");
+const description = ref(
+  "С помощью этого калькулятора Вы сможете рассчитать стоимость работ компании Профитерм."
+);
+const imgOg = ref("/profiterm.webp");
+
+useSeoMeta({
+  title: title.value,
+  ogTitle: title.value,
+  description: description.value,
+  ogDescription: description.value,
+  ogImage: imgOg.value,
+  twitterCard: "summary_large_image",
+});
 </script>
 
 <template>
@@ -587,6 +596,10 @@ const openNotifPdf = () => {
             <div v-if="isCalculated">
               <span>Итоговая стоимость:</span>
               <strong>{{ totalCost.toFixed(2) }}<span> руб.</span></strong>
+              <p>
+                За расчётами материалов обратитесь пожалуйста по номеру телефона
+                или оставьте заявку!
+              </p>
             </div>
             <button
               class="button calculate-cost is-primary is-light"

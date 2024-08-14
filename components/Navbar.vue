@@ -37,6 +37,9 @@ mainData.fetchData();
         <div class="navbar-menu">
           <div class="navbar-start">
             <nuxt-link to="/catalog">Наши работы</nuxt-link>
+            <nuxt-link to="/calculator" class="mobail-none"
+              >Калькулятор</nuxt-link
+            >
             <nuxt-link to="/installment" class="mobail-none"
               >Рассрочка платежа</nuxt-link
             >
@@ -91,6 +94,11 @@ mainData.fetchData();
                 >
                 <nuxt-link to="/catalog" @click="visibleDrawer = !visibleDrawer"
                   >Наши работы</nuxt-link
+                >
+                <nuxt-link
+                  to="/calculator"
+                  @click="visibleDrawer = !visibleDrawer"
+                  >Калькулятор</nuxt-link
                 >
                 <nuxt-link
                   to="/installment"
