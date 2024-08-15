@@ -319,7 +319,7 @@ const generatePDF = () => {
   doc.addFileToVFS("Roboto.ttf", RobotoBase64);
   doc.addFont("Roboto.ttf", "Roboto", "normal");
   doc.setFont("Roboto");
-  doc.setFontSize(12);
+  doc.setFontSize(11);
 
   doc.text("Расчет стоимости работ", 10, 10);
 
@@ -356,7 +356,7 @@ const generatePDF = () => {
           )?.title || "Не выбрано"
         : "Не выбрано";
 
-      doc.text(`------------------------------------------`, 10, y + 20);
+      doc.text(`------------------------------------------`, 10, y + 10);
       doc.text(
         `Тип работ ${countIndex + 1}: ${item.name || item.title}`,
         10,
@@ -365,12 +365,12 @@ const generatePDF = () => {
       // doc.text(`Стоимость : ${finalCost} руб.`, 10, y + 20);
 
       if (item.type) {
-        doc.text(`Количество: ${quantity} ${item.type}`, 10, y + 10);
+        doc.text(`Количество: ${quantity} ${item.type}`, 10, y + 5);
       } else {
-        doc.text(`Выбранный элемент: ${selectedLabel}`, 10, y + 10);
+        doc.text(`Выбранный элемент: ${selectedLabel}`, 10, y + 5);
       }
 
-      y += 30;
+      y += 20;
     });
   });
   // Проверяем, что итоговая стоимость определена и корректна
