@@ -2079,10 +2079,15 @@ button {
     /* padding: 0 !important; */
   }
   .navbar-start {
-    margin: 0 0 0 0px;
+    margin: 0 0 0 -5px;
     position: absolute;
     left: 70px;
     top: 10px;
+  }
+  .navbar-start a:first-child::after {
+    content: "|";
+    position: absolute;
+    right: -12px;
   }
   .rev-b-modal {
     margin: 15px 0 0;
@@ -2139,8 +2144,8 @@ button {
   }
   .navbar-start a {
     font-weight: 500;
-    font-size: 12px;
-    padding: 0px 20px 3px;
+    font-size: 11px;
+    padding: 0px 0px 3px 20px;
     display: inline-block;
     position: relative;
     top: 0px;

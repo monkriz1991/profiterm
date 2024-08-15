@@ -37,9 +37,7 @@ mainData.fetchData();
         <div class="navbar-menu">
           <div class="navbar-start">
             <nuxt-link to="/catalog">Наши работы</nuxt-link>
-            <nuxt-link to="/calculator" class="mobail-none"
-              >Калькулятор</nuxt-link
-            >
+            <nuxt-link to="/calculator">Стоимость</nuxt-link>
             <nuxt-link to="/installment" class="mobail-none"
               >Рассрочка платежа</nuxt-link
             >
@@ -53,7 +51,7 @@ mainData.fetchData();
               >{{ phone }} <Icon name="ph:phone-thin"
             /></a>
           </div>
-          <div v-if="windowWidth < 700" class="navbar-phone-mobail">
+          <div v-if="windowWidth < 700" class="navbar-phone-mobail mobail-none">
             <el-dropdown trigger="click" popper-class="dropdown-header">
               <button class="button">
                 <span class="icon"><Icon name="ph:phone-thin" /></span>
