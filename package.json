@@ -18,6 +18,7 @@
     "@sidebase/nuxt-auth": "^0.6.3",
     "@types/bcrypt": "^5.0.2",
     "@types/multer": "^1.4.11",
+    "@zadigetvoltaire/nuxt-gtm": "^0.0.13",
     "autoprefixer": "^10.4.16",
     "ipx": "^3.0.0",
     "nuxt": "^3.8.2",
