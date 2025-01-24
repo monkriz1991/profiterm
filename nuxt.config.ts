@@ -72,6 +72,7 @@ export default defineNuxtConfig({
     "@nuxtjs/seo",
     "nuxt-icon",
     "@nuxt/image-edge",
+    "@zadigetvoltaire/nuxt-gtm",
     "@nuxt/image",
     [
       "@nuxtjs/google-fonts",
@@ -92,6 +93,9 @@ export default defineNuxtConfig({
       },
     ],
   ],
+  gtm: {
+    id: "GTM-815779075",
+  },
   site: {
     url: "https://profiterm.by",
   },
