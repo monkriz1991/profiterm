@@ -94,7 +94,7 @@ export default defineNuxtConfig({
     ],
   ],
   gtm: {
-    id: "GTM-815779075",
+    id: "GTM-4G2KWF3CY6",
   },
   site: {
     url: "https://profiterm.by",
