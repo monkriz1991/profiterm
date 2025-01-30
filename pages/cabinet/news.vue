@@ -11,59 +11,48 @@ const pageSize = ref(4);
 const drawer = ref(false);
 const buttonEdit = ref(false);
 const dell = ref({});
+const fileUpload = ref([]);
+const fileDelte = ref([]);
+const fileUploadGalery = ref([]);
+const fileUploadImg = ref([]);
+const fileDelteGalery = ref([]);
 const imfArr = ref([]);
 const galArr = ref([]);
-const categoryUse = ref([]);
-const fileUpload = ref([]);
-const fileUploadImg = ref([]);
-const fileUploadGalery = ref([]);
-const fileDelteGalery = ref([]);
 const fileDelteImg = ref([]);
-const fileDelte = ref([]);
 const form = ref({
-  level: 0,
-  category: "",
-  seo_description: "",
-  seo_title: "",
+  level: "",
   title: "",
-  preview: "",
   kirilica: "",
+  seo_title: "",
+  seo_description: "",
+  subtitle: "",
+  icon: "",
+  video: "",
   img: [],
   galery: [],
-  video: "",
-  info: "",
   description: "",
 });
 const {
-  data: project,
+  data: news,
   error,
   refresh,
-} = await useFetch("/api/project/", {
+} = await useFetch("/api/news/", {
   method: "POST",
   headers: {
     "Content-Type": "application/json; charset=UTF-8",
   },
   body: { sortPage, pageSize },
+  watch: false,
 });
-
-const categorySelect = async () => {
-  const { data: categoryIn } = await useFetch(() => "/api/category/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json; charset=UTF-8",
-    },
-  });
-  categoryUse.value = categoryIn.value;
-};
-const addProject = async () => {
+const addNews = async () => {
   const bodyFils = new FormData();
   fileDelte.value = fileDelteImg.value.concat(fileDelteGalery.value);
-  let updateproject = "api/update/updateproject";
+  let updatenews = "api/update/updatenews";
   if (buttonEdit.value == true) {
-    updateproject = "api/add/addproject";
+    updatenews = "api/add/addnews";
   } else {
     if (fileDelte.value.length != 0) {
-      const { data: responseDell } = await useFetch("/api/deletefiles/", {
+      await useFetch("/api/deletefiles/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
@@ -72,7 +61,7 @@ const addProject = async () => {
       });
     }
   }
-  const { data: responseData } = await useFetch(`/${updateproject}/`, {
+  const { data: responseData } = await useFetch(`/${updatenews}/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json; charset=UTF-8",
@@ -93,17 +82,16 @@ const addProject = async () => {
   if (responseData) {
     refresh();
     form.value = {
-      level: 0,
-      category: "",
+      level: "",
       title: "",
-      preview: "",
-      kirilica: "",
-      seo_description: "",
       seo_title: "",
+      seo_description: "",
+      kirilica: "",
+      subtitle: "",
+      icon: "",
+      video: "",
       img: [],
       galery: [],
-      video: "",
-      info: "",
       description: "",
     };
     imfArr.value = [];
@@ -111,33 +99,24 @@ const addProject = async () => {
     form.value.description = "<p></p>";
   }
 };
-
-const drawerDel = async (id, img, galey) => {
-  let arrFiles = [];
-  let arrContact = [];
-  if (img != undefined && galey != undefined) {
-    arrContact = img.concat(galey);
-  } else if (img != undefined && galey == undefined) {
-    arrContact = img;
-  } else if (img == undefined && galey != undefined) {
-    arrContact = galey;
-  }
-  for (let item in arrContact) {
-    if (arrContact[item].name != undefined) {
-      arrFiles.push(arrContact[item]);
+const drawerDel = async (id, img) => {
+  let arrImg = [];
+  for (let item in img) {
+    if (img[item].name != undefined) {
+      arrImg.push(img[item]);
     }
   }
-  if (arrFiles.length != 0) {
-    const { data: responseDell } = await useFetch("/api/deletefiles/", {
+  if (arrImg.length != 0) {
+    await useFetch("/api/deletefiles/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json; charset=UTF-8",
       },
-      body: { img: arrFiles },
+      body: { img: arrImg },
     });
   }
   dell.value = { _id: id };
-  const { data: responseData } = await useFetch("/api/delete/deleteproject/", {
+  const { data: responseData } = await useFetch("/api/delete/deletenews/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json; charset=UTF-8",
@@ -148,60 +127,48 @@ const drawerDel = async (id, img, galey) => {
     refresh();
   }
 };
-onMounted(() => {
-  setTimeout(() => {
-    categorySelect();
-  }, 1);
-});
 const drawerIn = (item) => {
   form.value.img = [];
   form.value.galery = [];
-  fileUploadImg.value = [];
+  form.value.seo_title = item.seo_title;
+  form.value.seo_description = item.seo_description;
+  imfArr.value = [];
+  fileUpload.value = [];
   fileUploadGalery.value = [];
+  fileUploadImg.value = [];
   galArr.value = [];
   if (item.img.length) {
     form.value.img = item.img;
     imfArr.value = item.img;
   }
-
   if (item.galery.length) {
     form.value.galery = item.galery;
     galArr.value = item.galery;
   }
-  form.value._id = item._id;
-  (form.value.kirilica = item.kirilica),
-    (form.value.title = item.title),
-    (form.value.preview = item.preview),
+  (form.value._id = item._id),
     (form.value.level = item.level),
+    (form.value.title = item.title),
+    (form.value.icon = item.icon),
     (form.value.video = item.video),
-    (form.value.info = item.info),
-    (form.value.seo_description = item.seo_description),
-    (form.value.seo_title = item.seo_title),
+    (form.value.kirilica = item.kirilica),
+    (form.value.subtitle = item.subtitle),
     (form.value.description = item.description),
     (drawer.value = true);
-
-  for (let catall in categoryUse) {
-    for (let catim in categoryUse[catall]) {
-      if (categoryUse[catall][catim] != undefined) {
-        if (item.category == categoryUse[catall][catim]["kirilica"]) {
-          form.value.category = categoryUse[catall][catim].kirilica;
-        }
-      }
-    }
-  }
   buttonEdit.value = false;
+  fileDelte.value = [];
+
   fileDelteImg.value = [];
   fileDelteGalery.value = [];
 };
 
 const drawerNull = () => {
-  categorySelect();
   drawer.value = true;
   buttonEdit.value = true;
   imfArr.value = [];
+  fileUpload.value = [];
   galArr.value = [];
-  fileUploadImg.value = [];
   fileUploadGalery.value = [];
+  fileUploadImg.value = [];
   for (let item in form.value) {
     form.value[item] = "";
     if (item == "description") {
@@ -211,10 +178,8 @@ const drawerNull = () => {
       form.value[item] = [];
     }
   }
-
   delete form.value["_id"];
 };
-
 const handleCurrentChange = (val) => {
   if (val == 1) {
     sortPage.value = 0;
@@ -223,6 +188,22 @@ const handleCurrentChange = (val) => {
   }
   currentPage.value = val;
   refresh();
+};
+
+const addGal = (fileData) => {
+  const filename = fileData.name;
+  const randomPart = Math.random().toString(36).substring(7);
+  const newFilename = randomPart + filename;
+
+  const modifiedFile = new File([fileData], newFilename, {
+    type: fileData.type,
+  });
+
+  fileUploadGalery.value.push(modifiedFile);
+  form.value.galery.push({
+    name: modifiedFile.name,
+    url: `${config.public.filesPath}${modifiedFile.name}`,
+  });
 };
 
 const addImg = (fileData) => {
@@ -236,21 +217,6 @@ const addImg = (fileData) => {
 
   fileUploadImg.value.push(modifiedFile);
   form.value.img.push({
-    name: modifiedFile.name,
-    url: `${config.public.filesPath}${modifiedFile.name}`,
-  });
-};
-const addGal = (fileData) => {
-  const filename = fileData.name;
-  const randomPart = Math.random().toString(36).substring(7);
-  const newFilename = randomPart + filename;
-
-  const modifiedFile = new File([fileData], newFilename, {
-    type: fileData.type,
-  });
-
-  fileUploadGalery.value.push(modifiedFile);
-  form.value.galery.push({
     name: modifiedFile.name,
     url: `${config.public.filesPath}${modifiedFile.name}`,
   });
@@ -290,21 +256,17 @@ const handleCloseDrawer = () => {
       <div class="column is-8">
         <div class="content">
           <div class="cat-h1-cab">
-            <h1>Project</h1>
+            <h1>News</h1>
             <button class="button is-white" type="primary" @click="drawerNull">
               <span class="icon">
                 <Icon class="modal-b-svg" name="solar:add-square-broken" />
               </span>
-              <span>Добавить проект</span>
+              <span>Добавить статью</span>
             </button>
           </div>
           <div class="drawer-add">
-            <div v-if="project.result" class="drawer-cat-all">
-              <div
-                class="drawer-cat"
-                v-for="item in project.result"
-                :key="item"
-              >
+            <div v-if="news.result" class="drawer-cat-all">
+              <div class="drawer-cat" v-for="item in news.result" :key="item">
                 <div class="drawer-cat-left">
                   <div class="drawer-cat-img">
                     <NuxtImg
@@ -315,11 +277,9 @@ const handleCloseDrawer = () => {
                     />
                     <img v-else src="/noimg.webp" />
                   </div>
-                  <!-- <span>{{ item.category }}</span> -->
                   <strong>{{ item.title }}</strong>
                 </div>
-                <!-- <span>{{ item.kirilica }}</span>   
-                           <span>{{ item.description }}</span> -->
+
                 <div class="drawer-cat-right">
                   <button
                     class="button is-warning is-normal is-light"
@@ -331,7 +291,7 @@ const handleCloseDrawer = () => {
                   <button
                     class="button is-danger is-normal is-light"
                     type="submit"
-                    @click="drawerDel(item._id, item.img, item.galery)"
+                    @click="drawerDel(item._id, item.img)"
                   >
                     Delete
                   </button>
@@ -348,32 +308,28 @@ const handleCloseDrawer = () => {
               >
                 <span>Hi there!</span>
                 <div class="drawer-block">
-                  <form @submit.prevent="addProject">
+                  <form @submit.prevent="addNews">
                     <div class="field">
                       <div class="control">
                         <input
                           class="input"
-                          type="number"
+                          type="text"
                           placeholder="level"
                           v-model="form.level"
                         />
                       </div>
                     </div>
                     <div class="field">
-                      <el-select
-                        v-model="form.category"
-                        class=""
-                        placeholder="category"
-                        size="large"
-                      >
-                        <el-option
-                          v-for="item in categoryUse"
-                          :key="item.id_category"
-                          :label="item.name"
-                          :value="item.kirilica"
+                      <div class="control">
+                        <input
+                          class="input"
+                          type="text"
+                          placeholder="title"
+                          v-model="form.title"
                         />
-                      </el-select>
+                      </div>
                     </div>
+
                     <div class="field">
                       <div class="control">
                         <input
@@ -394,6 +350,7 @@ const handleCloseDrawer = () => {
                         />
                       </div>
                     </div>
+
                     <div class="field">
                       <div class="control">
                         <input
@@ -409,8 +366,8 @@ const handleCloseDrawer = () => {
                         <input
                           class="input"
                           type="text"
-                          placeholder="title"
-                          v-model="form.title"
+                          placeholder="subtitle"
+                          v-model="form.subtitle"
                         />
                       </div>
                     </div>
@@ -419,9 +376,19 @@ const handleCloseDrawer = () => {
                         <input
                           class="input"
                           type="text"
-                          placeholder="preview"
-                          v-model="form.preview"
+                          placeholder="video"
+                          v-model="form.video"
                         />
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div class="control">
+                        <QuillEditor
+                          v-model:content="form.description"
+                          contentType="html"
+                          toolbar="full"
+                          theme="snow"
+                        ></QuillEditor>
                       </div>
                     </div>
                     <div class="field">
@@ -435,7 +402,6 @@ const handleCloseDrawer = () => {
                           multiple
                           list-type="picture"
                           v-model:file-list="imfArr"
-                          :limit="1"
                         >
                           <el-icon class="el-icon--upload"
                             ><upload-filled
@@ -470,38 +436,6 @@ const handleCloseDrawer = () => {
                     </div>
                     <div class="field">
                       <div class="control">
-                        <input
-                          class="input"
-                          type="text"
-                          placeholder="video"
-                          v-model="form.video"
-                        />
-                      </div>
-                    </div>
-                    <div class="field">
-                      <div class="control">
-                        <textarea
-                          class="textarea"
-                          placeholder="info"
-                          v-model="form.info"
-                          rows="4"
-                        >
-                        </textarea>
-                      </div>
-                    </div>
-                    <div class="field">
-                      <div class="control">
-                        <QuillEditor
-                          v-model:content="form.description"
-                          contentType="html"
-                          toolbar="full"
-                          theme="snow"
-                        ></QuillEditor>
-                        {{ form.description }}
-                      </div>
-                    </div>
-                    <div class="field">
-                      <div class="control">
                         <button
                           v-if="buttonEdit == true"
                           class="button is-success"
@@ -511,7 +445,7 @@ const handleCloseDrawer = () => {
                         </button>
                         <button
                           v-else
-                          class="button is-success mt-6"
+                          class="button is-success"
                           type="submit"
                           @click="drawer = false"
                         >
@@ -530,7 +464,7 @@ const handleCloseDrawer = () => {
           layout="prev, pager, next"
           :current-page="currentPage"
           :page-size="pageSize"
-          :total="project.count"
+          :total="news.count"
           @current-change="handleCurrentChange"
         />
       </div>

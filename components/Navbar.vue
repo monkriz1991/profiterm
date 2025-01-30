@@ -1,6 +1,5 @@
 <script setup>
 import { useMainStore } from "~/store/maindata";
-const mainData = useMainStore();
 import { useWindowSize } from "@vueuse/core";
 const { data: user, signOut } = useAuth();
 const visibleDrawer = ref(false);
@@ -13,6 +12,8 @@ const Exit = async () => {
 // const visibleDrawer = (item) => {
 //   menyMobail.value = item;
 // };
+const mainData = useMainStore();
+
 const { width, height } = useWindowSize();
 watchEffect(() => {
   windowWidth.value = width.value;
@@ -20,10 +21,10 @@ watchEffect(() => {
 
 const monDataNav = computed(() => mainData.getMain);
 const phone = computed(() =>
-  monDataNav.value.length > 0 ? monDataNav.value[0].phone : ""
+  monDataNav.value.length > 0 ? monDataNav.value[0]?.phone : ""
 );
 const dopphone = computed(() =>
-  monDataNav.value.length > 0 ? monDataNav.value[0].dopphone : ""
+  monDataNav.value.length > 0 ? monDataNav.value[0]?.dopphone : ""
 );
 mainData.fetchData();
 </script>
@@ -39,8 +40,9 @@ mainData.fetchData();
             <nuxt-link to="/catalog">Наши работы</nuxt-link>
             <nuxt-link to="/calculator">Стоимость</nuxt-link>
             <nuxt-link to="/installment" class="mobail-none"
-              >Рассрочка платежа</nuxt-link
+              >Рассрочка</nuxt-link
             >
+            <nuxt-link to="/articles" class="mobail-none">Статьи</nuxt-link>
             <nuxt-link to="/about" class="mobail-none">О нас</nuxt-link>
             <nuxt-link to="/contacts" class="mobail-none">Контакты</nuxt-link>
           </div>
@@ -97,6 +99,11 @@ mainData.fetchData();
                   to="/calculator"
                   @click="visibleDrawer = !visibleDrawer"
                   >Калькулятор</nuxt-link
+                >
+                <nuxt-link
+                  to="/articles"
+                  @click="visibleDrawer = !visibleDrawer"
+                  >Статьи</nuxt-link
                 >
                 <nuxt-link
                   to="/installment"

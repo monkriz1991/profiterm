@@ -1,31 +1,35 @@
 <script setup>
 const route = useRoute();
 const router = useRouter();
+const ParamsCat = ref(route.params.id);
 const sortPage = ref(0);
 const currentPage = ref(1);
 const pageSize = ref(6);
 const description = ref("");
 
-// Update the current page and sortPage based on the query parameter
+// Обновление текущей страницы и sortPage на основе query параметра
 if (router.currentRoute.value.query.page !== undefined) {
   currentPage.value = parseInt(router.currentRoute.value.query.page, 10);
   sortPage.value = currentPage.value * pageSize.value - pageSize.value;
 }
 
-// Fetch project data from API
+// Создаем реактивный объект для body
+const requestBody = computed(() => ({
+  ParamsCat: ParamsCat.value,
+  sortPage: sortPage.value,
+  pageSize: pageSize.value,
+}));
+
+// Используем useFetch с реактивным body
 const { data: project, refresh } = await useFetch("/api/project", {
   method: "POST",
   headers: {
     "Content-Type": "application/json; charset=UTF-8",
   },
-  body: JSON.stringify({
-    ParamsCat: route.params.id,
-    sortPage: sortPage.value,
-    pageSize: pageSize.value,
-  }),
+  body: requestBody,
 });
 
-// Handle page changes
+// Обработчик изменения страницы
 const handleCurrentChange = (val) => {
   if (val === 1) {
     sortPage.value = 0;
@@ -33,34 +37,35 @@ const handleCurrentChange = (val) => {
     sortPage.value = val * pageSize.value - pageSize.value;
   }
   currentPage.value = val;
+
   router.replace({
     name: "catalog-id",
     query: {
       page: currentPage.value !== 1 ? currentPage.value : undefined,
     },
   });
-  refresh();
+
+  refresh(); // Обновление данных при смене страницы
   scrollToTop();
 };
 
-// Set the description for the category
+// Установка описания для категории
 const catDescription = (item) => {
-  console.log(item);
   description.value = item;
 };
 
-// Scroll to the top of the page
+// Функция прокрутки страницы вверх
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
 </script>
+
 <template>
   <div class="bd-docs-main">
     <div class="container">
       <div class="content">
         <!-- Navigation component for category -->
         <nav-category @catDescription="catDescription" />
-
         <!-- Display project items in a grid layout -->
         <div class="columns is-desktop is-multiline is-variable">
           <div

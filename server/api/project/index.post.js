@@ -3,7 +3,6 @@ import ProjectModel from "~/server/models/Project";
 export default defineEventHandler(async (event) => {
   try {
     const data = await readBody(event);
-
     // Построение базового запроса
     let query = {};
     if (data.ParamsCat) {

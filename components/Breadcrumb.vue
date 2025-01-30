@@ -8,7 +8,7 @@ const props = defineProps({
     default: () => [],
   },
 });
-if (route.name == "project-id") {
+if (route.name == "project-id" || route.name == "article-id") {
   visibleBack.value = true;
 }
 </script>

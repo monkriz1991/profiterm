@@ -5,20 +5,18 @@ import { computed, ref, onMounted } from "vue";
 const mainData = useMainStore();
 const monDataNav = ref([]);
 
+await mainData.fetchData();
+monDataNav.value = mainData.getMain;
+
 const phone = computed(() =>
-  monDataNav.value.length > 0 ? monDataNav.value[0].phone : ""
+  monDataNav.value.length > 0 ? monDataNav.value[0]?.phone : ""
 );
 const dopphone = computed(() =>
-  monDataNav.value.length > 0 ? monDataNav.value[0].dopphone : ""
+  monDataNav.value.length > 0 ? monDataNav.value[0]?.dopphone : ""
 );
 const email = computed(() =>
-  monDataNav.value.length > 0 ? monDataNav.value[0].email : ""
+  monDataNav.value.length > 0 ? monDataNav.value[0]?.email : ""
 );
-
-onMounted(async () => {
-  await mainData.fetchData();
-  monDataNav.value = mainData.getMain;
-});
 </script>
 
 <template>
