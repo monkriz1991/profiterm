@@ -6,6 +6,13 @@ const breadcrumbLinks = ref([]);
 const sortPage = ref(0);
 const currentPage = ref(1);
 const pageSize = ref(18);
+const seoTitle = ref(
+  "Статьи по монтажу систем отопления, водоснабжения и канализации."
+);
+const seoDescription = ref(
+  "У нас вы узнаете особенности устройства тёплых полов, котельных, систем водоснабжения и канализации."
+);
+const seoTImg = ref("https://profiterm.by/profiterm.webp");
 
 if (router.currentRoute.value.query.page !== undefined) {
   currentPage.value = parseInt(router.currentRoute.value.query.page);
@@ -57,8 +64,15 @@ watchEffect(() => {
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
+useSeoMeta({
+  title: seoTitle.value,
+  ogTitle: seoTitle.value,
+  description: seoDescription.value,
+  ogDescription: seoDescription.value,
+  ogImage: seoTImg.value,
+  twitterCard: "summary_large_image",
+});
 </script>
-
 <template>
   <div class="bd-docs-main main-article">
     <div class="container">
