@@ -39,7 +39,7 @@ watchEffect(() => {
   <div>
     <div class="columns is-multiline">
       <div class="column is-12">
-        <h4><icon name="solar:document-broken" />Системы</h4>
+        <h4><icon name="solar:document-broken" />Инженерные Системы</h4>
       </div>
       <div class="column is-12">
         <ClientOnly>
