@@ -21,7 +21,9 @@ const galArr = ref([]);
 const fileDelteImg = ref([]);
 const form = ref({
   level: "",
+  level_index: "",
   title: "",
+  title_index: "",
   kirilica: "",
   seo_title: "",
   seo_description: "",
@@ -83,8 +85,10 @@ const addNews = async () => {
     refresh();
     form.value = {
       level: "",
+      level_index: "",
       title: "",
       seo_title: "",
+      title_index: "",
       seo_description: "",
       kirilica: "",
       subtitle: "",
@@ -146,6 +150,8 @@ const drawerIn = (item) => {
     galArr.value = item.galery;
   }
   (form.value._id = item._id),
+    (form.value.title_index = item.title_index),
+    (form.value.level_index = item.level_index),
     (form.value.level = item.level),
     (form.value.title = item.title),
     (form.value.icon = item.icon),
@@ -381,6 +387,27 @@ const handleCloseDrawer = () => {
                         />
                       </div>
                     </div>
+                    <div class="field">
+                      <div class="control">
+                        <input
+                          class="input"
+                          type="text"
+                          placeholder="level_index"
+                          v-model="form.level_index"
+                        />
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div class="control">
+                        <input
+                          class="input"
+                          type="text"
+                          placeholder="title_index"
+                          v-model="form.title_index"
+                        />
+                      </div>
+                    </div>
+
                     <div class="field">
                       <div class="control">
                         <QuillEditor

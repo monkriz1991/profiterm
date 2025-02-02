@@ -5,7 +5,7 @@ const h1Category = ref("Статьи");
 const breadcrumbLinks = ref([]);
 const sortPage = ref(0);
 const currentPage = ref(1);
-const pageSize = ref(18);
+const pageSize = ref(28);
 const seoTitle = ref(
   "Статьи по монтажу систем отопления, водоснабжения и канализации."
 );

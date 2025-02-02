@@ -95,6 +95,7 @@ useSeoMeta({
 
         <index-video v-model:video="main.three" />
         <index-system />
+        <index-news />
         <div class="index-calk">
           <span
             >Для определения стоимости работ Вы можете совершить предварительный
