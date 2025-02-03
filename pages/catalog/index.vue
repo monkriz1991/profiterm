@@ -5,10 +5,12 @@ const sortPage = ref(0);
 const currentPage = ref(1);
 const pageSize = ref(6);
 const description = ref("");
+
 if (router.currentRoute.value.query.page != undefined) {
   currentPage.value = parseInt(router.currentRoute.value.query.page);
   sortPage.value = currentPage.value * pageSize.value - pageSize.value;
 }
+
 const { data: project, refresh } = await useFetch("/api/project", {
   method: "POST",
   headers: {
@@ -16,6 +18,7 @@ const { data: project, refresh } = await useFetch("/api/project", {
   },
   body: { sortPage, pageSize },
 });
+console.log(project.value);
 const handleCurrentChange = (val) => {
   if (val == 1) {
     sortPage.value = 0;

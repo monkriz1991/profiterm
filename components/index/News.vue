@@ -11,7 +11,7 @@ const { data: news } = await useFetch("/api/news", {
 <template>
   <div class="columns is-multiline">
     <div class="column is-12">
-      <h4><icon name="solar:video-library-outline" />{{ h4Category }}</h4>
+      <!-- <h4><icon name="solar:video-library-outline" />{{ h4Category }}</h4> -->
     </div>
 
     <div class="column is-12">
@@ -26,6 +26,14 @@ const { data: news } = await useFetch("/api/news", {
               <strong>
                 {{ item.title_index }}
               </strong>
+            </nuxt-link>
+          </div>
+        </div>
+        <div class="column is-12">
+          <div class="article-all">
+            <nuxt-link to="/articles">
+              Все статьи
+              <Icon name="ph:images-light" />
             </nuxt-link>
           </div>
         </div>

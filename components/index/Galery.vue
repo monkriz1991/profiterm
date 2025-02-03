@@ -15,11 +15,12 @@ const objectDesc = computed(() => props.description);
 
 // Функция для сортировки массива по level, пустые значения перемещаются в конец
 const sortGallery = (gallery) => {
-  return gallery.slice().sort((a, b) => {
-    const levelA = a.level ? parseInt(a.level) : Number.MAX_SAFE_INTEGER;
-    const levelB = b.level ? parseInt(b.level) : Number.MAX_SAFE_INTEGER;
-    return levelA - levelB;
-  });
+  return gallery
+    .map((item) => ({
+      ...item,
+      level: item.level ? parseInt(item.level) : Number.MAX_SAFE_INTEGER,
+    }))
+    .sort((a, b) => a.level - b.level);
 };
 
 // Функция для разделения массива на подмассивы, первый подмассив будет содержать 5 элементов, остальные по 6 элементов
@@ -33,18 +34,11 @@ const chunkArraySpecial = (array) => {
   }
   return result;
 };
-
-// Объединение всех изображений в один массив
-const allImages = computed(() => {
-  return sortGallery(objectGalery.value).reduce((acc, slide) => {
-    return acc.concat(slide.img);
-  }, []);
+const sortedImages = computed(() => {
+  return sortGallery(objectGalery.value).flatMap((slide) => slide.img);
 });
 
-// Разделение на подмассивы
-const chunkedImages = computed(() => {
-  return chunkArraySpecial(allImages.value);
-});
+const chunkedImages = computed(() => chunkArraySpecial(sortedImages.value));
 
 const iconSvg = ref(`
 <svg
@@ -136,12 +130,13 @@ const onSlideChangeGal = (swiper) => {
                     >
                       <NuxtImg
                         :src="img.url"
-                        :alt="`Фото проета галереи ${index * 6 + idx + 1}`"
+                        :alt="`Фото галереи ${index * 6 + idx + 1}`"
                         data-fancybox="galery project"
                         sizes="sm:300px md:300px lg:300px"
                         preload
                         loading="lazy"
-                        format="wepb"
+                        decoding="async"
+                        format="webp"
                       />
                     </div>
                   </SwiperSlide>

@@ -882,6 +882,15 @@ button {
   font-family: Caveat !important;
   font-weight: 500;
 }
+.article-all {
+  margin: 20px 0 0 0;
+}
+.article-all a {
+  color: #333;
+  font-size: 23px;
+  font-family: Caveat !important;
+  font-weight: 500;
+}
 .video-all .icon {
 }
 .one-block-inf {
@@ -2594,7 +2603,7 @@ button {
     width: 2px;
   }
   .system-tabs-mobail {
-    margin: -5px 0 60px;
+    margin: -5px 0 65px;
   }
   .system-tabs-mobail video {
     border-radius: 12px;
@@ -2973,9 +2982,12 @@ button {
 }
 
 @media (max-width: 768px) {
+  .article-all {
+    margin: -10px 0 15px 0;
+  }
   .article-index {
     margin: 0 0 0px;
-    padding: 0 0 20px;
+    padding: 0 0 15px;
     border-bottom: 1px solid #e2e2e2;
   }
   .border-none {

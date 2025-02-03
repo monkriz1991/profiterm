@@ -24,7 +24,6 @@ if (!main.value) {
     }
   }
 }
-
 watchEffect(() => {
   windowWidth.value = width.value;
 });
