@@ -33,7 +33,7 @@ const { data: news } = await useFetch("/api/news", {
           <div class="article-all">
             <nuxt-link to="/articles">
               Все статьи
-              <Icon name="ph:images-light" />
+              <Icon name="material-symbols-light:menu-book-rounded" />
             </nuxt-link>
           </div>
         </div>
