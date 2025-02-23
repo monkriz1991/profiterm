@@ -89,7 +89,6 @@ useSeoMeta({
                     v-for="imgurl in item.img"
                     :key="imgurl"
                     :src="imgurl.url"
-                    loading="lazy"
                     format="wepb"
                     :alt="item.title"
                   />

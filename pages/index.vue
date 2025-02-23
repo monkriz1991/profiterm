@@ -8,6 +8,7 @@ definePageMeta({
 const { width } = useWindowSize();
 const windowWidth = ref(width.value);
 const descGal = ref("");
+const isVideoLoaded = ref(false);
 const { data: main, pending } = await useFetch(() => "/api/main/", {
   method: "POST",
   headers: {
@@ -43,6 +44,13 @@ const videos = computed(() => {
     };
   });
 });
+
+onMounted(() => {
+  setTimeout(() => {
+    isVideoLoaded.value = true;
+  }, 2200);
+});
+
 useSeoMeta({
   title: "Проектирование, монтаж систем отопления, водоснабжения, канализации",
   ogTitle:
@@ -63,8 +71,6 @@ useSeoMeta({
       <div class="video-index" v-for="item in videos" :key="item">
         <ClientOnly>
           <video
-            v-for="itemvideo in item.videos"
-            :key="itemvideo"
             class=""
             muted
             autoplay
@@ -72,10 +78,16 @@ useSeoMeta({
             webkit-playsinline
             playsinline
             :poster="item.poster"
+            v-bind="isVideoLoaded ? { src: item.videos[0].url } : {}"
             type="video/webm"
-            :src="itemvideo.url"
           >
-            <source class="video-sourse" src="" type="video/mp4" />
+            <source
+              v-bind="
+                isVideoLoaded
+                  ? { src: item.videos[0].url, type: 'video/mp4' }
+                  : {}
+              "
+            />
           </video>
         </ClientOnly>
         <div class="container">

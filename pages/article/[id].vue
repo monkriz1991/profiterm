@@ -120,7 +120,6 @@ const openGallery = () => {
                   :alt="`Фото проекта ${idx + 1} / ${article.title}`"
                   sizes="sm:300px md:300px lg:300px"
                   preload
-                  loading="lazy"
                 />
               </div>
             </div>

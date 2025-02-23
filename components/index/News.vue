@@ -6,6 +6,7 @@ const { data: news } = await useFetch("/api/news", {
     "Content-Type": "application/json; charset=UTF-8",
   },
   body: JSON.stringify({ levelFilter: true }),
+  lazy: true,
 });
 </script>
 <template>

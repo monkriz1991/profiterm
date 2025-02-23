@@ -4,6 +4,7 @@ const { data: stage } = await useFetch("/api/stage/", {
   headers: {
     "Content-Type": "application/json; charset=UTF-8",
   },
+  lazy: true,
 });
 const activeNames = ref("");
 const handleChange = (val) => {

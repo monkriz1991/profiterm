@@ -728,7 +728,7 @@ button {
 }
 
 .image-1 {
-  height: 200px !important;
+  height: 220px !important;
 }
 .image-2 {
   height: 180px !important;
@@ -740,13 +740,13 @@ button {
   height: 250px !important;
 }
 .image-5 {
-  height: 220px !important;
+  height: 270px !important;
 }
 .image-6 {
   height: 130px !important;
 }
 .image-1-spechal {
-  height: 300px !important;
+  height: 400px !important;
 }
 .image-2-spechal {
   height: 150px !important;
@@ -755,7 +755,7 @@ button {
   height: 250px !important;
 }
 .image-4-spechal {
-  height: 220px !important;
+  height: 270px !important;
 }
 .image-5-spechal {
   height: 130px !important;
@@ -2894,6 +2894,10 @@ button {
   }
   .image-1-spechal {
     height: 400px !important;
+  }
+  .image-4-spechal,
+  .image-5 {
+    height: 220px !important;
   }
   .image-5-spechal,
   .image-6 {

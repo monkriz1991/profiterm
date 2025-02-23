@@ -1,21 +1,25 @@
 <script setup>
 import { useWindowSize } from "@vueuse/core";
-const removeTagDialogs = ref({});
+import { ref, computed, watchEffect, nextTick, onMounted } from "vue";
+
 const isWidth = ref("left");
 const activeName = ref("first0");
-const activeNameW = ref("first0");
 const infoNone = ref(true);
+const loadedVideos = ref({}); // Отслеживание загруженных видео
 
 const { data: system } = await useFetch("/api/system/", {
   method: "POST",
   headers: {
     "Content-Type": "application/json; charset=UTF-8",
   },
+  lazy: true, // Ожидание запроса до момента использования
 });
 
-// Сортировка массива по полю `level` по возрастанию
+// Сортируем данные после загрузки
 const sortedSystem = computed(() => {
-  return system.value.sort((a, b) => a.level - b.level);
+  return system.value
+    ? [...system.value].sort((a, b) => a.level - b.level)
+    : [];
 });
 
 const { width } = useWindowSize();
@@ -30,8 +34,22 @@ const widtFun = () => {
     infoNone.value = true;
   }
 };
+
 watchEffect(() => {
   widtFun();
+});
+
+// Загружаем видео при смене вкладки
+const loadVideo = async (tabKey) => {
+  if (!loadedVideos.value[tabKey]) {
+    loadedVideos.value[tabKey] = true;
+    await nextTick(); // Ждем обновления DOM перед загрузкой
+  }
+};
+
+// Загружаем первое видео сразу при монтировании
+onMounted(() => {
+  loadedVideos.value["first0"] = true;
 });
 </script>
 
@@ -44,61 +62,41 @@ watchEffect(() => {
       <div class="column is-12">
         <ClientOnly>
           <div :class="!infoNone ? 'system-tabs-mobail' : 'system-tabs'">
-            <el-tabs :tab-position="isWidth" class="" v-model="activeName">
+            <el-tabs
+              :tab-position="isWidth"
+              v-model="activeName"
+              @tab-click="(tab) => loadVideo(tab.paneName)"
+            >
               <el-tab-pane
-                :name="`first` + idx"
                 v-for="(tab, idx) in sortedSystem"
                 :key="idx"
+                :name="'first' + idx"
               >
                 <template #label>
                   <span class="custom-tabs-label">
                     <strong>{{ tab.title }}</strong>
-
                     <p v-if="tab.info" v-show="infoNone">{{ tab.info }}</p>
                   </span>
                 </template>
-                <ClientOnly>
-                  <div v-if="infoNone">
-                    <el-affix target=".system-tabs" :offset="0">
-                      <video
-                        v-for="itemvideo in tab.video"
-                        :key="itemvideo"
-                        class=""
-                        muted=""
-                        autoplay=""
-                        loop=""
-                        webkit-playsinline=""
-                        playsinline=""
-                        :poster="itemvideo.img"
-                        type="video/webm"
-                        :src="itemvideo.url"
-                      >
-                        <source class="video-sourse" src="" type="video/mp4" />
-                      </video>
 
-                      <div v-html="tab.description" class="mobail-tabs"></div>
-                    </el-affix>
-                  </div>
-                  <div v-else>
-                    <video
-                      v-for="itemvideo in tab.video"
-                      :key="itemvideo"
-                      class=""
-                      muted=""
-                      autoplay=""
-                      loop=""
-                      webkit-playsinline=""
-                      playsinline=""
-                      :poster="itemvideo.img"
-                      type="video/webm"
-                      :src="itemvideo.url"
-                    >
-                      <source class="video-sourse" src="" type="video/mp4" />
-                    </video>
-
-                    <div v-html="tab.description" class="mobail-tabs"></div>
-                  </div>
-                </ClientOnly>
+                <div v-if="loadedVideos['first' + idx]">
+                  <video
+                    v-for="itemvideo in tab.video"
+                    :key="itemvideo.url"
+                    class="lazy-video"
+                    muted
+                    autoplay
+                    loop
+                    webkit-playsinline
+                    playsinline
+                    :poster="itemvideo.img"
+                    type="video/webm"
+                    :src="itemvideo.url"
+                  >
+                    <source class="video-source" src="" type="video/mp4" />
+                  </video>
+                  <div v-html="tab.description" class="mobail-tabs"></div>
+                </div>
               </el-tab-pane>
             </el-tabs>
           </div>
@@ -107,5 +105,3 @@ watchEffect(() => {
     </div>
   </div>
 </template>
-
-<style></style>

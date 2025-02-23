@@ -11,14 +11,16 @@ if (router.currentRoute.value.query.page != undefined) {
   sortPage.value = currentPage.value * pageSize.value - pageSize.value;
 }
 
-const { data: project, refresh } = await useFetch("/api/project", {
+const { data: project, refresh } = await useFetch("/api/projectindex", {
   method: "POST",
   headers: {
     "Content-Type": "application/json; charset=UTF-8",
   },
-  body: { sortPage, pageSize },
+  body: computed(() => ({
+    sortPage: sortPage.value,
+    pageSize: pageSize.value,
+  })),
 });
-console.log(project.value);
 const handleCurrentChange = (val) => {
   if (val == 1) {
     sortPage.value = 0;
@@ -32,7 +34,7 @@ const handleCurrentChange = (val) => {
       page: currentPage.value != 1 ? currentPage.value : undefined,
     },
   });
-  refresh();
+  // refresh();
   scrollToTop();
 };
 const catDescription = (item) => {
@@ -54,14 +56,17 @@ const scrollToTop = () => {
             v-for="item in project.result"
             :key="item._id"
           >
-            <div class="catalog-block">
+            <div
+              class="catalog-block"
+              v-if="Array.isArray(item.img) && item.img.length"
+            >
               <nuxt-link :to="`/project/` + item.kirilica">
                 <div class="catalog-block-img">
                   <NuxtImg
                     v-for="imgurl in item.img"
                     :key="imgurl"
                     :src="imgurl.url"
-                    loading="lazy"
+                    preload
                     format="wepb"
                     :alt="item.title"
                   />

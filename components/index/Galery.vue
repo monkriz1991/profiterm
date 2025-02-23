@@ -133,7 +133,6 @@ const onSlideChangeGal = (swiper) => {
                         :alt="`Фото галереи ${index * 6 + idx + 1}`"
                         data-fancybox="galery project"
                         sizes="sm:300px md:300px lg:300px"
-                        preload
                         loading="lazy"
                         decoding="async"
                         format="webp"

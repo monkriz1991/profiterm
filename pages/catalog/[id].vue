@@ -21,7 +21,7 @@ const requestBody = computed(() => ({
 }));
 
 // Используем useFetch с реактивным body
-const { data: project, refresh } = await useFetch("/api/project", {
+const { data: project, refresh } = await useFetch("/api/projectindex", {
   method: "POST",
   headers: {
     "Content-Type": "application/json; charset=UTF-8",
@@ -45,7 +45,7 @@ const handleCurrentChange = (val) => {
     },
   });
 
-  refresh(); // Обновление данных при смене страницы
+  // refresh(); // Обновление данных при смене страницы
   scrollToTop();
 };
 
@@ -80,7 +80,7 @@ const scrollToTop = () => {
                     v-for="imgurl in item.img"
                     :key="imgurl.url"
                     :src="imgurl.url"
-                    loading="lazy"
+                    preload
                     format="webp"
                     :alt="item.title"
                   />

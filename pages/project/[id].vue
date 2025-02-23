@@ -76,7 +76,6 @@ useSeoMeta({
                       class="view-box"
                       sizes="sm:400px md:400px lg:400px"
                       data-fancybox="galery galery"
-                      preload
                       loading="lazy"
                     />
                   </div>

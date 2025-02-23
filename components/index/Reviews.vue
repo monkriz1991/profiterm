@@ -8,6 +8,7 @@ const { data: reviews } = await useFetch("/api/reviews/", {
   headers: {
     "Content-Type": "application/json; charset=UTF-8",
   },
+  lazy: true,
 });
 
 const show = ref(null);
@@ -120,7 +121,6 @@ const onSlideChange = (swiper) => {
                   :key="idx"
                   :src="slideurl.url"
                   sizes="sm:350px md:350px lg:350px"
-                  preload
                   loading="lazy"
                   format="wepb"
                   :alt="`Отзыв ${idx + 1} - ${slide.name}`"
