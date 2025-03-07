@@ -78,16 +78,9 @@ useSeoMeta({
             webkit-playsinline
             playsinline
             :poster="item.poster"
-            v-bind="isVideoLoaded ? { src: item.videos[0].url } : {}"
-            type="video/webm"
+            v-if="isVideoLoaded"
           >
-            <source
-              v-bind="
-                isVideoLoaded
-                  ? { src: item.videos[0].url, type: 'video/mp4' }
-                  : {}
-              "
-            />
+            <source :src="item.videos[0].url" type="video/mp4" />
           </video>
         </ClientOnly>
         <div class="container">
