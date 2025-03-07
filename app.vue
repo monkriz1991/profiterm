@@ -19,7 +19,9 @@ useHead({
 <template>
   <div>
     <NuxtLayout>
-      <NuxtPage />
+      <keep-alive>
+        <NuxtPage />
+      </keep-alive>
     </NuxtLayout>
   </div>
 </template>
