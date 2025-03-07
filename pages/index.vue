@@ -48,7 +48,7 @@ const videos = computed(() => {
 onMounted(() => {
   setTimeout(() => {
     isVideoLoaded.value = true;
-  }, 2200);
+  }, 1200);
 });
 
 useSeoMeta({

@@ -53,8 +53,8 @@ const email = computed(() =>
           <p><span>© 2024 «ПРОФИТЕРМ»</span></p>
           <p class="f-dev">
             <span>Разработка -</span
-            ><nuxt-link target="_blank" to="http://fastsite.pro"
-              >fastsite.pro</nuxt-link
+            ><nuxt-link target="_blank" to="https://fastsite.tech"
+              >fastsite.tech</nuxt-link
             >
           </p>
         </div>
