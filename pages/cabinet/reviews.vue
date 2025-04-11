@@ -23,6 +23,7 @@ const imfArr = ref([]);
 const fileUpload = ref([]);
 const fileDelte = ref([]);
 const form = ref({
+  level: "",
   project: "",
   name: "",
   img: [],
@@ -81,6 +82,7 @@ const addReviews = async () => {
       name: "",
       img: [],
       description: "",
+      level: "",
     };
     imfArr.value = [];
     form.value.description = "<p></p>";
@@ -122,6 +124,7 @@ const drawerIn = (item) => {
     imfArr.value = item.img;
   }
   (form.value._id = item._id),
+    (form.value.level = item.level),
     (form.value.project = item.project),
     (form.value.name = item.name),
     (form.value.description = item.description),
@@ -216,7 +219,8 @@ const handleCloseDrawer = () => {
                     />
                     <img v-else src="/noimg.webp" />
                   </div>
-                  <strong>{{ item.name }}</strong>
+                  <span>{{ item.level }}</span
+                  ><strong>{{ item.name }}</strong>
                 </div>
 
                 <div class="drawer-cat-right">
@@ -251,6 +255,16 @@ const handleCloseDrawer = () => {
                     @submit.prevent="addReviews"
                     enctype="multipart/form-data"
                   >
+                    <div class="field">
+                      <div class="control">
+                        <input
+                          class="input"
+                          type="text"
+                          placeholder="level"
+                          v-model="form.level"
+                        />
+                      </div>
+                    </div>
                     <div class="field">
                       <el-select
                         v-model="form.project"

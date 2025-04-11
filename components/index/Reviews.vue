@@ -72,6 +72,11 @@ const currentIndex = ref(0);
 const onSlideChange = (swiper) => {
   currentIndex.value = swiper.realIndex;
 };
+const sortedReviews = computed(() => {
+  return reviews.value
+    ? [...reviews.value].sort((a, b) => a.level - b.level)
+    : [];
+});
 </script>
 <template>
   <div class="columns is-multiline">
@@ -113,7 +118,7 @@ const onSlideChange = (swiper) => {
           }"
           @slideChange="onSlideChange"
         >
-          <SwiperSlide v-for="(slide, idx) in reviews" :key="idx">
+          <SwiperSlide v-for="(slide, idx) in sortedReviews" :key="idx">
             <div class="index-rew-block">
               <div class="index-rew-block-img">
                 <NuxtImg
