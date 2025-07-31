@@ -1,9 +1,27 @@
 <script setup>
 import { useWindowSize } from "@vueuse/core";
+import { useMainStore } from "~/store/maindata";
 definePageMeta({
   title: "My index page",
   layout: "default",
 });
+
+const mainData = useMainStore();
+const monDataNav = ref([]);
+
+await mainData.fetchData();
+monDataNav.value = mainData.getMain;
+
+const seoTitle = computed(() =>
+  monDataNav.value.length > 0
+    ? monDataNav.value[0]?.seo_title
+    : "Проектирование, монтаж систем отопления, водоснабжения, канализации"
+);
+const seoDescription = computed(() =>
+  monDataNav.value.length > 0
+    ? monDataNav.value[0]?.seo_description
+    : "Предлагаем приемлемые цены, гарантию до 5 лет и рассрочку платежа. Высококачественные инженерные системы для комфортного и беззаботного проживания в частном доме."
+);
 
 const { width } = useWindowSize();
 const windowWidth = ref(width.value);
@@ -52,16 +70,13 @@ onMounted(() => {
 });
 
 useSeoMeta({
-  title: "Проектирование, монтаж систем отопления, водоснабжения, канализации",
-  ogTitle:
-    "Проектирование, монтаж систем отопления, водоснабжения, канализации",
-  description:
-    "Предлагаем приемлемые цены, гарантию до 5 лет и рассрочку платежа. Высококачественные инженерные системы для комфортного и беззаботного проживания в частном доме.",
-  ogDescription:
-    "Предлагаем приемлемые цены, гарантию до 5 лет и рассрочку платежа. Высококачественные инженерные системы для комфортного и беззаботного проживания в частном доме.",
+  title: seoTitle.value,
+  ogTitle: seoTitle.value,
+  description: seoDescription.value,
+  ogDescription: seoDescription.value,
   ogImage: "/profiterm.webp",
   twitterCard: "summary_large_image",
-  canonical: "https://profiterm.by",
+  canonical: "https://profiterm.by/",
 });
 </script>
 

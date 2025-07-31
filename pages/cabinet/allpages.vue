@@ -17,6 +17,8 @@ const form = ref({
   email: "",
   phone: "",
   dopphone: "",
+  seo_description: "",
+  seo_title: "",
 });
 
 const drawerIn = (item) => {
@@ -43,6 +45,8 @@ const drawerIn = (item) => {
   form.value.email = item.email || "";
   form.value.phone = item.phone || "";
   form.value.dopphone = item.dopphone || "";
+  (form.value.seo_description = item.seo_description || ""),
+    (form.value.seo_title = item.seo_title || "");
 };
 
 const {
@@ -124,6 +128,26 @@ const beforeRemove = (file, fileList) => {
           <div class="drawer-add">
             <ClientOnly>
               <form @submit.prevent="addReviews" enctype="multipart/form-data">
+                <div class="field">
+                  <div class="control">
+                    <input
+                      class="input"
+                      type="text"
+                      placeholder="seo_title"
+                      v-model="form.seo_title"
+                    />
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="control">
+                    <input
+                      class="input"
+                      type="text"
+                      placeholder="seo_description"
+                      v-model="form.seo_description"
+                    />
+                  </div>
+                </div>
                 <div class="field">
                   <div class="control">
                     <input

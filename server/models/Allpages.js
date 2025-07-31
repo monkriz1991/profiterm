@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 
 const allpagesScema = new mongoose.Schema({
+  seo_title: { type: String, require: true, trim: true },
+  seo_description: { type: String, require: true, trim: true },
   img: { type: Array, default: [] },
   installment: { type: String, require: true, trim: true },
   about: { type: String, require: true, trim: true },
