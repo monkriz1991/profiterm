@@ -2323,6 +2323,11 @@ button {
   font-size: 20px;
   color: #303030;
 }
+.mobail-colums-gal {
+  max-height: 444px;
+  overflow: hidden;
+  padding: 0 4px;
+}
 @media (max-width: 1023px) {
   .ql-video {
     width: 100%;
@@ -2868,7 +2873,7 @@ button {
     margin-right: -0.35rem;
   }
   .mobail-colums-gal {
-    max-height: 150px;
+    /* max-height: 150px; */
     overflow: hidden;
     padding: 0 4px;
   }

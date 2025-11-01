@@ -86,7 +86,6 @@ useSeoMeta({
                       v-for="(imgurl, idx) in item.galery"
                       :key="imgurl"
                       class="project-galeery-mini"
-                      v-show="idx < 4"
                     >
                       <NuxtImg
                         :src="imgurl.url"
