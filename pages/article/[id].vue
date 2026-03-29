@@ -196,12 +196,14 @@ const openGallery = () => {
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+$border-radius-md: 8px;
+
 .skeleton-loader {
   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200% 100%;
   animation: skeleton-loading 1.5s infinite;
-  border-radius: 8px;
+  border-radius: $border-radius-md;
 }
 
 @keyframes skeleton-loading {
@@ -209,4 +211,3 @@ const openGallery = () => {
   100% { background-position: -200% 0; }
 }
 </style>
-<style></style>

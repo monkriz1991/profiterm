@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<style>
+<style lang="scss" scoped>
 .bar {
   position: fixed;
 }

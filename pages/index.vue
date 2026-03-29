@@ -207,7 +207,10 @@ useSeoMeta({
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+$border-radius-md: 8px;
+$spacing-lg: 20px;
+
 .video-poster-fallback {
   position: absolute;
   top: 0;
@@ -223,8 +226,8 @@ useSeoMeta({
   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200% 100%;
   animation: skeleton-loading 1.5s infinite;
-  border-radius: 8px;
-  margin: 20px 0;
+  border-radius: $border-radius-md;
+  margin: $spacing-lg 0;
 }
 
 @keyframes skeleton-loading {
