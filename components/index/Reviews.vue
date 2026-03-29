@@ -1,14 +1,19 @@
 <script setup>
 const dialogVisible = ref(false);
 const removeTagDialogs = ref({});
-const projectData = ref({});
-const galery = ref([]);
-const { data: reviews } = await useFetch("/api/reviews/", {
+const projectData = shallowRef({});
+const galery = shallowRef([]);
+
+// Use lazy fetch with caching for better performance
+const { data: reviews, pending } = await useLazyFetch("/api/reviews/", {
   method: "POST",
   headers: {
     "Content-Type": "application/json; charset=UTF-8",
   },
-  lazy: true,
+  server: true,
+  getCachedData: (key, nuxtApp) => {
+    return nuxtApp.payload.data[key] || nuxtApp.static.data[key];
+  },
 });
 
 const show = ref(null);
@@ -127,7 +132,8 @@ const sortedReviews = computed(() => {
                   :src="slideurl.url"
                   sizes="sm:350px md:350px lg:350px"
                   loading="lazy"
-                  format="wepb"
+                  decoding="async"
+                  format="webp"
                   :alt="`Отзыв ${idx + 1} - ${slide.name}`"
                 />
               </div>

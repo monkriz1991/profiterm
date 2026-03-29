@@ -1,11 +1,17 @@
 <script setup>
 const h4Category = ref("Статьи");
-const { data: news } = await useFetch("/api/news", {
+
+// Use lazy fetch to not block render
+const { data: news, pending } = await useLazyFetch("/api/news", {
   method: "POST",
   headers: {
     "Content-Type": "application/json; charset=UTF-8",
   },
   body: JSON.stringify({ levelFilter: true }),
+  server: true,
+  getCachedData: (key, nuxtApp) => {
+    return nuxtApp.payload.data[key] || nuxtApp.static.data[key];
+  },
 });
 </script>
 <template>

@@ -1,14 +1,19 @@
 <script setup>
-const { data: stage } = await useFetch("/api/stage/", {
+// Use lazy fetch with caching
+const { data: stage, pending } = await useLazyFetch("/api/stage/", {
   method: "POST",
   headers: {
     "Content-Type": "application/json; charset=UTF-8",
   },
-  lazy: true,
+  server: true,
+  getCachedData: (key, nuxtApp) => {
+    return nuxtApp.payload.data[key] || nuxtApp.static.data[key];
+  },
 });
+
 const activeNames = ref("");
 const handleChange = (val) => {
-  // console.log(val);
+  // Deferred handling
 };
 const iconSvg =
   ref(`<svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="744.000000pt" height="1052.000000pt" viewBox="0 0 744.000000 1052.000000" preserveAspectRatio="xMidYMid meet">
@@ -61,7 +66,9 @@ const iconSvg =
                   :alt="`Фото этапа ${idx + 1} / ${item.title}`"
                   data-fancybox="galery stage"
                   loading="lazy"
-                  format="wepb"
+                  decoding="async"
+                  format="webp"
+                  sizes="sm:200px md:300px lg:400px"
                 />
               </div>
             </ElCollapseItem>

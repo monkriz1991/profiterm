@@ -11,7 +11,8 @@ if (router.currentRoute.value.query.page != undefined) {
   sortPage.value = currentPage.value * pageSize.value - pageSize.value;
 }
 
-const { data: project, refresh } = await useFetch("/api/projectindex", {
+// Use lazy fetch for non-blocking initial render
+const { data: project, refresh, pending } = await useLazyFetch("/api/projectindex", {
   method: "POST",
   headers: {
     "Content-Type": "application/json; charset=UTF-8",
@@ -20,6 +21,10 @@ const { data: project, refresh } = await useFetch("/api/projectindex", {
     sortPage: sortPage.value,
     pageSize: pageSize.value,
   })),
+  server: true,
+  getCachedData: (key, nuxtApp) => {
+    return nuxtApp.payload.data[key] || nuxtApp.static.data[key];
+  },
 });
 const handleCurrentChange = (val) => {
   if (val == 1) {
@@ -50,10 +55,20 @@ const scrollToTop = () => {
     <div class="container">
       <div class="content">
         <nav-category @catDescription="catDescription" />
-        <div class="columns is-desktop is-multiline is-variable">
+        
+        <!-- Loading skeleton -->
+        <div v-if="pending" class="columns is-desktop is-multiline is-variable">
+          <div class="column is-4" v-for="n in 6" :key="n">
+            <div class="skeleton-loader" style="height: 250px; margin-bottom: 10px;"></div>
+            <div class="skeleton-loader" style="height: 20px; width: 80%; margin-bottom: 8px;"></div>
+            <div class="skeleton-loader" style="height: 16px; width: 60%;"></div>
+          </div>
+        </div>
+        
+        <div v-else class="columns is-desktop is-multiline is-variable">
           <div
             class="column is-4"
-            v-for="item in project.result"
+            v-for="(item, index) in project?.result"
             :key="item._id"
           >
             <div
@@ -63,11 +78,13 @@ const scrollToTop = () => {
               <nuxt-link :to="`/project/` + item.kirilica">
                 <div class="catalog-block-img">
                   <NuxtImg
-                    v-for="imgurl in item.img"
-                    :key="imgurl"
+                    v-for="(imgurl, idx) in item.img"
+                    :key="imgurl.url || idx"
                     :src="imgurl.url"
-                    preload
-                    format="wepb"
+                    :loading="index < 3 ? 'eager' : 'lazy'"
+                    decoding="async"
+                    format="webp"
+                    sizes="sm:100vw md:300px lg:400px"
                     :alt="item.title"
                   />
                 </div>
@@ -84,6 +101,7 @@ const scrollToTop = () => {
           </div>
         </div>
         <el-pagination
+          v-if="project?.count"
           class="pagination-list"
           background
           layout="prev, pager, next"
@@ -97,3 +115,17 @@ const scrollToTop = () => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.skeleton-loader {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 8px;
+}
+
+@keyframes skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+</style>
