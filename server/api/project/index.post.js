@@ -1,15 +1,18 @@
+import { ensureConnection } from "~/server/utils/mongoose";
 import ProjectModel from "~/server/models/Project";
 
 export default defineEventHandler(async (event) => {
   try {
+    await ensureConnection();
     const data = await readBody(event);
-    // Построение базового запроса
-    let query = {};
+
+    // Build base query
+    const query = {};
     if (data.ParamsCat) {
       query.category = data.ParamsCat;
     }
 
-    // Используем агрегирование для сортировки
+    // Aggregation pipeline for sorting
     const aggregationPipeline = [
       { $match: query },
       {
@@ -27,21 +30,21 @@ export default defineEventHandler(async (event) => {
       { $skip: data.sortPage || 0 },
     ];
 
-    // Добавляем этап $limit только если задан pageSize
     if (data.pageSize) {
       aggregationPipeline.push({ $limit: data.pageSize });
     }
 
-    const result = await ProjectModel.aggregate(aggregationPipeline);
-    const count = await ProjectModel.countDocuments(query);
+    const [result, count] = await Promise.all([
+      ProjectModel.aggregate(aggregationPipeline),
+      ProjectModel.countDocuments(query),
+    ]);
 
     return { result, count };
   } catch (err) {
-    console.log(err);
+    console.error("[API] Project error:", err);
     throw createError({
       statusCode: 500,
-      statusMessage: "Internal Server Error",
-      data: err.message,
+      message: "Failed to fetch projects",
     });
   }
 });

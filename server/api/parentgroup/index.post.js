@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
       const result = await ParentGroupModel.find()
         .skip(data.sortPage)
         .limit(data.pageSize);
-      const count = await ParentGroupModel.find().count();
+      const count = await ParentGroupModel.find().countDocuments();
       return { result, count };
     } else {
       const result = await ParentGroupModel.find();

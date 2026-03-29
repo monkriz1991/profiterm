@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
       const result = await ElementCalkModel.find()
         .skip(data.sortPage)
         .limit(data.pageSize);
-      const count = await ElementCalkModel.find().count();
+      const count = await ElementCalkModel.find().countDocuments();
       return { result, count };
     } else {
       const result = await ElementCalkModel.find();

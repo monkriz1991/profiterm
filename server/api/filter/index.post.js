@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
       const result = await FilterModel.find()
         .skip(data.sortPage)
         .limit(data.pageSize);
-      const count = await FilterModel.find().count();
+      const count = await FilterModel.find().countDocuments();
       return { result, count };
     } else {
       const result = await FilterModel.find();

@@ -1,7 +1,9 @@
+import { ensureConnection } from "~/server/utils/mongoose";
 import NewsModel from "~/server/models/News";
 
 export default defineEventHandler(async (event) => {
   try {
+    await ensureConnection();
     const data = (await readBody(event)) || {};
 
     const filter = {};
@@ -14,7 +16,7 @@ export default defineEventHandler(async (event) => {
 
       if (data.selectFields) {
         query = query.select(
-          "level level_index title title_index subtitle kirilica img"
+          "level level_index title title_index subtitle kirilica img",
         );
       }
 
@@ -22,15 +24,21 @@ export default defineEventHandler(async (event) => {
         query = query.skip(data.sortPage).limit(data.pageSize);
       }
 
-      const result = await query;
-      const count = await NewsModel.countDocuments(filter);
+      const [result, count] = await Promise.all([
+        query.lean(),
+        NewsModel.countDocuments(filter),
+      ]);
+
       return { result, count };
     } else {
-      const result = await NewsModel.find().sort({ level: 1 });
+      const result = await NewsModel.find().sort({ level: 1 }).lean();
       return result;
     }
   } catch (err) {
-    console.error("Ошибка в API /news:", err);
-    return { error: "Произошла ошибка при загрузке данных" };
+    console.error("[API] News error:", err);
+    throw createError({
+      statusCode: 500,
+      message: "Failed to fetch news",
+    });
   }
 });

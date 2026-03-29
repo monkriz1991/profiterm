@@ -6,7 +6,6 @@ const { data: news } = await useFetch("/api/news", {
     "Content-Type": "application/json; charset=UTF-8",
   },
   body: JSON.stringify({ levelFilter: true }),
-  lazy: true,
 });
 </script>
 <template>
@@ -19,7 +18,7 @@ const { data: news } = await useFetch("/api/news", {
       <div class="columns is-multiline">
         <div
           class="column is-4"
-          v-for="(item, index) in news.result"
+          v-for="(item, index) in news.result || []"
           :key="item._id"
         >
           <div class="article-index" :class="{ 'border-none': index === 2 }">
