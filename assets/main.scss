@@ -381,7 +381,9 @@ button {
   &:hover {
     background: $color-primary !important;
     color: $color-white !important;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    box-shadow:
+      0 2px 5px 0 rgba(0, 0, 0, 0.16),
+      0 2px 10px 0 rgba(0, 0, 0, 0.12);
   }
 }
 
@@ -1136,17 +1138,39 @@ button {
 }
 
 // Image Grid Heights
-.image-1 { height: 220px !important; }
-.image-2 { height: 180px !important; }
-.image-3 { height: 150px !important; }
-.image-4 { height: 250px !important; }
-.image-5 { height: 270px !important; }
-.image-6 { height: 130px !important; }
-.image-1-spechal { height: 400px !important; }
-.image-2-spechal { height: 150px !important; }
-.image-3-spechal { height: 250px !important; }
-.image-4-spechal { height: 270px !important; }
-.image-5-spechal { height: 130px !important; }
+.image-1 {
+  height: 220px !important;
+}
+.image-2 {
+  height: 180px !important;
+}
+.image-3 {
+  height: 150px !important;
+}
+.image-4 {
+  height: 250px !important;
+}
+.image-5 {
+  height: 270px !important;
+}
+.image-6 {
+  height: 130px !important;
+}
+.image-1-spechal {
+  height: 400px !important;
+}
+.image-2-spechal {
+  height: 150px !important;
+}
+.image-3-spechal {
+  height: 250px !important;
+}
+.image-4-spechal {
+  height: 270px !important;
+}
+.image-5-spechal {
+  height: 130px !important;
+}
 
 .two-block {
   position: relative;
@@ -1268,11 +1292,16 @@ button {
     font-size: 23px;
     font-family: $font-family-accent !important;
     font-weight: 500;
+    color: #333;
   }
 }
 
 .article-index {
   a {
+    color: #303030;
+    font-family: Caveat !important;
+    font-size: 23px;
+    font-weight: 500;
     strong {
       font-size: $spacing-lg;
       color: #303030;
@@ -1366,7 +1395,11 @@ button {
       width: 100%;
       @include absolute-fill;
       display: flex;
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.7) 100%
+      );
       border-radius: $border-radius-lg;
 
       > strong {
@@ -1413,7 +1446,11 @@ button {
         width: 100%;
         @include absolute-fill;
         display: flex;
-        background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(0, 0, 0, 0.7) 100%
+        );
         border-radius: $border-radius-lg;
 
         > strong {
@@ -1459,7 +1496,11 @@ button {
     width: 100%;
     @include absolute-fill;
     display: flex;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.7) 100%
+    );
     border-radius: $border-radius-lg;
     @include flex-column;
     justify-content: center;
@@ -1629,7 +1670,11 @@ button {
     right: -48px;
     width: 59px;
     height: $spacing-xxl;
-    background: radial-gradient(circle at top left, transparent 47%, #f6f8f7 46.5%);
+    background: radial-gradient(
+      circle at top left,
+      transparent 47%,
+      #f6f8f7 46.5%
+    );
     top: -10px;
     border-radius: 0px 183px 59px 55px;
     transform: rotate(180deg);
@@ -1641,7 +1686,11 @@ button {
     left: -28px;
     width: 59px;
     height: 60px;
-    background: radial-gradient(circle at top left, transparent 47%, #f6f8f7 46.5%);
+    background: radial-gradient(
+      circle at top left,
+      transparent 47%,
+      #f6f8f7 46.5%
+    );
     bottom: -55px;
     border-radius: 0px 217px 33px 74px;
     transform: scale(-1, -1);
@@ -2121,7 +2170,8 @@ button {
   }
 
   .el-tabs__item:hover {
-    strong, p {
+    strong,
+    p {
       @include transition;
       color: $color-text-dark;
     }
@@ -2161,7 +2211,9 @@ button {
     margin: 0 0 90px;
     position: relative;
     top: 70px;
-    box-shadow: rgba(0, 12, 121, 0.1) 0px 30px 80px, rgba(0, 12, 121, 0.1) 0px 12px 24px;
+    box-shadow:
+      rgba(0, 12, 121, 0.1) 0px 30px 80px,
+      rgba(0, 12, 121, 0.1) 0px 12px 24px;
   }
 }
 
@@ -2208,7 +2260,12 @@ button {
     content: "";
     z-index: -1;
     @include absolute-fill;
-    background: radial-gradient(closest-side, #3f87a600, #ebf8e100, $color-white);
+    background: radial-gradient(
+      closest-side,
+      #3f87a600,
+      #ebf8e100,
+      $color-white
+    );
     opacity: 0.8;
     width: 99vw;
     left: 50%;
@@ -2970,7 +3027,9 @@ button {
 
       video {
         border-radius: $border-radius-lg;
-        box-shadow: 0 30px 80px rgba(0, 12, 121, 0.1), 0 12px 24px rgba(0, 12, 121, 0.1);
+        box-shadow:
+          0 30px 80px rgba(0, 12, 121, 0.1),
+          0 12px 24px rgba(0, 12, 121, 0.1);
         height: auto;
         height: 260px;
         margin: 0 0 $spacing-xxl;
@@ -3443,7 +3502,11 @@ button {
     }
 
     &-desc {
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0) -101%, rgba(0, 0, 0, 0.7) 100%);
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) -101%,
+        rgba(0, 0, 0, 0.7) 100%
+      );
 
       strong {
         color: $color-white;

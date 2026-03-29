@@ -4,16 +4,18 @@ import NewsModel from "~/server/models/News";
 export default defineEventHandler(async (event) => {
   try {
     await ensureConnection();
-    const data = await readBody(event);
+    const data = (await readBody(event)) || {};
 
-    if (!data) {
+    const slug = data.slug;
+
+    if (!slug) {
       throw createError({
         statusCode: 400,
         message: "News slug is required",
       });
     }
 
-    const result = await NewsModel.findOne({ kirilica: data }).lean();
+    const result = await NewsModel.findOne({ kirilica: slug }).lean();
 
     if (!result) {
       throw createError({

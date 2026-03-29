@@ -12,7 +12,11 @@ if (router.currentRoute.value.query.page != undefined) {
 }
 
 // Use lazy fetch for non-blocking initial render
-const { data: project, refresh, pending } = await useLazyFetch("/api/projectindex", {
+const {
+  data: project,
+  refresh,
+  pending,
+} = await useLazyFetch("/api/projectindex", {
   method: "POST",
   headers: {
     "Content-Type": "application/json; charset=UTF-8",
@@ -22,9 +26,6 @@ const { data: project, refresh, pending } = await useLazyFetch("/api/projectinde
     pageSize: pageSize.value,
   })),
   server: true,
-  getCachedData: (key, nuxtApp) => {
-    return nuxtApp.payload.data[key] || nuxtApp.static.data[key];
-  },
 });
 const handleCurrentChange = (val) => {
   if (val == 1) {
@@ -55,16 +56,22 @@ const scrollToTop = () => {
     <div class="container">
       <div class="content">
         <nav-category @catDescription="catDescription" />
-        
+
         <!-- Loading skeleton -->
         <div v-if="pending" class="columns is-desktop is-multiline is-variable">
           <div class="column is-4" v-for="n in 6" :key="n">
-            <div class="skeleton-loader" style="height: 250px; margin-bottom: 10px;"></div>
-            <div class="skeleton-loader" style="height: 20px; width: 80%; margin-bottom: 8px;"></div>
-            <div class="skeleton-loader" style="height: 16px; width: 60%;"></div>
+            <div
+              class="skeleton-loader"
+              style="height: 250px; margin-bottom: 10px"
+            ></div>
+            <div
+              class="skeleton-loader"
+              style="height: 20px; width: 80%; margin-bottom: 8px"
+            ></div>
+            <div class="skeleton-loader" style="height: 16px; width: 60%"></div>
           </div>
         </div>
-        
+
         <div v-else class="columns is-desktop is-multiline is-variable">
           <div
             class="column is-4"
@@ -127,7 +134,11 @@ $border-radius-md: 8px;
 }
 
 @keyframes skeleton-loading {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 </style>

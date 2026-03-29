@@ -7,32 +7,37 @@ const props = defineProps({
 });
 
 // Use lazy fetch with caching
-const { data: reviews, error, pending } = await useLazyFetch("/api/reviews/", {
+const {
+  data: reviews,
+  error,
+  pending,
+} = await useLazyFetch("/api/reviews/", {
   method: "POST",
   headers: {
     "Content-Type": "application/json; charset=UTF-8",
   },
   body: { Project: props.params },
   server: true,
-  getCachedData: (key, nuxtApp) => {
-    return nuxtApp.payload.data[key] || nuxtApp.static.data[key];
-  },
 });
 </script>
 
 <template>
   <div class="item-rew">
     <h2>Отзыв</h2>
-    
+
     <!-- Loading skeleton -->
-    <div v-if="pending" class="skeleton-loader" style="height: 100px; margin: 10px 0;"></div>
-    
+    <div
+      v-if="pending"
+      class="skeleton-loader"
+      style="height: 100px; margin: 10px 0"
+    ></div>
+
     <div v-else v-for="item in reviews" :key="item._id || item">
       <div class="item-rew-block">
         <div class="item-rew-block-img">
-          <NuxtImg 
-            v-for="(itemurl, idx) in item.img" 
-            :key="itemurl.url || idx" 
+          <NuxtImg
+            v-for="(itemurl, idx) in item.img"
+            :key="itemurl.url || idx"
             :src="itemurl.url"
             loading="lazy"
             decoding="async"
@@ -61,7 +66,11 @@ $border-radius-md: 8px;
 }
 
 @keyframes skeleton-loading {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 </style>

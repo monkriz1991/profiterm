@@ -4,7 +4,7 @@ import ReviewsModel from "~/server/models/Reviews";
 export default defineEventHandler(async (event) => {
   try {
     await ensureConnection();
-    const data = await readBody(event);
+    const data = (await readBody(event)) || {};
 
     if (data && data.Project) {
       const result = await ReviewsModel.find({ project: data.Project }).lean();

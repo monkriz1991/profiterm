@@ -9,50 +9,57 @@ const seoDescription = ref("");
 const error = ref(null);
 
 // Lazy async component for video
-const LazyProjectVideo = defineAsyncComponent(() => import("~/components/project/Video.vue"));
-const LazyProjectReviews = defineAsyncComponent(() => import("~/components/project/Reviews.vue"));
+const LazyProjectVideo = defineAsyncComponent(
+  () => import("~/components/project/Video.vue"),
+);
+const LazyProjectReviews = defineAsyncComponent(
+  () => import("~/components/project/Reviews.vue"),
+);
 
 // Use useAsyncData for non-blocking fetch with caching
 const { data: project, pending } = await useAsyncData(
   `project-${route.params.id}`,
-  () => $fetch("/api/projectitem/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json; charset=UTF-8",
-    },
-    body: route.params.id,
-  }),
+  () =>
+    $fetch("/api/projectitem/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+      body: route.params.id,
+    }),
   {
     server: true,
-    getCachedData: (key, nuxtApp) => {
-      return nuxtApp.payload.data[key] || nuxtApp.static.data[key];
-    },
-  }
+  },
 );
 
 // Watch for data changes to set SEO
-watch(project, (newProject) => {
-  if (newProject && newProject.length > 0) {
-    const item = newProject[0];
-    seoTitle.value = item.seo_title || "";
-    seoDescription.value = item.seo_description || "";
-    seoTImg.value = item.img?.[0]?.url || "";
-    
-    breadcrumbLinks.value = [
-      { label: "Главная", to: "/" },
-      { label: "Раздел", to: `/catalog/${item.category}` },
-      { label: item.title, to: `/project/${item.kirilica}` },
-    ];
-  }
-}, { immediate: true });
+watch(
+  project,
+  (newProject) => {
+    if (newProject && newProject.length > 0) {
+      const item = newProject[0];
+      seoTitle.value = item.seo_title || "";
+      seoDescription.value = item.seo_description || "";
+      seoTImg.value = item.img?.[0]?.url || "";
+
+      breadcrumbLinks.value = [
+        { label: "Главная", to: "/" },
+        { label: "Раздел", to: `/catalog/${item.category}` },
+        { label: item.title, to: `/project/${item.kirilica}` },
+      ];
+    }
+  },
+  { immediate: true },
+);
 
 onMounted(() => {
   // Deferred video player initialization
   requestIdleCallback?.(() => {
     visiblePlyr.value = true;
-  }) || setTimeout(() => {
-    visiblePlyr.value = true;
-  }, 500);
+  }) ||
+    setTimeout(() => {
+      visiblePlyr.value = true;
+    }, 500);
 });
 
 useSeoMeta({
@@ -70,23 +77,29 @@ useSeoMeta({
     <div class="container">
       <div class="content">
         <div v-if="error">{{ error.message }}</div>
-        
+
         <!-- Loading skeleton -->
         <div v-if="pending" class="project-skeleton">
-          <div class="skeleton-loader" style="height: 32px; width: 60%; margin-bottom: 20px;"></div>
+          <div
+            class="skeleton-loader"
+            style="height: 32px; width: 60%; margin-bottom: 20px"
+          ></div>
           <div class="columns is-multiline">
             <div class="column is-6">
-              <div class="skeleton-loader" style="height: 300px;"></div>
+              <div class="skeleton-loader" style="height: 300px"></div>
             </div>
             <div class="column is-6">
-              <div class="skeleton-loader" style="height: 140px; margin-bottom: 10px;"></div>
-              <div class="skeleton-loader" style="height: 140px;"></div>
+              <div
+                class="skeleton-loader"
+                style="height: 140px; margin-bottom: 10px"
+              ></div>
+              <div class="skeleton-loader" style="height: 140px"></div>
             </div>
           </div>
         </div>
-        
+
         <template v-else-if="project">
-          <div v-for="(item, index) in project" :key="item._id">
+          <div v-for="item in project" :key="item._id">
             <ClientOnly>
               <Breadcrumb :links="breadcrumbLinks" />
             </ClientOnly>
@@ -146,7 +159,7 @@ useSeoMeta({
                       v-model:visiblePlyr="visiblePlyr"
                     />
                     <template #fallback>
-                      <div class="skeleton-loader" style="height: 200px;"></div>
+                      <div class="skeleton-loader" style="height: 200px"></div>
                     </template>
                   </Suspense>
                 </ClientOnly>
@@ -160,7 +173,7 @@ useSeoMeta({
             <Suspense>
               <LazyProjectReviews v-model:params="route.params.id" />
               <template #fallback>
-                <div class="skeleton-loader" style="height: 150px;"></div>
+                <div class="skeleton-loader" style="height: 150px"></div>
               </template>
             </Suspense>
           </div>
@@ -181,7 +194,11 @@ $border-radius-md: 8px;
 }
 
 @keyframes skeleton-loading {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 </style>

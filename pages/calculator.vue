@@ -26,12 +26,13 @@ const { data: parentgroup } = await useFetch("/api/parentgroup/", {
   },
   body: {},
 });
-if (parentgroup.value) {
-  parentGrArr.value = parentgroup.value.result.sort(
-    (a, b) => a.level - b.level
-  );
+if (parentgroup.value && Array.isArray(parentgroup.value)) {
+  parentGrArr.value = parentgroup.value
+    .slice()
+    .sort((a, b) => a.level - b.level);
+} else {
+  parentGrArr.value = [];
 }
-
 const rawGroupcalk = await $fetch("/api/groupcalk/", {
   method: "POST",
   headers: {
@@ -62,7 +63,7 @@ const { data: rawItemcalk } = await useFetch("/api/itemcalk/", {
 
 const nevStep = (id) => {
   const filteredArray = calkObject.value.filter(
-    (item) => item.parentgroup === id
+    (item) => item.parentgroup === id,
   );
   calkObject.value = filteredArray;
   visibleSteep.value = false;
@@ -273,7 +274,7 @@ watch(
     });
     previousSelectedValues.value = [...newValues];
   },
-  { deep: true, immediate: true }
+  { deep: true, immediate: true },
 );
 
 watch(
@@ -281,7 +282,7 @@ watch(
   (newValues) => {
     costWork();
   },
-  { deep: true }
+  { deep: true },
 );
 const calculateTotal = () => {
   let allFieldsFilled = true;
@@ -352,7 +353,7 @@ const generatePDF = () => {
 
       const selectedLabel = selectedValues.value[countIndex]
         ? elementcalk.value.find(
-            (el) => el._id === selectedValues.value[countIndex]
+            (el) => el._id === selectedValues.value[countIndex],
           )?.title || "Не выбрано"
         : "Не выбрано";
 
@@ -360,7 +361,7 @@ const generatePDF = () => {
       doc.text(
         `Тип работ ${countIndex + 1}: ${item.name || item.title}`,
         10,
-        y
+        y,
       );
       // doc.text(`Стоимость : ${finalCost} руб.`, 10, y + 20);
 
@@ -420,7 +421,7 @@ const openNotifPdf = () => {
 
 const title = ref("Калькулятор стоимости работ");
 const description = ref(
-  "С помощью этого калькулятора Вы сможете рассчитать стоимость работ компании Профитерм."
+  "С помощью этого калькулятора Вы сможете рассчитать стоимость работ компании Профитерм.",
 );
 const imgOg = ref("/profiterm.webp");
 
@@ -539,7 +540,7 @@ useSeoMeta({
                             <el-option
                               v-for="option in filteredElementOptions(
                                 item.groupArray,
-                                itemCalk.AllGroup
+                                itemCalk.AllGroup,
                               )"
                               :key="option.value"
                               :label="option.label"

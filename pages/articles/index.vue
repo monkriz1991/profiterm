@@ -7,10 +7,10 @@ const sortPage = ref(0);
 const currentPage = ref(1);
 const pageSize = ref(28);
 const seoTitle = ref(
-  "Статьи по монтажу систем отопления, водоснабжения и канализации."
+  "Статьи по монтажу систем отопления, водоснабжения и канализации.",
 );
 const seoDescription = ref(
-  "У нас вы узнаете особенности устройства тёплых полов, котельных, систем водоснабжения и канализации."
+  "У нас вы узнаете особенности устройства тёплых полов, котельных, систем водоснабжения и канализации.",
 );
 const seoTImg = ref("https://profiterm.by/profiterm.webp");
 
@@ -20,29 +20,36 @@ if (router.currentRoute.value.query.page !== undefined) {
 }
 
 // Use lazy fetch for non-blocking initial render
-const { data: news, refresh, pending } = await useLazyFetch("/api/news", {
+const {
+  data: news,
+  refresh,
+  pending,
+} = await useLazyFetch("/api/news", {
   method: "POST",
   headers: {
     "Content-Type": "application/json; charset=UTF-8",
   },
-  body: { sortPage, pageSize, selectFields: true },
-  server: true,
-  getCachedData: (key, nuxtApp) => {
-    return nuxtApp.payload.data[key] || nuxtApp.static.data[key];
+  body: {
+    sortPage,
+    pageSize,
+    selectFields: true,
+    ParamsCat: null,
   },
+  server: true,
 });
 
 // Создаём отсортированные массивы с кэшированием
 const level1 = computed(
-  () => news.value?.result?.filter((item) => item.level === 1) || []
+  () => news.value?.result?.filter((item) => item.level === 1) || [],
 );
 const level2And3 = computed(
   () =>
-    news.value?.result?.filter((item) => item.level === 2 || item.level === 3) ||
-    []
+    news.value?.result?.filter(
+      (item) => item.level === 2 || item.level === 3,
+    ) || [],
 );
 const otherLevels = computed(
-  () => news.value?.result?.filter((item) => item.level > 3) || []
+  () => news.value?.result?.filter((item) => item.level > 3) || [],
 );
 
 const handleCurrentChange = (val) => {
@@ -84,22 +91,25 @@ useSeoMeta({
       <div class="content">
         <Breadcrumb :links="breadcrumbLinks" />
         <h1 class="h1-catalog">{{ h1Category }}</h1>
-        
+
         <!-- Loading skeleton -->
         <div v-if="pending" class="columns is-desktop is-multiline is-variable">
           <div class="column is-8">
-            <div class="skeleton-loader" style="height: 300px;"></div>
+            <div class="skeleton-loader" style="height: 300px"></div>
           </div>
           <div class="column is-4">
-            <div class="skeleton-loader" style="height: 140px; margin-bottom: 10px;"></div>
-            <div class="skeleton-loader" style="height: 140px;"></div>
+            <div
+              class="skeleton-loader"
+              style="height: 140px; margin-bottom: 10px"
+            ></div>
+            <div class="skeleton-loader" style="height: 140px"></div>
           </div>
         </div>
-        
+
         <div v-else class="columns is-desktop is-multiline is-variable">
           <div class="column is-8" v-for="item in level1" :key="item._id">
             <div class="article-block-top">
-              <nuxt-link :to="`/article/` + item.kirilica">
+              <nuxt-link :to="`/articles/` + item.kirilica">
                 <div class="article-block-top-img">
                   <NuxtImg
                     v-for="(imgurl, idx) in item.img"
@@ -126,7 +136,7 @@ useSeoMeta({
               v-for="item in level2And3"
               :key="item._id"
             >
-              <nuxt-link :to="`/article/` + item.kirilica">
+              <nuxt-link :to="`/articles/` + item.kirilica">
                 <div class="article-block-top-right-img">
                   <NuxtImg
                     v-for="(imgurl, idx) in item.img"
@@ -153,7 +163,7 @@ useSeoMeta({
               v-for="item in otherLevels"
               :key="item._id"
             >
-              <nuxt-link :to="`/article/` + item.kirilica">
+              <nuxt-link :to="`/articles/` + item.kirilica">
                 <div class="article-block-img">
                   <NuxtImg
                     v-for="(imgurl, idx) in item.img"
@@ -194,7 +204,11 @@ $border-radius-md: 8px;
 }
 
 @keyframes skeleton-loading {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 </style>

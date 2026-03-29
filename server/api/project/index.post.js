@@ -3,16 +3,16 @@ import ProjectModel from "~/server/models/Project";
 
 export default defineEventHandler(async (event) => {
   try {
-    await ensureConnection();
-    const data = await readBody(event);
-
-    // Build base query
+    const data = (await readBody(event)) || {};
     const query = {};
-    if (data.ParamsCat) {
+
+    if (data.ParamsCat && typeof data.ParamsCat === "string") {
       query.category = data.ParamsCat;
     }
 
-    // Aggregation pipeline for sorting
+    const skip = Number(data.sortPage) || 0;
+    const limit = Number(data.pageSize) || 0;
+
     const aggregationPipeline = [
       { $match: query },
       {
@@ -27,12 +27,10 @@ export default defineEventHandler(async (event) => {
         },
       },
       { $sort: { specialSortField: 1, level: 1 } },
-      { $skip: data.sortPage || 0 },
+      { $skip: skip },
     ];
 
-    if (data.pageSize) {
-      aggregationPipeline.push({ $limit: data.pageSize });
-    }
+    if (limit) aggregationPipeline.push({ $limit: limit });
 
     const [result, count] = await Promise.all([
       ProjectModel.aggregate(aggregationPipeline),

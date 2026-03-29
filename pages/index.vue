@@ -8,12 +8,24 @@ definePageMeta({
 });
 
 // Async components for deferred loading - улучшает First Contentful Paint
-const LazyIndexGalery = defineAsyncComponent(() => import("~/components/index/Galery.vue"));
-const LazyIndexVideo = defineAsyncComponent(() => import("~/components/index/Video.vue"));
-const LazyIndexSystem = defineAsyncComponent(() => import("~/components/index/System.vue"));
-const LazyIndexNews = defineAsyncComponent(() => import("~/components/index/News.vue"));
-const LazyIndexWork = defineAsyncComponent(() => import("~/components/index/Work.vue"));
-const LazyIndexReviews = defineAsyncComponent(() => import("~/components/index/Reviews.vue"));
+const LazyIndexGalery = defineAsyncComponent(
+  () => import("~/components/index/Galery.vue"),
+);
+const LazyIndexVideo = defineAsyncComponent(
+  () => import("~/components/index/Video.vue"),
+);
+const LazyIndexSystem = defineAsyncComponent(
+  () => import("~/components/index/System.vue"),
+);
+const LazyIndexNews = defineAsyncComponent(
+  () => import("~/components/index/News.vue"),
+);
+const LazyIndexWork = defineAsyncComponent(
+  () => import("~/components/index/Work.vue"),
+);
+const LazyIndexReviews = defineAsyncComponent(
+  () => import("~/components/index/Reviews.vue"),
+);
 
 const mainData = useMainStore();
 const monDataNav = ref([]);
@@ -25,12 +37,12 @@ monDataNav.value = mainData.getMain;
 const seoTitle = computed(() =>
   monDataNav.value.length > 0
     ? monDataNav.value[0]?.seo_title
-    : "Проектирование, монтаж систем отопления, водоснабжения, канализации"
+    : "Проектирование, монтаж систем отопления, водоснабжения, канализации",
 );
 const seoDescription = computed(() =>
   monDataNav.value.length > 0
     ? monDataNav.value[0]?.seo_description
-    : "Предлагаем приемлемые цены, гарантию до 5 лет и рассрочку платежа. Высококачественные инженерные системы для комфортного и беззаботного проживания в частном доме."
+    : "Предлагаем приемлемые цены, гарантию до 5 лет и рассрочку платежа. Высококачественные инженерные системы для комфортного и беззаботного проживания в частном доме.",
 );
 
 const { width } = useWindowSize();
@@ -50,16 +62,20 @@ const { data: main, pending } = await useLazyFetch("/api/main/", {
 });
 
 // Watch for data changes to set descGal
-watch(main, (newMain) => {
-  if (newMain?.one) {
-    for (let item in newMain.one) {
-      if (newMain.one[item] && newMain.one[item]["description"]) {
-        descGal.value = newMain.one[item]["description"];
-        break;
+watch(
+  main,
+  (newMain) => {
+    if (newMain?.one) {
+      for (let item in newMain.one) {
+        if (newMain.one[item] && newMain.one[item]["description"]) {
+          descGal.value = newMain.one[item]["description"];
+          break;
+        }
       }
     }
-  }
-}, { immediate: true });
+  },
+  { immediate: true },
+);
 
 watchEffect(() => {
   windowWidth.value = width.value;
@@ -76,8 +92,8 @@ const videos = computed(() => {
         isDesktop && item.img?.[0]
           ? item.img[0].url
           : item.img?.[1]
-          ? item.img[1].url
-          : null,
+            ? item.img[1].url
+            : null,
     };
   });
 });
@@ -87,13 +103,14 @@ onMounted(() => {
   requestAnimationFrame(() => {
     isContentVisible.value = true;
   });
-  
+
   // Отложенная загрузка видео после первого рендера
   requestIdleCallback?.(() => {
     isVideoLoaded.value = true;
-  }) || setTimeout(() => {
-    isVideoLoaded.value = true;
-  }, 800);
+  }) ||
+    setTimeout(() => {
+      isVideoLoaded.value = true;
+    }, 800);
 });
 
 useSeoMeta({
@@ -113,12 +130,12 @@ useSeoMeta({
     <div class="cover-video-index">
       <div class="video-index" v-for="(item, index) in videos" :key="index">
         <!-- Показываем постер как фон пока видео загружается -->
-        <div 
-          v-if="item.poster && !isVideoLoaded" 
+        <div
+          v-if="item.poster && !isVideoLoaded"
           class="video-poster-fallback"
           :style="{ backgroundImage: `url(${item.poster})` }"
         ></div>
-        
+
         <ClientOnly>
           <video
             v-if="isVideoLoaded && item.videos?.[0]?.url"
@@ -143,42 +160,42 @@ useSeoMeta({
         <div class="cover-image-fon"></div>
       </div>
     </div>
-    
+
     <!-- Main content with lazy loaded components -->
     <div class="container">
       <div class="content index-content">
         <Suspense>
-          <LazyIndexGalery 
-            v-if="main?.two" 
-            v-model:galery="main.two" 
-            v-model:description="descGal" 
+          <LazyIndexGalery
+            v-if="main?.two"
+            v-model:galery="main.two"
+            v-model:description="descGal"
           />
           <template #fallback>
-            <div class="skeleton-loader" style="height: 400px;"></div>
+            <div class="skeleton-loader" style="height: 400px"></div>
           </template>
         </Suspense>
 
         <Suspense>
           <LazyIndexVideo v-if="main?.three" v-model:video="main.three" />
           <template #fallback>
-            <div class="skeleton-loader" style="height: 300px;"></div>
+            <div class="skeleton-loader" style="height: 300px"></div>
           </template>
         </Suspense>
-        
+
         <Suspense>
           <LazyIndexSystem />
           <template #fallback>
-            <div class="skeleton-loader" style="height: 400px;"></div>
+            <div class="skeleton-loader" style="height: 400px"></div>
           </template>
         </Suspense>
-        
+
         <Suspense>
           <LazyIndexNews />
           <template #fallback>
-            <div class="skeleton-loader" style="height: 200px;"></div>
+            <div class="skeleton-loader" style="height: 200px"></div>
           </template>
         </Suspense>
-        
+
         <div class="index-calk">
           <span
             >Для определения стоимости работ Вы можете совершить предварительный
@@ -186,20 +203,20 @@ useSeoMeta({
           >
           <nuxt-link to="/calculator">Перейти к расчёту</nuxt-link>
         </div>
-        
+
         <ClientOnly>
           <Suspense>
             <LazyIndexWork />
             <template #fallback>
-              <div class="skeleton-loader" style="height: 300px;"></div>
+              <div class="skeleton-loader" style="height: 300px"></div>
             </template>
           </Suspense>
         </ClientOnly>
-        
+
         <Suspense>
           <LazyIndexReviews />
           <template #fallback>
-            <div class="skeleton-loader" style="height: 300px;"></div>
+            <div class="skeleton-loader" style="height: 300px"></div>
           </template>
         </Suspense>
       </div>
@@ -231,7 +248,11 @@ $spacing-lg: 20px;
 }
 
 @keyframes skeleton-loading {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 </style>

@@ -6,9 +6,6 @@ const { data: stage, pending } = await useLazyFetch("/api/stage/", {
     "Content-Type": "application/json; charset=UTF-8",
   },
   server: true,
-  getCachedData: (key, nuxtApp) => {
-    return nuxtApp.payload.data[key] || nuxtApp.static.data[key];
-  },
 });
 
 const activeNames = ref("");

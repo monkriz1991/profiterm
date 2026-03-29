@@ -4,7 +4,7 @@ import ProjectModel from "~/server/models/Project";
 export default defineEventHandler(async (event) => {
   try {
     await ensureConnection();
-    const data = await readBody(event);
+    const data = (await readBody(event)) || {};
 
     if (!data) {
       throw createError({

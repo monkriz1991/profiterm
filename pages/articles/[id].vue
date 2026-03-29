@@ -11,37 +11,39 @@ const visible = ref(false);
 // Use useLazyAsyncData for non-blocking fetch
 const { data: article, pending } = await useAsyncData(
   `article-${route.params.id}`,
-  () => $fetch("/api/newsitem/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json; charset=UTF-8",
-    },
-    body: route.params.id,
-  }),
+  () =>
+    $fetch("/api/newsitem/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+      body: route.params.id,
+    }),
   {
     server: true,
-    getCachedData: (key, nuxtApp) => {
-      return nuxtApp.payload.data[key] || nuxtApp.static.data[key];
-    },
-  }
+  },
 );
 
 const objectVideo = computed(() => article.value?.video);
 
 // Set SEO data when article loads
-watch(article, (newArticle) => {
-  if (newArticle) {
-    seoTitle.value = newArticle.seo_title || "";
-    seoDescription.value = newArticle.seo_description || "";
-    seoTImg.value = newArticle.img?.[0]?.url || "";
-    
-    breadcrumbLinks.value = [
-      { label: "Главная", to: "/" },
-      { label: "Статьи", to: `/articles/` },
-      { label: newArticle.title, to: `/article/${newArticle.kirilica}` },
-    ];
-  }
-}, { immediate: true });
+watch(
+  article,
+  (newArticle) => {
+    if (newArticle) {
+      seoTitle.value = newArticle.seo_title || "";
+      seoDescription.value = newArticle.seo_description || "";
+      seoTImg.value = newArticle.img?.[0]?.url || "";
+
+      breadcrumbLinks.value = [
+        { label: "Главная", to: "/" },
+        { label: "Статьи", to: `/articles/` },
+        { label: newArticle.title, to: `/articles/${newArticle.kirilica}` },
+      ];
+    }
+  },
+  { immediate: true },
+);
 
 useSeoMeta({
   title: () => seoTitle.value,
@@ -91,14 +93,26 @@ const openGallery = () => {
     <div class="container">
       <div class="content">
         <div v-if="error">{{ error.message }}</div>
-        
+
         <!-- Loading skeleton -->
         <div v-if="pending" class="article-skeleton">
-          <div class="skeleton-loader" style="height: 400px; margin-bottom: 20px;"></div>
-          <div class="skeleton-loader" style="height: 24px; width: 60%; margin-bottom: 10px;"></div>
-          <div class="skeleton-loader" style="height: 16px; width: 100%; margin-bottom: 8px;"></div>
-          <div class="skeleton-loader" style="height: 16px; width: 100%; margin-bottom: 8px;"></div>
-          <div class="skeleton-loader" style="height: 16px; width: 80%;"></div>
+          <div
+            class="skeleton-loader"
+            style="height: 400px; margin-bottom: 20px"
+          ></div>
+          <div
+            class="skeleton-loader"
+            style="height: 24px; width: 60%; margin-bottom: 10px"
+          ></div>
+          <div
+            class="skeleton-loader"
+            style="height: 16px; width: 100%; margin-bottom: 8px"
+          ></div>
+          <div
+            class="skeleton-loader"
+            style="height: 16px; width: 100%; margin-bottom: 8px"
+          ></div>
+          <div class="skeleton-loader" style="height: 16px; width: 80%"></div>
         </div>
 
         <template v-else-if="article">
@@ -183,7 +197,11 @@ const openGallery = () => {
       </div>
     </div>
     <ClientOnly>
-      <el-dialog v-if="visible" class="video-gal article-modal" v-model="visible">
+      <el-dialog
+        v-if="visible"
+        class="video-gal article-modal"
+        v-model="visible"
+      >
         <div class="video-gal-item">
           <div
             :id="'y' + objectVideo"
@@ -207,7 +225,11 @@ $border-radius-md: 8px;
 }
 
 @keyframes skeleton-loading {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 </style>

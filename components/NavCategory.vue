@@ -10,24 +10,22 @@ const emit = defineEmits(["catDescription"]);
 
 // Use useAsyncData for caching
 const { data: category } = await useAsyncData(
-  'categories',
-  () => $fetch("/api/category/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json; charset=UTF-8",
-    },
-  }),
+  "categories",
+  () =>
+    $fetch("/api/category/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+    }),
   {
     server: true,
-    getCachedData: (key, nuxtApp) => {
-      return nuxtApp.payload.data[key] || nuxtApp.static.data[key];
-    },
-  }
+  },
 );
 
 if (route.params.id && category.value && category.value.length > 0) {
   const foundCategory = category.value.find(
-    (cat) => cat.kirilica === route.params.id
+    (cat) => cat.kirilica === route.params.id,
   );
 
   if (foundCategory) {
@@ -78,7 +76,11 @@ useSeoMeta({
     <div class="m-cat-nav">
       <div class="columns">
         <div class="column" v-for="item in category" :key="item._id">
-          <nuxt-link class="nav-cat" :to="'/catalog/' + item.kirilica" :prefetch="true">
+          <nuxt-link
+            class="nav-cat"
+            :to="'/catalog/' + item.kirilica"
+            :prefetch="true"
+          >
             <Icon v-if="item.img" :name="item.img" />
             {{ item.name }}
           </nuxt-link>

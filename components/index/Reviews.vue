@@ -11,9 +11,6 @@ const { data: reviews, pending } = await useLazyFetch("/api/reviews/", {
     "Content-Type": "application/json; charset=UTF-8",
   },
   server: true,
-  getCachedData: (key, nuxtApp) => {
-    return nuxtApp.payload.data[key] || nuxtApp.static.data[key];
-  },
 });
 
 const show = ref(null);

@@ -9,10 +9,9 @@ const { data: news, pending } = await useLazyFetch("/api/news", {
   },
   body: JSON.stringify({ levelFilter: true }),
   server: true,
-  getCachedData: (key, nuxtApp) => {
-    return nuxtApp.payload.data[key] || nuxtApp.static.data[key];
-  },
 });
+
+if (!news.value) news.value = { result: [] };
 </script>
 <template>
   <div class="columns is-multiline">
@@ -28,7 +27,7 @@ const { data: news, pending } = await useLazyFetch("/api/news", {
           :key="item._id"
         >
           <div class="article-index" :class="{ 'border-none': index === 2 }">
-            <nuxt-link :to="`/article/` + item.kirilica">
+            <nuxt-link :to="`/articles/` + item.kirilica">
               <strong>
                 {{ item.title }}
               </strong>

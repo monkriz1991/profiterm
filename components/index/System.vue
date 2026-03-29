@@ -1,21 +1,18 @@
 <script setup>
 import { useWindowSize } from "@vueuse/core";
+import { ref, computed, watchEffect, nextTick, onMounted } from "vue";
 
 const isWidth = ref("left");
 const activeName = ref("first0");
 const infoNone = ref(true);
 const loadedVideos = ref({}); // Отслеживание загруженных видео
 
-// Use lazy fetch with caching
-const { data: system, pending } = await useLazyFetch("/api/system/", {
+const { data: system } = await useFetch("/api/system/", {
   method: "POST",
   headers: {
     "Content-Type": "application/json; charset=UTF-8",
   },
-  server: true,
-  getCachedData: (key, nuxtApp) => {
-    return nuxtApp.payload.data[key] || nuxtApp.static.data[key];
-  },
+  lazy: true, // Ожидание запроса до момента использования
 });
 
 // Сортируем данные после загрузки

@@ -4,7 +4,7 @@ import CategoryModel from "~/server/models/Category";
 export default defineEventHandler(async (event) => {
   try {
     await ensureConnection();
-    const data = await readBody(event);
+    const data = (await readBody(event)) || {};
 
     if (data && data.sortPage !== undefined) {
       const [result, count] = await Promise.all([

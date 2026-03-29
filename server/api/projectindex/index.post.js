@@ -4,14 +4,12 @@ import ProjectModel from "~/server/models/Project";
 export default defineEventHandler(async (event) => {
   try {
     await ensureConnection();
-    const data = await readBody(event);
-
-    // Build base query
+    const data = (await readBody(event)) || {};
     const query = {};
+
     if (data.ParamsCat) {
       query.category = data.ParamsCat;
     }
-
     // Aggregation with field projection for index page
     const aggregationPipeline = [
       { $match: query },
