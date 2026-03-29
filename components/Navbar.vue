@@ -147,23 +147,28 @@ mainData.fetchData();
   </div>
 </template>
 
-<style>
+<style lang="scss" scoped>
+$spacing-lg: 20px;
+$spacing-xxl: 40px;
+
 .header {
-  /* float: left;
-  width: 100%; */
-  padding: 20px 0;
-  margin: 0 0 40px;
+  padding: $spacing-lg 0;
+  margin: 0 0 $spacing-xxl;
 }
+
 .h-logo {
   float: left;
 }
+
 .h-auth {
   float: right;
+
+  a {
+    text-decoration: none;
+    margin: 0 10px;
+  }
 }
-.h-auth a {
-  text-decoration: none;
-  margin: 0 10px;
-}
+
 .h-mongo {
   margin: 0 0 0 20%;
 }

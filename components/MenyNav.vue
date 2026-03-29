@@ -63,44 +63,60 @@ console.log(category.value);
     </div>
   </div>
 </template>
-<style>
+<style lang="scss" scoped>
+$color-white: #fff;
+$color-text-dark: #333;
+$border-radius-md: 8px;
+$border-radius-xl: 14px;
+$spacing-sm: 10px;
+$spacing-md: 15px;
+$spacing-xl: 30px;
+
 .meny-nav {
   position: relative;
+
+  > button {
+    margin: 0 0 0 50px;
+  }
 }
-.meny-nav > button {
-  margin: 0 0 0 50px;
-}
+
 .navbar-menu .navbar-start {
   align-items: center;
 }
+
 .meny-nav-cat {
   position: absolute;
-  background: #fff;
-  padding: 30px 30px 15px;
-  border-radius: 14px;
+  background: $color-white;
+  padding: $spacing-xl $spacing-xl $spacing-md;
+  border-radius: $border-radius-xl;
   width: 430px;
-  margin: 10px 0 0 50px;
+  margin: $spacing-sm 0 0 50px;
   box-shadow: 0px 0px 16px -15px #000000;
+
+  a {
+    display: flex;
+    align-items: center;
+    margin: 0 0 $spacing-md;
+    color: $color-text-dark;
+    font-size: 16px;
+  }
 }
-.meny-nav-cat a {
-  display: flex;
-  align-items: center;
-  margin: 0 0 15px;
-  color: #333;
-  font-size: 16px;
-}
+
 .meny-nav-img {
   height: 70px;
   width: 100px;
-  border-radius: 8px;
+  border-radius: $border-radius-md;
   overflow: hidden;
-  margin: 0 15px 0 0;
+  margin: 0 $spacing-md 0 0;
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
 }
-.meny-nav-img img {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-}
+
 .meny-nav-title {
+  // Default styles
 }
 </style>
