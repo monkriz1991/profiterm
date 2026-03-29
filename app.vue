@@ -19,9 +19,7 @@ useHead({
 <template>
   <div>
     <NuxtLayout>
-      <keep-alive>
-        <NuxtPage />
-      </keep-alive>
+      <NuxtPage :keepalive="{ max: 10, exclude: ['article-id', 'project-id'] }" />
     </NuxtLayout>
   </div>
 </template>

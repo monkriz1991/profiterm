@@ -1,15 +1,25 @@
 <script setup>
 import { useWindowSize } from "@vueuse/core";
 import { useMainStore } from "~/store/maindata";
+
 definePageMeta({
   title: "My index page",
   layout: "default",
 });
 
+// Async components for deferred loading - улучшает First Contentful Paint
+const LazyIndexGalery = defineAsyncComponent(() => import("~/components/index/Galery.vue"));
+const LazyIndexVideo = defineAsyncComponent(() => import("~/components/index/Video.vue"));
+const LazyIndexSystem = defineAsyncComponent(() => import("~/components/index/System.vue"));
+const LazyIndexNews = defineAsyncComponent(() => import("~/components/index/News.vue"));
+const LazyIndexWork = defineAsyncComponent(() => import("~/components/index/Work.vue"));
+const LazyIndexReviews = defineAsyncComponent(() => import("~/components/index/Reviews.vue"));
+
 const mainData = useMainStore();
 const monDataNav = ref([]);
 
-await mainData.fetchData();
+// Non-blocking data fetch using lazy
+mainData.fetchData();
 monDataNav.value = mainData.getMain;
 
 const seoTitle = computed(() =>
@@ -27,36 +37,45 @@ const { width } = useWindowSize();
 const windowWidth = ref(width.value);
 const descGal = ref("");
 const isVideoLoaded = ref(false);
-const { data: main, pending } = await useFetch(() => "/api/main/", {
+const isContentVisible = ref(false);
+
+// Use lazy fetch to not block initial render
+const { data: main, pending } = await useLazyFetch("/api/main/", {
   method: "POST",
   headers: {
     "Content-Type": "application/json; charset=UTF-8",
   },
+  server: true,
+  transform: (data) => data, // Кэширование данных
 });
 
-if (!main.value) {
-  throw createError({ statusCode: 404, statusMessage: "Page Not Found" });
-} else {
-  for (let item in main.value.one) {
-    if (main.value.one[item] && main.value.one[item]["description"]) {
-      descGal.value = main.value.one[item]["description"];
+// Watch for data changes to set descGal
+watch(main, (newMain) => {
+  if (newMain?.one) {
+    for (let item in newMain.one) {
+      if (newMain.one[item] && newMain.one[item]["description"]) {
+        descGal.value = newMain.one[item]["description"];
+        break;
+      }
     }
   }
-}
+}, { immediate: true });
+
 watchEffect(() => {
   windowWidth.value = width.value;
 });
 
 const videos = computed(() => {
+  if (!main.value?.one) return [];
   return main.value.one.map((item) => {
     const isDesktop = windowWidth.value >= 700;
     return {
       ...item,
       videos: isDesktop ? item.video : item.video_mobail,
       poster:
-        isDesktop && item.img[0]
+        isDesktop && item.img?.[0]
           ? item.img[0].url
-          : item.img[1]
+          : item.img?.[1]
           ? item.img[1].url
           : null,
     };
@@ -64,9 +83,17 @@ const videos = computed(() => {
 });
 
 onMounted(() => {
-  setTimeout(() => {
+  // Показываем контент быстрее
+  requestAnimationFrame(() => {
+    isContentVisible.value = true;
+  });
+  
+  // Отложенная загрузка видео после первого рендера
+  requestIdleCallback?.(() => {
     isVideoLoaded.value = true;
-  }, 1200);
+  }) || setTimeout(() => {
+    isVideoLoaded.value = true;
+  }, 800);
 });
 
 useSeoMeta({
@@ -82,18 +109,26 @@ useSeoMeta({
 
 <template>
   <div class="bd-docs-main">
+    <!-- Hero section with video - показываем постер сразу -->
     <div class="cover-video-index">
-      <div class="video-index" v-for="item in videos" :key="item">
+      <div class="video-index" v-for="(item, index) in videos" :key="index">
+        <!-- Показываем постер как фон пока видео загружается -->
+        <div 
+          v-if="item.poster && !isVideoLoaded" 
+          class="video-poster-fallback"
+          :style="{ backgroundImage: `url(${item.poster})` }"
+        ></div>
+        
         <ClientOnly>
           <video
-            class=""
+            v-if="isVideoLoaded && item.videos?.[0]?.url"
             muted
             autoplay
             loop
             webkit-playsinline
             playsinline
+            preload="none"
             :poster="item.poster"
-            v-if="isVideoLoaded"
           >
             <source :src="item.videos[0].url" type="video/mp4" />
           </video>
@@ -108,13 +143,42 @@ useSeoMeta({
         <div class="cover-image-fon"></div>
       </div>
     </div>
+    
+    <!-- Main content with lazy loaded components -->
     <div class="container">
       <div class="content index-content">
-        <index-galery v-model:galery="main.two" v-model:description="descGal" />
+        <Suspense>
+          <LazyIndexGalery 
+            v-if="main?.two" 
+            v-model:galery="main.two" 
+            v-model:description="descGal" 
+          />
+          <template #fallback>
+            <div class="skeleton-loader" style="height: 400px;"></div>
+          </template>
+        </Suspense>
 
-        <index-video v-model:video="main.three" />
-        <index-system />
-        <index-news />
+        <Suspense>
+          <LazyIndexVideo v-if="main?.three" v-model:video="main.three" />
+          <template #fallback>
+            <div class="skeleton-loader" style="height: 300px;"></div>
+          </template>
+        </Suspense>
+        
+        <Suspense>
+          <LazyIndexSystem />
+          <template #fallback>
+            <div class="skeleton-loader" style="height: 400px;"></div>
+          </template>
+        </Suspense>
+        
+        <Suspense>
+          <LazyIndexNews />
+          <template #fallback>
+            <div class="skeleton-loader" style="height: 200px;"></div>
+          </template>
+        </Suspense>
+        
         <div class="index-calk">
           <span
             >Для определения стоимости работ Вы можете совершить предварительный
@@ -122,11 +186,49 @@ useSeoMeta({
           >
           <nuxt-link to="/calculator">Перейти к расчёту</nuxt-link>
         </div>
+        
         <ClientOnly>
-          <index-work />
+          <Suspense>
+            <LazyIndexWork />
+            <template #fallback>
+              <div class="skeleton-loader" style="height: 300px;"></div>
+            </template>
+          </Suspense>
         </ClientOnly>
-        <index-reviews />
+        
+        <Suspense>
+          <LazyIndexReviews />
+          <template #fallback>
+            <div class="skeleton-loader" style="height: 300px;"></div>
+          </template>
+        </Suspense>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+.video-poster-fallback {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.skeleton-loader {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+@keyframes skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+</style>

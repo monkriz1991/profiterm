@@ -5,21 +5,40 @@ const props = defineProps({
     default: {},
   },
 });
+
+// Use shallowRef for large objects
 const objectVideo = computed(() => props.video);
-// Сортировка массива по полю `level` по возрастанию
+
+// Сортировка массива по полю `level` по возрастанию - cached computed
 const sortedSystem = computed(() => {
-  return objectVideo.value.sort((a, b) => a.level - b.level);
+  if (!objectVideo.value || !Array.isArray(objectVideo.value)) return [];
+  return [...objectVideo.value].sort((a, b) => a.level - b.level);
 });
 
 const visibleModal = ref(false);
-const VideoObject = ref({});
+const VideoObject = shallowRef({});
+const isComponentVisible = ref(false);
+
 const OpenModal = (item) => {
   visibleModal.value = true;
   VideoObject.value = item;
 };
+
 const visibleModalClose = (item) => {
   visibleModal.value = item;
 };
+
+// Lazy load modal component
+const LazyModalVideo = defineAsyncComponent(() => import("./ModalVideo.vue"));
+
+onMounted(() => {
+  // Defer heavy operations
+  requestIdleCallback?.(() => {
+    isComponentVisible.value = true;
+  }) || setTimeout(() => {
+    isComponentVisible.value = true;
+  }, 100);
+});
 </script>
 
 <template>
@@ -92,10 +111,13 @@ const visibleModalClose = (item) => {
         </div>
       </div>
     </div>
-    <index-ModalVideo
-      v-model:visibleModal="visibleModal"
-      v-model:VideoObject="VideoObject"
-      @visibleModalClose="visibleModalClose"
-    />
+    <ClientOnly>
+      <LazyModalVideo
+        v-if="visibleModal"
+        v-model:visibleModal="visibleModal"
+        v-model:VideoObject="VideoObject"
+        @visibleModalClose="visibleModalClose"
+      />
+    </ClientOnly>
   </div>
 </template>

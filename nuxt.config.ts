@@ -1,5 +1,20 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  // Performance optimizations
+  experimental: {
+    payloadExtraction: true,
+    renderJsonPayloads: true,
+    componentIslands: true,
+  },
+  
+  // Route rules for caching
+  routeRules: {
+    '/': { prerender: true },
+    '/articles': { swr: 3600 },
+    '/catalog': { swr: 3600 },
+    '/api/**': { cache: { maxAge: 300 } },
+  },
+  
   app: {
     head: {
       htmlAttrs: {
@@ -26,8 +41,11 @@ export default defineNuxtConfig({
         { hid: "color-scheme", name: "color-scheme", content: "light only" },
       ],
       link: [
-        { rel: "canonical", href: "https://profiterm.by" }, // Без завершающего слэша
+        { rel: "canonical", href: "https://profiterm.by" },
         { rel: "icon", type: "image/x-icon", href: "/favicon.png" },
+        // DNS prefetch for external resources
+        { rel: "dns-prefetch", href: "https://disk.profiterm.by" },
+        { rel: "preconnect", href: "https://disk.profiterm.by", crossorigin: "" },
       ],
     },
   },
@@ -131,6 +149,50 @@ export default defineNuxtConfig({
     aliyun: {
       baseURL: "https://disk.profiterm.by/images/",
     },
+    // Image optimization settings
+    quality: 80,
+    format: ['webp', 'jpeg'],
+    screens: {
+      xs: 320,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+    },
+    presets: {
+      thumbnail: {
+        modifiers: {
+          format: 'webp',
+          width: 300,
+          height: 200,
+        }
+      },
+      hero: {
+        modifiers: {
+          format: 'webp',
+          width: 1200,
+          height: 600,
+        }
+      }
+    }
+  },
+  
+  // Build optimizations
+  vite: {
+    build: {
+      cssCodeSplit: true,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'element-plus': ['element-plus'],
+            'swiper': ['swiper'],
+          }
+        }
+      }
+    },
+    optimizeDeps: {
+      include: ['vue', 'vue-router', 'pinia'],
+    }
   },
   // devtools: { enabled: true },
 });

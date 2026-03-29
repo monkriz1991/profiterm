@@ -10,8 +10,32 @@ const props = defineProps({
   },
 });
 
+// Use shallowRef for better performance with large arrays
 const objectGalery = computed(() => props.galery);
 const objectDesc = computed(() => props.description);
+
+// Track if component is in viewport for lazy initialization
+const galleryRef = ref(null);
+const isVisible = ref(false);
+
+onMounted(() => {
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          isVisible.value = true;
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '100px' }
+    );
+    if (galleryRef.value) {
+      observer.observe(galleryRef.value);
+    }
+  } else {
+    isVisible.value = true;
+  }
+});
 
 // Функция для сортировки массива по level, пустые значения перемещаются в конец
 const sortGallery = (gallery) => {
@@ -75,7 +99,7 @@ const onSlideChangeGal = (swiper) => {
 };
 </script>
 <template>
-  <div>
+  <div ref="galleryRef">
     <div class="gall-slider">
       <div class="columns is-multiline">
         <div class="column is-12 m-none">
@@ -98,6 +122,7 @@ const onSlideChangeGal = (swiper) => {
             <div class="slider-one">
               <ClientOnly>
                 <Swiper
+                  v-if="isVisible"
                   :height="300"
                   :space-between="0"
                   :modules="[
