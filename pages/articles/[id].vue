@@ -86,6 +86,12 @@ const openGallery = () => {
     firstImage.click();
   }
 };
+
+const objectVideoId = computed(() => {
+  const v = article.value?.video;
+  if (!v) return "";
+  return typeof v === "string" ? v : v.id || "";
+});
 </script>
 
 <template>
@@ -204,9 +210,9 @@ const openGallery = () => {
       >
         <div class="video-gal-item">
           <div
-            :id="'y' + objectVideo"
+            :id="'y' + objectVideoId"
             data-plyr-provider="youtube"
-            :data-plyr-embed-id="objectVideo"
+            :data-plyr-embed-id="objectVideoId"
           ></div>
         </div>
       </el-dialog>
