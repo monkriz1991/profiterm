@@ -1,0 +1,212 @@
+[33mcommit 8fa5400d49776599b319af785ad1fdd4ab3dcbd5[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: bf6d2fa 8ff54f8
+Author: mynmind <mynmind@proton.me>
+Date:   Thu Aug 1 17:47:14 2024 +0300
+
+    Merge branch 'main' of https://github.com/monkriz1991/https---github.com-monkriz1991-profiterm
+
+[33mcommit bf6d2fad6a098b472afee46691c1fceed0601e4f[m
+Author: mynmind <mynmind@proton.me>
+Date:   Thu Aug 1 17:47:12 2024 +0300
+
+    calk
+
+[33mcommit 8ff54f89c5ccdb7def59a473383f471d605342df[m
+Author: monkriz1991 <70541488+monkriz1991@users.noreply.github.com>
+Date:   Wed Jul 31 11:14:08 2024 +0300
+
+    Update .env
+
+[33mcommit 1d6fc4bb9fc7936eb34f6452f66162f2adf464d2[m
+Author: mynmind <mynmind@proton.me>
+Date:   Wed Jul 31 11:13:42 2024 +0300
+
+    calk
+
+[33mcommit 06a10f9434d6cbf9c3d4f19c96c3bb218855f754[m
+Merge: 097ee36 1acaa11
+Author: mynmind <mynmind@proton.me>
+Date:   Sat Jul 6 21:19:38 2024 +0300
+
+    Merge branch 'main' of https://github.com/monkriz1991/https---github.com-monkriz1991-profiterm
+
+[33mcommit 097ee36b4f83c90023702e532362b3c1b53a0d51[m
+Author: mynmind <mynmind@proton.me>
+Date:   Sat Jul 6 21:19:27 2024 +0300
+
+    level
+
+[33mcommit 1acaa11ca4b533c0d61497fd9241601b626cd41d[m
+Author: monkriz1991 <70541488+monkriz1991@users.noreply.github.com>
+Date:   Sat Jul 6 13:02:58 2024 +0300
+
+    Update .env
+
+[33mcommit fc80b8b7c3ed094a1fc522589f05db1f92eee523[m
+Author: mynmind <mynmind@proton.me>
+Date:   Sat Jul 6 12:58:57 2024 +0300
+
+    env
+
+[33mcommit 5d20a4bbe2ff1189a71c32e199a3ec8fc32b541e[m
+Author: mynmind <mynmind@proton.me>
+Date:   Sat Jul 6 12:24:55 2024 +0300
+
+    yandex
+
+[33mcommit 24171a69e996964ce164f33afb2dfd976fd2e483[m
+Merge: df7ca1b 5bc6053
+Author: mynmind <mynmind@proton.me>
+Date:   Sat Jul 6 00:12:07 2024 +0300
+
+    Merge branch 'main' of https://github.com/monkriz1991/https---github.com-monkriz1991-profiterm
+
+[33mcommit df7ca1b42f6a3c5d59319a195fd8b5602a172aac[m
+Author: mynmind <mynmind@proton.me>
+Date:   Sat Jul 6 00:12:04 2024 +0300
+
+    none
+
+[33mcommit 5bc60531317eba8affdf2e757efa7ed701a87b44[m
+Author: monkriz1991 <70541488+monkriz1991@users.noreply.github.com>
+Date:   Sat Jul 6 00:05:47 2024 +0300
+
+    Update .env
+
+[33mcommit ca79b3495f46f383c00c1b6c32345839e5426b91[m
+Author: mynmind <mynmind@proton.me>
+Date:   Sat Jul 6 00:05:29 2024 +0300
+
+    env
+
+[33mcommit 8bc330a9b37e51a81f008fde6c7ffa674ca9d5ed[m
+Merge: e879317 9bc632f
+Author: mynmind <mynmind@proton.me>
+Date:   Sat Jul 6 00:05:17 2024 +0300
+
+    Merge branch 'main' of https://github.com/monkriz1991/https---github.com-monkriz1991-profiterm
+
+[33mcommit e8793173413c8e23389d802ad5ffb251cb925231[m
+Author: mynmind <mynmind@proton.me>
+Date:   Sat Jul 6 00:01:18 2024 +0300
+
+    login
+
+[33mcommit 9bc632f464f51a9352ff2946066e1cbdc22fc56e[m
+Author: monkriz1991 <70541488+monkriz1991@users.noreply.github.com>
+Date:   Fri Jul 5 23:34:30 2024 +0300
+
+    Update .env
+
+[33mcommit 8c91d90bedb445bace83d88b9566180ba3421d35[m
+Merge: 419e8c4 61c5f65
+Author: mynmind <mynmind@proton.me>
+Date:   Fri Jul 5 23:34:11 2024 +0300
+
+    Merge branch 'main' of https://github.com/monkriz1991/https---github.com-monkriz1991-profiterm
+
+[33mcommit 419e8c4cb721449a31612b543ebc81f6b8574d83[m
+Author: mynmind <mynmind@proton.me>
+Date:   Fri Jul 5 23:33:57 2024 +0300
+
+    robot
+
+[33mcommit 61c5f650112557b71012226ec3e362c13e8ca887[m
+Author: monkriz1991 <70541488+monkriz1991@users.noreply.github.com>
+Date:   Fri Jul 5 23:25:22 2024 +0300
+
+    Update .env
+
+[33mcommit 3eb2824b2abb3eb85338cf84852684cfa7392a6a[m
+Author: monkriz1991 <70541488+monkriz1991@users.noreply.github.com>
+Date:   Fri Jul 5 23:23:52 2024 +0300
+
+    Update .env
+
+[33mcommit 19f468f5c67bc2186e0365bbc94b634a374d30e2[m
+Author: mynmind <mynmind@proton.me>
+Date:   Fri Jul 5 21:54:06 2024 +0300
+
+    bag2
+
+[33mcommit d1e599bbbb0d683ebd9d5c156ec2a96b09a99870[m
+Merge: 358f942 1b5604b
+Author: mynmind <mynmind@proton.me>
+Date:   Fri Jul 5 21:52:29 2024 +0300
+
+    Merge branch 'main' of https://github.com/monkriz1991/https---github.com-monkriz1991-profiterm
+
+[33mcommit 358f9428137848318c00f4d4f518a8840bbb986b[m
+Author: mynmind <mynmind@proton.me>
+Date:   Fri Jul 5 21:52:27 2024 +0300
+
+    bag
+
+[33mcommit 1b5604ba3aaa95c9f98f0a319e44298f74c8a1b9[m
+Author: monkriz1991 <70541488+monkriz1991@users.noreply.github.com>
+Date:   Fri Jul 5 21:48:50 2024 +0300
+
+    Update .env
+
+[33mcommit 95b64475ea98cc42be05033fd5df2663e5154798[m
+Author: mynmind <mynmind@proton.me>
+Date:   Fri Jul 5 21:47:21 2024 +0300
+
+    height
+
+[33mcommit 1dfd1178eca043916d2508bf2cafa8966814ffbe[m
+Merge: 4453e07 f63e7dc
+Author: mynmind <mynmind@proton.me>
+Date:   Fri Jul 5 21:19:51 2024 +0300
+
+    Merge branch 'main' of https://github.com/monkriz1991/https---github.com-monkriz1991-profiterm
+
+[33mcommit 4453e074067c20422ec7e444ae05b949c1a66c6b[m
+Author: mynmind <mynmind@proton.me>
+Date:   Fri Jul 5 21:19:49 2024 +0300
+
+    system
+
+[33mcommit f63e7dc032bc5adce4c63b46f7a39051e038e069[m
+Author: monkriz1991 <70541488+monkriz1991@users.noreply.github.com>
+Date:   Thu Jul 4 12:11:00 2024 +0300
+
+    Update .env
+
+[33mcommit 2e13663eb29a342307dec108c68aa62326dca449[m
+Author: mynmind <mynmind@proton.me>
+Date:   Thu Jul 4 12:10:41 2024 +0300
+
+    bg
+
+[33mcommit 882cbc8723cdd76cd3594b52aed4bd3c997ff3ae[m
+Merge: b99def0 977dc65
+Author: mynmind <mynmind@proton.me>
+Date:   Wed Jul 3 13:57:51 2024 +0300
+
+    Merge branch 'main' of https://github.com/monkriz1991/https---github.com-monkriz1991-profiterm
+
+[33mcommit b99def0a1b9cc97eeaf09a9f52930063ce5d0af0[m
+Author: mynmind <mynmind@proton.me>
+Date:   Wed Jul 3 13:57:48 2024 +0300
+
+    edit
+
+[33mcommit 977dc65e551ea2c0cb1e29a4bb395fcfbdec4f1b[m
+Author: monkriz1991 <70541488+monkriz1991@users.noreply.github.com>
+Date:   Wed Jul 3 13:48:26 2024 +0300
+
+    Update .env
+
+[33mcommit b2c78f8376828bec7e68d2ed5b6682f1442bcef3[m
+Author: mynmind <mynmind@proton.me>
+Date:   Wed Jul 3 13:48:04 2024 +0300
+
+    stage
+
+[33mcommit 405cf2c7e9c34f0f5658fefef73f43476cfbbd37[m
+Merge: f80603c cf07c68
+Author: mynmind <mynmind@proton.me>
+Date:   Tue Jul 2 13:53:43 2024 +0300
+
+    Merge branch 'main' of https://github.com/monkriz1991/https---github.com-monkriz1991-profiterm
